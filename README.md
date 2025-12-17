@@ -9,7 +9,6 @@ Clean up your YouTube feed by hiding Shorts and Paid Promotions from Home, Subsc
     -   Subscriptions Feed
     -   Search Results (including individual Shorts videos)
     -   Sidebar Navigation
--   **Hide Playables**: Remove the Playables shelf from the Home feed.
 -   **Hide Paid Promotion Banners**: Remove the "Includes Paid Promotion" overlay from videos.
 
 ## Installation
