@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>YouTube UI Cleaner</title>
+
+  <style>
+    :root {
+      --primary-color: #cc0000;
+      /* Slightly darker red for dark mode */
+      --primary-hover: #ff0000;
+      --bg-color: #1f1f1f;
+      --section-bg: #1f1f1f;
+      --text-color: #e0e0e0;
+      --text-secondary: #aaaaaa;
+      --border-color: #333333;
+      --toggle-bg-off: #3f3f3f;
+      --toggle-on: #cc0000;
+      --knob-color: #d0d0d0;
+      --white: #ffffff;
+      /* For header text */
+
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      width: 360px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-height: 500px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--toggle-bg-off) var(--bg-color);
+    }
+
+    .container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .container::-webkit-scrollbar-thumb {
+      background-color: var(--toggle-bg-off);
+      border-radius: 4px;
+    }
+
+    .header {
+      background-color: #202020;
+      /* Dark header instead of bright red */
+      border-bottom: 2px solid var(--primary-color);
+      /* Red accent */
+      color: var(--white);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+
+    .section {
+      padding: 12px 20px;
+      /* Reduced padding from 16px */
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-content {
+      padding-top: 8px;
+      /* Reduced from 12px */
+      display: grid;
+      gap: 10px;
+      /* Slightly increased gap for better touch targets with larger toggles */
+      overflow: hidden;
+    }
+
+    /* Option styling */
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      cursor: pointer;
+      /* Make whole row look clickable */
+    }
+
+    .option.sub-option {
+      padding-left: 56px;
+      /* Adjusted for larger toggle width + gap */
+      opacity: 0.8;
+    }
+
+    .option.sub-option .option-title {
+      font-size: 15px;
+    }
+
+    .option-content {
+      flex: 1;
+    }
+
+    .option-title {
+      font-size: 17px;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    .option-description {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+    }
+
+    /* Consistent toggle switch styling - LARGE */
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--toggle-bg-off);
+      transition: var(--transition);
+      border-radius: 28px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: var(--knob-color);
+      transition: var(--transition);
+      border-radius: 50%;
+    }
+
+    input:checked+.toggle-slider {
+      background-color: var(--toggle-on);
+    }
+
+    input:checked+.toggle-slider:before {
+      transform: translateX(22px);
+      background-color: #fff;
+    }
+
+    /* Status message */
+    .status {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background-color: #2e7d32;
+      color: white;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .status.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mt-4 {
+      margin-top: 16px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="icon.png" alt="Logo" width="24" height="24">
+      YouTube UI Cleaner
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <div class="section-content">
+        <!-- Shorts Main Option -->
+        <div class="option">
+          <label class="toggle">
+            <input type="checkbox" id="shorts">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Hide Shorts</div>
+          </div>
+        </div>
+
+        <!-- Shorts Sub-options -->
+        <div class="option sub-option">
+          <label class="toggle">
+            <input type="checkbox" id="shortsHome">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Home</div>
+          </div>
+        </div>
+
+        <div class="option sub-option">
+          <label class="toggle">
+            <input type="checkbox" id="shortsSidebar">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Sidebar Button</div>
+          </div>
+        </div>
+
+        <div class="option sub-option">
+          <label class="toggle">
+            <input type="checkbox" id="shortsSubs">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Subscriptions</div>
+          </div>
+        </div>
+
+        <div class="option sub-option">
+          <label class="toggle">
+            <input type="checkbox" id="shortsSearch">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Search Results</div>
+          </div>
+        </div>
+
+        <!-- Playables Option - HIDDEN FROM UI -->
+        <div class="option hidden">
+          <label class="toggle">
+            <input type="checkbox" id="playables">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Hide Playables</div>
+            <div class="option-description">Removes Playables section</div>
+          </div>
+        </div>
+
+        <!-- Paid Promotion Option -->
+        <div class="option mt-4">
+          <label class="toggle">
+            <input type="checkbox" id="paidPromotion">
+            <span class="toggle-slider"></span>
+          </label>
+          <div class="option-content">
+            <div class="option-title">Hide Paid Promotion Banners</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="status" id="statusMessage">Settings saved successfully!</div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

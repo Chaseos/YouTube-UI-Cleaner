@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Node.js (if added later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editors
+.vscode/
+.idea/
+*.swp

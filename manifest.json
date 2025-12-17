@@ -1,0 +1,40 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube UI Cleaner",
+    "version": "1.0",
+    "description": "Clean up your YouTube feed by hiding Shorts and Paid Promotions from Home, Subscriptions, and Search results.",
+    "permissions": [
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*.youtube.com/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon.png",
+            "48": "icon.png",
+            "128": "icon.png"
+        }
+    },
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.youtube.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "styles.css"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
