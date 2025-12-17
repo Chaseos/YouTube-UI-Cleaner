@@ -1,6 +1,6 @@
 # YouTube UI Cleaner
 
-Clean up your YouTube feed by hiding Shorts, Playables, and Paid Promotions from Home, Subscriptions, and Search results.
+Clean up your YouTube feed by hiding Shorts and Paid Promotions from Home, Subscriptions, and Search results.
 
 ## Features
 
