@@ -7,7 +7,8 @@ const keys = [
     'shortsSearch',
     'shortsSidebar',
     'playables',
-    'paidPromotion'
+    'paidPromotion',
+    'hideMixes'
 ];
 
 const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar'];
@@ -91,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Other separate toggles
-    ['playables', 'paidPromotion'].forEach(key => {
+    ['playables', 'paidPromotion', 'hideMixes'].forEach(key => {
         getEl(key).addEventListener('change', (e) => {
             saveSetting(key, e.target.checked);
         });

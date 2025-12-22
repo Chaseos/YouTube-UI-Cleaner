@@ -42,3 +42,9 @@ html.yt-hide-promoted .ytp-paid-content-overlay,
 html.yt-hide-promoted ytm-paid-content-overlay-renderer {
     display: none !important;
 }
+
+
+/* --- MIXES --- */
+html.yt-hide-mixes .is-mix-item {
+    display: none !important;
+}

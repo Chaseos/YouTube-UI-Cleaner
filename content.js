@@ -29,6 +29,10 @@ function updateClasses(settings) {
     // Paid Promotion
     if (settings.paidPromotion) html.classList.add('yt-hide-promoted');
     else html.classList.remove('yt-hide-promoted');
+
+    // Mixes
+    if (settings.hideMixes) html.classList.add('yt-hide-mixes');
+    else html.classList.remove('yt-hide-mixes');
 }
 
 // Selectors for elements we need to tag based on text content
@@ -83,10 +87,36 @@ function tagElements() {
         }
     });
 
+    // 5. Tag Mixes
+    // Look for ytd-rich-item-renderer that contains a "Mix" badge
+    const items = document.querySelectorAll('ytd-rich-item-renderer');
+    items.forEach(el => {
+        if (!el.classList.contains('is-mix-item')) {
+            // Check for the "Mix" badge text
+            const badges = el.querySelectorAll('.yt-badge-shape__text');
+            let isMix = false;
+            badges.forEach(badge => {
+                if (badge.textContent.trim() === 'Mix') {
+                    isMix = true;
+                }
+            });
+
+            // Also check for the specific svg path if text is unreliable (optional but good for robustness)
+            if (!isMix) {
+                const svgPath = el.querySelector('path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]');
+                if (svgPath) isMix = true;
+            }
+
+            if (isMix) {
+                el.classList.add('is-mix-item');
+            }
+        }
+    });
+
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes'];
 
 // Load initial settings
 chrome.storage.sync.get(keys, (result) => {
