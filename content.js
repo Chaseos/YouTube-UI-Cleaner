@@ -33,6 +33,10 @@ function updateClasses(settings) {
     // Mixes
     if (settings.hideMixes) html.classList.add('yt-hide-mixes');
     else html.classList.remove('yt-hide-mixes');
+    
+    // Live Streams
+    if (settings.hideLive) html.classList.add('yt-hide-live');
+    else html.classList.remove('yt-hide-live');
 }
 
 // Selectors for elements we need to tag based on text content
@@ -113,10 +117,38 @@ function tagElements() {
         }
     });
 
+    // 6. Tag Live Streams
+    // Check for "LIVE" badge, overlay, or sidebar pulse icon
+    const allContainers = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-guide-entry-renderer');
+    allContainers.forEach(el => {
+        if (!el.classList.contains('is-live-item')) {
+            // Check for the "LIVE" badge shape text or type
+            const liveBadge = el.querySelector('.yt-badge-shape--live, badge-shape[aria-label="LIVE"]');
+            const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]');
+            
+            // Sidebar specific pulse icon/badge
+            const sidebarLivePulse = el.querySelector('ytd-live-status-indicator-renderer');
+            // Specific broadcast SVG path provided by user
+            const broadcastPath = el.querySelector('path[d="M4.222 4.223a11 11 0 000 15.555 1 1 0 101.414-1.414 9 9 0 010-12.727 1 1 0 10-1.414-1.414Zm13.79.353a1 1 0 000 1.414 8.5 8.5 0 010 12.022 1 1 0 001.413 1.414 10.501 10.501 0 000-14.85 1 1 0 00-1.413 0Zm-2.83 2.827a1 1 0 000 1.414 4.501 4.501 0 010 6.365 1.001 1.001 0 001.414 1.414 6.5 6.5 0 000-9.193 1 1 0 00-1.415 0Zm-7.78 0a6.5 6.5 0 000 9.194 1 1 0 001.415-1.415 4.5 4.5 0 010-6.364 1.001 1.001 0 00-1.415-1.415ZM12 10a2 2 0 100 4 2 2 0 000-4Z"]');
+
+            if (liveBadge || thumbBadge || sidebarLivePulse || broadcastPath) {
+                el.classList.add('is-live-item');
+            } else {
+                // Last resort text check
+                const badges = el.querySelectorAll('.yt-badge-shape__text');
+                let isLive = false;
+                badges.forEach(badge => {
+                    if (badge.textContent.trim() === 'LIVE') isLive = true;
+                });
+                if (isLive) el.classList.add('is-live-item');
+            }
+        }
+    });
+
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes', 'hideLive'];
 
 // Load initial settings
 chrome.storage.sync.get(keys, (result) => {

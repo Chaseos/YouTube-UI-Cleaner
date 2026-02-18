@@ -48,3 +48,8 @@ html.yt-hide-promoted ytm-paid-content-overlay-renderer {
 html.yt-hide-mixes .is-mix-item {
     display: none !important;
 }
+
+/* --- LIVE STREAMS --- */
+html.yt-hide-live .is-live-item {
+    display: none !important;
+}
