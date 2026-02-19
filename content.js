@@ -131,7 +131,11 @@ function tagElements() {
             // Specific broadcast SVG path provided by user
             const broadcastPath = el.querySelector('path[d="M4.222 4.223a11 11 0 000 15.555 1 1 0 101.414-1.414 9 9 0 010-12.727 1 1 0 10-1.414-1.414Zm13.79.353a1 1 0 000 1.414 8.5 8.5 0 010 12.022 1 1 0 001.413 1.414 10.501 10.501 0 000-14.85 1 1 0 00-1.413 0Zm-2.83 2.827a1 1 0 000 1.414 4.501 4.501 0 010 6.365 1.001 1.001 0 001.414 1.414 6.5 6.5 0 000-9.193 1 1 0 00-1.415 0Zm-7.78 0a6.5 6.5 0 000 9.194 1 1 0 001.415-1.415 4.5 4.5 0 010-6.364 1.001 1.001 0 00-1.415-1.415ZM12 10a2 2 0 100 4 2 2 0 000-4Z"]');
 
-            if (liveBadge || thumbBadge || sidebarLivePulse || broadcastPath) {
+            // Home screen specific indicators (from user screenshot)
+            const liveRing = el.querySelector('.yt-spec-avatar-shape--live-ring');
+            const watchLiveAria = el.querySelector('[aria-label*="watch live i"], [aria-label*="watch live,"]');
+            
+            if (liveBadge || thumbBadge || sidebarLivePulse || broadcastPath || liveRing || watchLiveAria) {
                 el.classList.add('is-live-item');
             } else {
                 // Last resort text check
