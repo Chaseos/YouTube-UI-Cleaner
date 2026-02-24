@@ -122,10 +122,9 @@ function tagElements() {
     allContainers.forEach(el => {
         if (el.classList.contains('is-live-item')) return;
 
-        const isGuideEntry = el.tagName === 'YTD-GUIDE-ENTRY-RENDERER';
-
-        // 1. Direct Video Overlay (MOST RELIABLE for videos)
-        const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]');
+        // 1. Direct Video Overlay (MOST RELIABLE)
+        // Check for the specific thumbnail badge from the user's snippet
+        const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live');
         
         // 2. Metadata Badge (Red "LIVE" text in video info)
         const metadataBadge = el.querySelector('#metadata-line .yt-badge-shape--live');
@@ -134,27 +133,14 @@ function tagElements() {
         const sidebarLivePulse = el.querySelector('ytd-live-status-indicator-renderer');
         const broadcastPath = el.querySelector('path[d="M4.222 4.223a11 11 0 000 15.555 1 1 0 101.414-1.414 9 9 0 010-12.727 1 1 0 10-1.414-1.414Zm13.79.353a1 1 0 000 1.414 8.5 8.5 0 010 12.022 1 1 0 001.413 1.414 10.501 10.501 0 000-14.85 1 1 0 00-1.413 0Zm-2.83 2.827a1 1 0 000 1.414 4.501 4.501 0 010 6.365 1.001 1.001 0 001.414 1.414 6.5 6.5 0 000-9.193 1 1 0 00-1.415 0Zm-7.78 0a6.5 6.5 0 000 9.194 1 1 0 001.415-1.415 4.5 4.5 0 010-6.364 1.001 1.001 0 00-1.415-1.415ZM12 10a2 2 0 100 4 2 2 0 000-4Z"]');
         
-        // 4. Avatar Indicators (Red ring / "watch live" labels)
-        const liveRing = el.querySelector('.yt-spec-avatar-shape--live-ring');
-        
-        // 5. Timestamp (Presence of a timestamp like "10:30" means it's NOT live)
+        // 4. Timestamp Check (If it has a time like "10:30", it's NOT a current live stream)
         const hasTimestamp = el.querySelector('ytd-thumbnail-overlay-time-status-renderer:not([overlay-style="LIVE"])');
 
-        let isLive = false;
+        // Video is live if it has any of the direct badges or indicators
+        let isLive = !!(thumbBadge || metadataBadge || sidebarLivePulse || broadcastPath);
 
-        if (isGuideEntry) {
-            // For sidebar entries, if the channel is live, we hide it
-            if (sidebarLivePulse || broadcastPath || liveRing) isLive = true;
-        } else {
-            // For video items, we only hide if the video ITSELF is live
-            // We ignore live rings on avatars here to avoid false positives 
-            if (thumbBadge || metadataBadge) {
-                isLive = true;
-            }
-            
-            // Absolute safety check: if it has a timestamp, it's definitely NOT a live stream
-            if (hasTimestamp) isLive = false;
-        }
+        // Absolute safety check: if it has a timestamp, it's definitely NOT a live stream
+        if (hasTimestamp) isLive = false;
 
         if (isLive) {
             el.classList.add('is-live-item');
