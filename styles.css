@@ -2,13 +2,18 @@
 
 /* --- SHORTS: HOME SCREEN --- */
 /* Target Home Page Shorts Shelf (Section containing the shelf) */
-html.yt-hide-shorts-home ytd-browse[page-subtype="home"] ytd-rich-section-renderer:has(.is-shorts-shelf) {
+html.yt-hide-shorts-home ytd-browse[page-subtype="home"] ytd-rich-section-renderer:has(.is-shorts-shelf),
+html.yt-hide-shorts-home ytd-browse[page-subtype="home"] ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]) {
     /* Fallback to attribute if JS acts up */
     display: none !important;
 }
 
 /* Sidebar Shorts Button */
-html.yt-hide-shorts-sidebar .is-shorts-sidebar-entry {
+html.yt-hide-shorts-sidebar .is-shorts-sidebar-entry,
+html.yt-hide-shorts-sidebar ytd-guide-entry-renderer:has(a[title="Shorts"]),
+html.yt-hide-shorts-sidebar ytd-guide-entry-renderer:has(a[aria-label="Shorts"]),
+html.yt-hide-shorts-sidebar ytd-mini-guide-entry-renderer:has(a[title="Shorts"]),
+html.yt-hide-shorts-sidebar ytd-mini-guide-entry-renderer:has(a[aria-label="Shorts"]) {
     display: none !important;
 }
 
@@ -16,7 +21,9 @@ html.yt-hide-shorts-sidebar .is-shorts-sidebar-entry {
 /* --- SHORTS: SUBSCRIPTIONS --- */
 /* Target Subscriptions Page Shorts Shelves */
 html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-item-section-renderer:has(.is-shorts-shelf),
-html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-rich-section-renderer:has(.is-shorts-shelf) {
+html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-item-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-rich-section-renderer:has(.is-shorts-shelf),
+html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]) {
     display: none !important;
 }
 
@@ -24,7 +31,8 @@ html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-rich-secti
 /* --- SHORTS: SEARCH RESULTS --- */
 /* Target Search Results Shorts Shelf (JS-detected) */
 html.yt-hide-shorts-search ytd-search .is-shorts-shelf,
-html.yt-hide-shorts-search ytd-search ytd-video-renderer.is-individual-short {
+html.yt-hide-shorts-search ytd-search ytd-video-renderer.is-individual-short,
+html.yt-hide-shorts-search ytd-search ytd-video-renderer:has(a#thumbnail[href*="/shorts/"]) {
     display: none !important;
 }
 
@@ -45,16 +53,31 @@ html.yt-hide-promoted ytm-paid-content-overlay-renderer {
 
 
 /* --- MIXES --- */
-html.yt-hide-mixes .is-mix-item {
+html.yt-hide-mixes .is-mix-item,
+html.yt-hide-mixes ytd-rich-item-renderer:has(path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]),
+html.yt-hide-mixes ytd-video-renderer:has(path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]),
+html.yt-hide-mixes ytd-compact-video-renderer:has(path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]) {
     display: none !important;
 }
 
 /* --- LIVE STREAMS --- */
-html.yt-hide-live .is-live-item {
+html.yt-hide-live .is-live-item,
+html.yt-hide-live ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
+html.yt-hide-live ytd-rich-item-renderer:has(.yt-badge-shape--thumbnail-live),
+html.yt-hide-live ytd-rich-item-renderer:has(.yt-badge-shape--live),
+html.yt-hide-live ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
+html.yt-hide-live ytd-video-renderer:has(.yt-badge-shape--thumbnail-live),
+html.yt-hide-live ytd-video-renderer:has(.yt-badge-shape--live),
+html.yt-hide-live ytd-compact-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
+html.yt-hide-live ytd-compact-video-renderer:has(.yt-badge-shape--thumbnail-live),
+html.yt-hide-live ytd-compact-video-renderer:has(.yt-badge-shape--live),
+html.yt-hide-live ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
+html.yt-hide-live ytd-grid-video-renderer:has(.yt-badge-shape--thumbnail-live),
+html.yt-hide-live ytd-grid-video-renderer:has(.yt-badge-shape--live) {
     display: none !important;
 }
 
 /* --- DISMISSABLE SECTIONS --- */
-html.yt-hide-sections ytd-rich-section-renderer {
+html.yt-hide-sections ytd-rich-section-renderer:not(:has(.is-shorts-shelf)):not(:has(ytd-rich-shelf-renderer[is-shorts])) {
     display: none !important;
 }

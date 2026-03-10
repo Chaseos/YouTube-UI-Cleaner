@@ -166,35 +166,57 @@ function tagElements() {
 // Keys to retrieve
 const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes', 'hideLive', 'hideSections'];
 
-// Load initial settings
-chrome.storage.sync.get(keys, (result) => {
-    // Default to true if undefined
-    const settings = {};
-    keys.forEach(key => {
-        settings[key] = result[key] !== undefined ? result[key] : true;
+// Apply defaults immediately to prevent flash on load
+const defaultSettings = {};
+keys.forEach(key => defaultSettings[key] = true);
+updateClasses(defaultSettings);
+
+function loadSettingsAndApply() {
+    chrome.storage.sync.get(keys, (result) => {
+        // Default to true if undefined
+        const settings = {};
+        keys.forEach(key => {
+            settings[key] = result[key] !== undefined ? result[key] : true;
+        });
+        updateClasses(settings);
     });
-    updateClasses(settings);
-});
+}
+
+// Load initial settings from storage
+loadSettingsAndApply();
 
 // Listen for messages from popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === 'UPDATE_SETTINGS') {
-        chrome.storage.sync.get(keys, (result) => {
-            updateClasses(result);
+        // Tag elements immediately in case the toggle was flipped but elements aren't tagged yet
+        tagElements();
+        loadSettingsAndApply();
+    }
+});
+
+// Helper for faster tagging without a heavy flash
+let taggingScheduled = false;
+const observer = new MutationObserver((mutations) => {
+    if (!taggingScheduled) {
+        taggingScheduled = true;
+        requestAnimationFrame(() => {
+            tagElements();
+            taggingScheduled = false;
         });
     }
 });
 
-// Helper for debounce/throttling observer
-let timeout = null;
-const observer = new MutationObserver((mutations) => {
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => {
-        tagElements();
-    }, 100);
-});
+observer.observe(document.documentElement, { childList: true, subtree: true });
 
-observer.observe(document.body, { childList: true, subtree: true });
+// Fallback interval to catch elements that might slip past the observer
+setInterval(() => {
+    tagElements();
+}, 2000);
+
+// YouTube API SPA Navigation listeners
+window.addEventListener('yt-navigate-finish', () => {
+    tagElements();
+});
 
 // Initial tag
 tagElements();

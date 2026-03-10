@@ -34,7 +34,7 @@
             "css": [
                 "styles.css"
             ],
-            "run_at": "document_end"
+            "run_at": "document_start"
         }
     ],
     "browser_specific_settings": {
