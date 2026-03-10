@@ -37,6 +37,10 @@ function updateClasses(settings) {
     // Live Streams
     if (settings.hideLive) html.classList.add('yt-hide-live');
     else html.classList.remove('yt-hide-live');
+
+    // Dismissable Sections
+    if (settings.hideSections) html.classList.add('yt-hide-sections');
+    else html.classList.remove('yt-hide-sections');
 }
 
 // Selectors for elements we need to tag based on text content
@@ -91,8 +95,8 @@ function tagElements() {
         }
     });
 
-    // 5. Tag Mixes
-    // Look for ytd-rich-item-renderer that contains a "Mix" badge
+    // 5. Tag Mixes and Podcasts
+    // Look for ytd-rich-item-renderer that contains a "Mix" badge or "Podcast" link
     const items = document.querySelectorAll('ytd-rich-item-renderer');
     items.forEach(el => {
         if (!el.classList.contains('is-mix-item')) {
@@ -109,6 +113,16 @@ function tagElements() {
             if (!isMix) {
                 const svgPath = el.querySelector('path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]');
                 if (svgPath) isMix = true;
+            }
+
+            // Check for Podcasts
+            if (!isMix) {
+                const links = el.querySelectorAll('a');
+                links.forEach(link => {
+                    if (link.textContent.trim() === 'Podcast') {
+                        isMix = true;
+                    }
+                });
             }
 
             if (isMix) {
@@ -150,7 +164,7 @@ function tagElements() {
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes', 'hideLive'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes', 'hideLive', 'hideSections'];
 
 // Load initial settings
 chrome.storage.sync.get(keys, (result) => {

@@ -53,3 +53,8 @@ html.yt-hide-mixes .is-mix-item {
 html.yt-hide-live .is-live-item {
     display: none !important;
 }
+
+/* --- DISMISSABLE SECTIONS --- */
+html.yt-hide-sections ytd-rich-section-renderer {
+    display: none !important;
+}
