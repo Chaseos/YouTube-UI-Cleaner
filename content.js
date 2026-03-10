@@ -30,9 +30,15 @@ function updateClasses(settings) {
     if (settings.paidPromotion) html.classList.add('yt-hide-promoted');
     else html.classList.remove('yt-hide-promoted');
 
-    // Mixes
-    if (settings.hideMixes) html.classList.add('yt-hide-mixes');
+    // Grouped Videos
+    if (settings.groupedMixes) html.classList.add('yt-hide-mixes');
     else html.classList.remove('yt-hide-mixes');
+
+    if (settings.groupedPodcasts) html.classList.add('yt-hide-podcasts');
+    else html.classList.remove('yt-hide-podcasts');
+
+    if (settings.groupedPlaylists) html.classList.add('yt-hide-playlists');
+    else html.classList.remove('yt-hide-playlists');
     
     // Live Streams
     if (settings.hideLive) html.classList.add('yt-hide-live');
@@ -95,39 +101,61 @@ function tagElements() {
         }
     });
 
-    // 5. Tag Mixes and Podcasts
-    // Look for ytd-rich-item-renderer that contains a "Mix" badge or "Podcast" link
-    const items = document.querySelectorAll('ytd-rich-item-renderer');
+    // 5. Tag Mixes, Podcasts, and Playlists
+    // Optimize: Only select elements that haven't been tagged yet
+    const items = document.querySelectorAll('ytd-rich-item-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-video-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-grid-video-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-compact-video-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-radio-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-playlist-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item)');
+    
     items.forEach(el => {
-        if (!el.classList.contains('is-mix-item')) {
-            // Check for the "Mix" badge text
+        let isMix = false;
+        let isPodcast = false;
+        let isPlaylist = false;
+
+        // 1. Direct tag checks based on element type
+        if (el.tagName.toLowerCase() === 'ytd-playlist-renderer') isPlaylist = true;
+        if (el.tagName.toLowerCase() === 'ytd-radio-renderer') isMix = true;
+
+        // 2. Check Badge texts for "Mix"
+        if (!isMix) {
             const badges = el.querySelectorAll('.yt-badge-shape__text');
-            let isMix = false;
             badges.forEach(badge => {
-                if (badge.textContent.trim() === 'Mix') {
-                    isMix = true;
-                }
+                if (badge.textContent.trim() === 'Mix') isMix = true;
             });
+        }
 
-            // Also check for the specific svg path if text is unreliable (optional but good for robustness)
-            if (!isMix) {
-                const svgPath = el.querySelector('path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]');
-                if (svgPath) isMix = true;
-            }
+        // 3. SVG Path check for Mixes (fallback)
+        if (!isMix) {
+            const svgPath = el.querySelector('path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]');
+            if (svgPath) isMix = true;
+        }
 
-            // Check for Podcasts
-            if (!isMix) {
-                const links = el.querySelectorAll('a');
-                links.forEach(link => {
-                    if (link.textContent.trim() === 'Podcast') {
-                        isMix = true;
-                    }
-                });
-            }
+        // 4. Structural indicators for Playlists
+        if (!isPlaylist) {
+            const playlistIndicator = el.querySelector('ytd-playlist-thumbnail, ytd-thumbnail-overlay-side-panel-renderer, [overlay-style="PLAYLIST"], yt-collection-thumbnail-view-model');
+            if (playlistIndicator) isPlaylist = true;
+        }
 
-            if (isMix) {
-                el.classList.add('is-mix-item');
-            }
+        // 5. Single loop over anchor tags for text and URL checks
+        // We only need to run this if we haven't already identified what this item is
+        if (!isMix && !isPodcast && !isPlaylist) {
+            const links = el.querySelectorAll('a');
+            links.forEach(link => {
+                const text = link.textContent.trim();
+                
+                if (text === 'Podcast') isPodcast = true;
+                if (text === 'View full playlist' || text === 'Playlist') isPlaylist = true;
+                
+                // Check href URL for playlist indicator
+                if (link.href && link.href.includes('/playlist?list=')) isPlaylist = true;
+            });
+        }
+
+        // Apply distinct classes independently based on what we found
+        if (isMix) {
+            el.classList.add('is-mix-item');
+        } else if (isPodcast) {
+            el.classList.add('is-podcast-item');
+        } else if (isPlaylist) {
+            el.classList.add('is-playlist-item');
         }
     });
 
@@ -164,7 +192,7 @@ function tagElements() {
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideMixes', 'hideLive', 'hideSections'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'hideSections'];
 
 // Apply defaults immediately to prevent flash on load
 const defaultSettings = {};

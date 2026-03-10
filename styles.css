@@ -52,11 +52,21 @@ html.yt-hide-promoted ytm-paid-content-overlay-renderer {
 }
 
 
-/* --- MIXES --- */
+/* --- GROUPED VIDEOS --- */
 html.yt-hide-mixes .is-mix-item,
 html.yt-hide-mixes ytd-rich-item-renderer:has(path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]),
 html.yt-hide-mixes ytd-video-renderer:has(path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]),
 html.yt-hide-mixes ytd-compact-video-renderer:has(path[d="M3 3.657v16.689a1 1 0 001.466.883L8 19.369V4.632l-3.534-1.86A1 1 0 003 3.657ZM14 7.79l-4-2.105v12.631l4-2.106V7.79ZM22 12l-6-3.157v6.315L22 12Z"]) {
+    display: none !important;
+}
+
+html.yt-hide-podcasts .is-podcast-item,
+html.yt-hide-podcasts ytd-rich-item-renderer:has(a[href^="/podcast/"]) {
+    display: none !important;
+}
+
+html.yt-hide-playlists .is-playlist-item,
+html.yt-hide-playlists ytd-playlist-renderer {
     display: none !important;
 }
 

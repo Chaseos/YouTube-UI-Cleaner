@@ -8,12 +8,16 @@ const keys = [
     'shortsSidebar',
     'playables',
     'paidPromotion',
-    'hideMixes',
+    'grouped',
+    'groupedMixes',
+    'groupedPodcasts',
+    'groupedPlaylists',
     'hideLive',
     'hideSections'
 ];
 
 const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar'];
+const groupedSubKeys = ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'];
 
 // Helper to get element
 const getEl = (id) => document.getElementById(id);
@@ -37,6 +41,9 @@ chrome.storage.sync.get(keys, (result) => {
 function updateMasterToggleState() {
     const anySubOn = subKeys.some(key => getEl(key).checked);
     getEl('shorts').checked = anySubOn;
+
+    const anyGroupedOn = groupedSubKeys.some(key => getEl(key).checked);
+    if (getEl('grouped')) getEl('grouped').checked = anyGroupedOn;
 }
 
 // Save specific key
@@ -93,8 +100,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Main Grouped Videos Toggle
+    getEl('grouped').addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        groupedSubKeys.forEach(key => {
+            getEl(key).checked = isChecked;
+        });
+        const updates = { 'grouped': isChecked };
+        groupedSubKeys.forEach(key => updates[key] = isChecked);
+        chrome.storage.sync.set(updates, () => {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
+            });
+        });
+    });
+
+    // Grouped Videos Sub-toggles
+    groupedSubKeys.forEach(key => {
+        getEl(key).addEventListener('change', (e) => {
+            saveSetting(key, e.target.checked);
+            const anyOn = groupedSubKeys.some(k => getEl(k).checked);
+            const masterEl = getEl('grouped');
+            if (masterEl.checked !== anyOn) {
+                masterEl.checked = anyOn;
+                saveSetting('grouped', anyOn);
+            }
+        });
+    });
+
     // Other separate toggles
-    ['playables', 'paidPromotion', 'hideMixes', 'hideLive', 'hideSections'].forEach(key => {
+    ['playables', 'paidPromotion', 'hideLive', 'hideSections'].forEach(key => {
         getEl(key).addEventListener('change', (e) => {
             saveSetting(key, e.target.checked);
         });
