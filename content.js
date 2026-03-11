@@ -53,11 +53,11 @@ function updateClasses(settings) {
 function tagElements() {
     // 1. Tag Shorts Shelves (Grid/Reel)
     // Target both ytd-rich-shelf-renderer and grid-shelf-view-model
-    const potentialShorts = document.querySelectorAll('ytd-rich-shelf-renderer, grid-shelf-view-model, ytd-reel-shelf-renderer');
+    const potentialShorts = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-shorts-shelf), grid-shelf-view-model:not(.is-shorts-shelf), ytd-reel-shelf-renderer:not(.is-shorts-shelf)');
     potentialShorts.forEach(el => {
         // Check exact title or spans
         const titleText = el.innerText || "";
-        if (titleText.includes("Shorts") && !el.classList.contains('is-shorts-shelf')) {
+        if (titleText.includes("Shorts")) {
             // Verify it's actually a header title, not just random text?
             // Usually "Shorts" is in a specific header.
             // For grid-shelf-view-model, user showed header structure.
@@ -71,21 +71,21 @@ function tagElements() {
     });
 
     // 2. Tag Sidebar Shorts Button
-    const sidebarItems = document.querySelectorAll('ytd-guide-entry-renderer a, ytd-mini-guide-entry-renderer a');
+    const sidebarItems = document.querySelectorAll('ytd-guide-entry-renderer:not(.is-shorts-sidebar-entry) a, ytd-mini-guide-entry-renderer:not(.is-shorts-sidebar-entry) a');
     sidebarItems.forEach(link => {
         if (link.title === "Shorts" || link.getAttribute('aria-label') === "Shorts") {
             // Find the container to look like other renderers
             const container = link.closest('ytd-guide-entry-renderer') || link.closest('ytd-mini-guide-entry-renderer');
-            if (container && !container.classList.contains('is-shorts-sidebar-entry')) {
+            if (container) {
                 container.classList.add('is-shorts-sidebar-entry');
             }
         }
     });
 
     // 3. Tag Playables
-    const potentialPlayables = document.querySelectorAll('ytd-rich-shelf-renderer, ytd-rich-section-renderer');
+    const potentialPlayables = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-playables-shelf), ytd-rich-section-renderer:not(.is-playables-shelf)');
     potentialPlayables.forEach(el => {
-        if (el.innerText.includes("Playables") && !el.classList.contains('is-playables-shelf')) {
+        if (el.innerText.includes("Playables")) {
             if (el.querySelector('#title') && el.querySelector('#title').textContent.includes("Playables")) {
                 el.classList.add('is-playables-shelf');
             }
@@ -93,10 +93,10 @@ function tagElements() {
     });
 
     // 4. Tag Individual Shorts in Search Results
-    const videoRenderers = document.querySelectorAll('ytd-video-renderer');
+    const videoRenderers = document.querySelectorAll('ytd-video-renderer:not(.is-individual-short)');
     videoRenderers.forEach(el => {
         const thumbnail = el.querySelector('a#thumbnail');
-        if (thumbnail && thumbnail.href.includes('/shorts/') && !el.classList.contains('is-individual-short')) {
+        if (thumbnail && thumbnail.href.includes('/shorts/')) {
             el.classList.add('is-individual-short');
         }
     });
@@ -114,11 +114,13 @@ function tagElements() {
         if (el.tagName.toLowerCase() === 'ytd-playlist-renderer') isPlaylist = true;
         if (el.tagName.toLowerCase() === 'ytd-radio-renderer') isMix = true;
 
-        // 2. Check Badge texts for "Mix"
-        if (!isMix) {
+        // 2. Check Badge texts for "Mix" and "Podcast"
+        if (!isMix && !isPodcast) {
             const badges = el.querySelectorAll('.yt-badge-shape__text');
             badges.forEach(badge => {
-                if (badge.textContent.trim() === 'Mix') isMix = true;
+                const badgeText = badge.textContent.trim();
+                if (badgeText === 'Mix') isMix = true;
+                if (badgeText === 'Podcast') isPodcast = true;
             });
         }
 
@@ -135,17 +137,19 @@ function tagElements() {
         }
 
         // 5. Single loop over anchor tags for text and URL checks
-        // We only need to run this if we haven't already identified what this item is
-        if (!isMix && !isPodcast && !isPlaylist) {
+        // We only need to run this if we haven't already identified a Mix or Podcast
+        if (!isMix && !isPodcast) {
             const links = el.querySelectorAll('a');
             links.forEach(link => {
                 const text = link.textContent.trim();
                 
                 if (text === 'Podcast') isPodcast = true;
-                if (text === 'View full playlist' || text === 'Playlist') isPlaylist = true;
                 
-                // Check href URL for playlist indicator
-                if (link.href && link.href.includes('/playlist?list=')) isPlaylist = true;
+                if (!isPlaylist) {
+                    if (text === 'View full playlist' || text === 'Playlist') isPlaylist = true;
+                    // Check href URL for playlist indicator
+                    if (link.href && link.href.includes('/playlist?list=')) isPlaylist = true;
+                }
             });
         }
 
@@ -160,10 +164,8 @@ function tagElements() {
     });
 
     // 6. Tag Live Streams
-    const allContainers = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-guide-entry-renderer');
+    const allContainers = document.querySelectorAll('ytd-rich-item-renderer:not(.is-live-item), ytd-video-renderer:not(.is-live-item), ytd-grid-video-renderer:not(.is-live-item), ytd-compact-video-renderer:not(.is-live-item), ytd-guide-entry-renderer:not(.is-live-item)');
     allContainers.forEach(el => {
-        if (el.classList.contains('is-live-item')) return;
-
         // 1. Direct Video Overlay (MOST RELIABLE)
         // Check for the specific thumbnail badge from the user's snippet
         const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live');
@@ -225,6 +227,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Helper for faster tagging without a heavy flash
 let taggingScheduled = false;
 const observer = new MutationObserver((mutations) => {
+    let hasAddedNodes = false;
+    for (const mutation of mutations) {
+        if (mutation.addedNodes.length > 0) {
+            hasAddedNodes = true;
+            break;
+        }
+    }
+    
+    if (!hasAddedNodes) return;
+
     if (!taggingScheduled) {
         taggingScheduled = true;
         requestAnimationFrame(() => {

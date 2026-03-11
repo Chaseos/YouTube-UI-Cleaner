@@ -84,19 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sub-toggles
     subKeys.forEach(key => {
         getEl(key).addEventListener('change', (e) => {
-            // Save this specific setting
-            saveSetting(key, e.target.checked);
-
-            // Check if we need to update Main
-            // Rule: "If at least 1 subtoggle is on, this is on"
-            // Rule: "Toggling off all 3 (now 4) subtoggles toggles this off"
             const anyOn = subKeys.some(k => getEl(k).checked);
             const masterEl = getEl('shorts');
-
+            
+            const updates = { [key]: e.target.checked };
+            
             if (masterEl.checked !== anyOn) {
                 masterEl.checked = anyOn;
-                saveSetting('shorts', anyOn);
+                updates['shorts'] = anyOn;
             }
+
+            chrome.storage.sync.set(updates, () => {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
+                });
+            });
         });
     });
 
@@ -118,13 +120,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Grouped Videos Sub-toggles
     groupedSubKeys.forEach(key => {
         getEl(key).addEventListener('change', (e) => {
-            saveSetting(key, e.target.checked);
             const anyOn = groupedSubKeys.some(k => getEl(k).checked);
             const masterEl = getEl('grouped');
+            
+            const updates = { [key]: e.target.checked };
+
             if (masterEl.checked !== anyOn) {
                 masterEl.checked = anyOn;
-                saveSetting('grouped', anyOn);
+                updates['grouped'] = anyOn;
             }
+
+            chrome.storage.sync.set(updates, () => {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
+                });
+            });
         });
     });
 
