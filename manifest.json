@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "YouTube UI Cleaner",
-    "version": "1.6",
-    "description": "Clean up your YouTube feed by hiding Shorts, Mixes, Live Streams, and Paid Promotions from Home, Subscriptions, and Search results.",
+    "version": "1.7",
+    "description": "Hide Shorts, Mixes, Podcasts, Playlists, Live Streams, Dismissable Sections, and Paid Promotions for a cleaner YouTube experience.",
     "permissions": [
         "scripting",
         "storage"

@@ -1,14 +1,13 @@
 # YouTube UI Cleaner
 
-Clean up your YouTube feed by hiding Shorts and Paid Promotions from Home, Subscriptions, and Search results.
+Clean up your YouTube experience by hiding Shorts, Grouped Videos (Mixes, Podcasts, Playlists), Live Streams, Dismissable Sections, and Paid Promotions.
 
 ## Features
 
--   **Hide Shorts**: Remove Shorts from:
-    -   Home Feed
-    -   Subscriptions Feed
-    -   Search Results (including individual Shorts videos)
-    -   Sidebar Navigation
+-   **Hide Shorts**: Remove Shorts from Home Feed, Subscriptions, Search Results, and Sidebar Navigation.
+-   **Hide Grouped Videos**: Toggle visibility for Mixes, Podcasts, and Playlists.
+-   **Hide Live Streams**: Remove live broadcast icons and entries from your feeds.
+-   **Hide Dismissable Sections**: Clean up your feed by removing Community posts, AI recommendations, and badges.
 -   **Hide Paid Promotion Banners**: Remove the "Includes Paid Promotion" overlay from videos.
 
 ## Installation
