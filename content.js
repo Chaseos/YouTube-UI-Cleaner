@@ -132,7 +132,7 @@ function tagElements() {
 
         // 4. Structural indicators for Playlists
         if (!isPlaylist) {
-            const playlistIndicator = el.querySelector('ytd-playlist-thumbnail, ytd-thumbnail-overlay-side-panel-renderer, [overlay-style="PLAYLIST"], yt-collection-thumbnail-view-model');
+            const playlistIndicator = el.querySelector('ytd-playlist-thumbnail:not([hidden]), ytd-thumbnail-overlay-side-panel-renderer:not([hidden]), [overlay-style="PLAYLIST"]:not([hidden]), yt-collection-thumbnail-view-model:not([hidden])');
             if (playlistIndicator) isPlaylist = true;
         }
 
