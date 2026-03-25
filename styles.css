@@ -88,6 +88,6 @@ html.yt-hide-live ytd-grid-video-renderer:has(.yt-badge-shape--live) {
 }
 
 /* --- DISMISSABLE SECTIONS --- */
-html.yt-hide-sections ytd-rich-section-renderer:not(:has(.is-shorts-shelf)):not(:has(ytd-rich-shelf-renderer[is-shorts])) {
+html.yt-hide-sections ytd-rich-section-renderer:not(:has(.is-shorts-shelf)):not(:has(ytd-rich-shelf-renderer[is-shorts])):not(.is-downloads-section) {
     display: none !important;
 }

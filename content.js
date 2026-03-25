@@ -191,6 +191,28 @@ function tagElements() {
         }
     });
 
+    // 7. Tag Downloads Section
+    const potentialDownloads = document.querySelectorAll('ytd-rich-section-renderer:not(.is-downloads-section)');
+    potentialDownloads.forEach(el => {
+        let isDownloads = false;
+        
+        // Check for Smart Downloads banner
+        const alertBanner = el.querySelector('yt-alert-banner-view-model');
+        if (alertBanner && alertBanner.innerText && alertBanner.innerText.toLowerCase().includes("downloads")) {
+            isDownloads = true;
+        }
+        
+        // Check for Your downloads shelf
+        const titleEl = el.querySelector('#title');
+        if (titleEl && titleEl.textContent && titleEl.textContent.toLowerCase().includes("downloads")) {
+            isDownloads = true;
+        }
+
+        if (isDownloads) {
+            el.classList.add('is-downloads-section');
+        }
+    });
+
 }
 
 // Keys to retrieve
