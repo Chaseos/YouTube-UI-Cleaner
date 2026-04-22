@@ -168,10 +168,10 @@ function tagElements() {
     allContainers.forEach(el => {
         // 1. Direct Video Overlay (MOST RELIABLE)
         // Check for the specific thumbnail badge from the user's snippet
-        const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live');
+        const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive');
         
         // 2. Metadata Badge (Red "LIVE" text in video info)
-        const metadataBadge = el.querySelector('#metadata-line .yt-badge-shape--live');
+        const metadataBadge = el.querySelector('#metadata-line .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge');
 
         // 3. Sidebar/Guide Indicators (Pulse icons)
         const sidebarLivePulse = el.querySelector('ytd-live-status-indicator-renderer');

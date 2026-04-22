@@ -72,18 +72,10 @@ html.yt-hide-playlists ytd-playlist-renderer {
 
 /* --- LIVE STREAMS --- */
 html.yt-hide-live .is-live-item,
-html.yt-hide-live ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
-html.yt-hide-live ytd-rich-item-renderer:has(.yt-badge-shape--thumbnail-live),
-html.yt-hide-live ytd-rich-item-renderer:has(.yt-badge-shape--live),
-html.yt-hide-live ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
-html.yt-hide-live ytd-video-renderer:has(.yt-badge-shape--thumbnail-live),
-html.yt-hide-live ytd-video-renderer:has(.yt-badge-shape--live),
-html.yt-hide-live ytd-compact-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
-html.yt-hide-live ytd-compact-video-renderer:has(.yt-badge-shape--thumbnail-live),
-html.yt-hide-live ytd-compact-video-renderer:has(.yt-badge-shape--live),
-html.yt-hide-live ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"]),
-html.yt-hide-live ytd-grid-video-renderer:has(.yt-badge-shape--thumbnail-live),
-html.yt-hide-live ytd-grid-video-renderer:has(.yt-badge-shape--live) {
+html.yt-hide-live ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge),
+html.yt-hide-live ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge),
+html.yt-hide-live ytd-compact-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge),
+html.yt-hide-live ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge) {
     display: none !important;
 }
 
