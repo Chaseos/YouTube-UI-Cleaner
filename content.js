@@ -18,10 +18,6 @@ function updateClasses(settings) {
     if (settings.shortsSearch) html.classList.add('yt-hide-shorts-search');
     else html.classList.remove('yt-hide-shorts-search');
 
-    // Shorts: Sidebar
-    if (settings.shortsSidebar) html.classList.add('yt-hide-shorts-sidebar');
-    else html.classList.remove('yt-hide-shorts-sidebar');
-
     // Playables
     if (settings.playables) html.classList.add('yt-hide-playables');
     else html.classList.remove('yt-hide-playables');
@@ -47,6 +43,10 @@ function updateClasses(settings) {
     // Dismissable Sections
     if (settings.hideSections) html.classList.add('yt-hide-sections');
     else html.classList.remove('yt-hide-sections');
+
+    // Feed Pills
+    if (settings.feedPills) html.classList.add('yt-hide-feed-pills');
+    else html.classList.remove('yt-hide-feed-pills');
 }
 
 // Selectors for elements we need to tag based on text content
@@ -216,7 +216,7 @@ function tagElements() {
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'hideSections'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections'];
 
 // Apply defaults immediately to prevent flash on load
 const defaultSettings = {};

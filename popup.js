@@ -5,7 +5,6 @@ const keys = [
     'shortsHome',
     'shortsSubs',
     'shortsSearch',
-    'shortsSidebar',
     'playables',
     'paidPromotion',
     'grouped',
@@ -13,10 +12,11 @@ const keys = [
     'groupedPodcasts',
     'groupedPlaylists',
     'hideLive',
+    'feedPills',
     'hideSections'
 ];
 
-const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar'];
+const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch'];
 const groupedSubKeys = ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'];
 
 // Helper to get element
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Other separate toggles
-    ['playables', 'paidPromotion', 'hideLive', 'hideSections'].forEach(key => {
+    ['playables', 'paidPromotion', 'hideLive', 'feedPills', 'hideSections'].forEach(key => {
         getEl(key).addEventListener('change', (e) => {
             saveSetting(key, e.target.checked);
         });
