@@ -91,3 +91,8 @@ html.yt-hide-feed-pills ytd-feed-filter-chip-bar-renderer {
     visibility: hidden !important;
     pointer-events: none !important;
 }
+
+/* --- CUSTOM FILTERS --- */
+.is-custom-hidden {
+    display: none !important;
+}

@@ -2,6 +2,8 @@
 
 console.log('YouTube Feed Cleaner: Active');
 
+let currentCustomFilters = [];
+
 // Function to update classes on the HTML element
 function updateClasses(settings) {
     const html = document.documentElement;
@@ -213,14 +215,48 @@ function tagElements() {
         }
     });
 
+    // 8. Tag Custom Keywords
+    const activeFilters = [];
+    if (currentCustomFilters && currentCustomFilters.length > 0) {
+        currentCustomFilters.filter(f => f.enabled).forEach(f => {
+            if (f.keywords && f.keywords.length > 0) {
+                activeFilters.push(...f.keywords.map(k => k.toLowerCase()));
+            }
+        });
+    }
+
+    const potentialSpoilers = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-reel-item-renderer');
+    
+    potentialSpoilers.forEach(el => {
+        let hasMatch = false;
+        
+        if (activeFilters.length > 0) {
+            const fullText = el.textContent.toLowerCase();
+            hasMatch = activeFilters.some(kw => {
+                if (!kw) return false;
+                return fullText.includes(kw);
+            });
+        }
+        
+        const isCurrentlyHidden = el.classList.contains('is-custom-hidden');
+        
+        if (hasMatch && !isCurrentlyHidden) {
+            el.classList.add('is-custom-hidden');
+        } else if (!hasMatch && isCurrentlyHidden) {
+            el.classList.remove('is-custom-hidden');
+        }
+    });
+
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
 
 // Apply defaults immediately to prevent flash on load
 const defaultSettings = {};
-keys.forEach(key => defaultSettings[key] = true);
+keys.forEach(key => {
+    if (key !== 'customFilters') defaultSettings[key] = true;
+});
 updateClasses(defaultSettings);
 
 function loadSettingsAndApply() {
@@ -228,9 +264,13 @@ function loadSettingsAndApply() {
         // Default to true if undefined
         const settings = {};
         keys.forEach(key => {
-            settings[key] = result[key] !== undefined ? result[key] : true;
+            if (key !== 'customFilters') {
+                settings[key] = result[key] !== undefined ? result[key] : true;
+            }
         });
+        currentCustomFilters = result['customFilters'] || [];
         updateClasses(settings);
+        tagElements(); // Re-tag with new keywords
     });
 }
 
