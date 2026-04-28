@@ -158,14 +158,24 @@ function renderFilters(focusId = null) {
         const kwInput = item.querySelector('.group-keyword-input');
         
         const addKeyword = () => {
-            const kw = kwInput.value.trim();
+            const rawVal = kwInput.value;
+            const kws = rawVal.split(',').map(k => k.trim()).filter(k => k.length > 0);
+            
             // Ensure title is saved before re-rendering
             const currentTitle = titleInput.value.trim();
             if (currentTitle !== filter.title) {
                 filter.title = currentTitle;
             }
-            if (kw && !filter.keywords.includes(kw)) {
-                filter.keywords.push(kw);
+            
+            let addedAny = false;
+            kws.forEach(kw => {
+                if (!filter.keywords.includes(kw)) {
+                    filter.keywords.push(kw);
+                    addedAny = true;
+                }
+            });
+            
+            if (addedAny || currentTitle !== filter.title) {
                 saveSetting('customFilters', customFilters);
                 renderFilters(filter.id + '_kw');
             }
