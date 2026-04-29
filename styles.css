@@ -96,3 +96,53 @@ html.yt-hide-feed-pills ytd-feed-filter-chip-bar-renderer {
 .is-custom-hidden {
     display: none !important;
 }
+
+/* --- CUSTOM HOVER BUTTONS --- */
+.custom-hover-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 8px;
+    margin-top: 8px;
+    gap: 8px;
+    pointer-events: auto;
+    z-index: 100;
+}
+
+.custom-hover-btn {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    animation: fadeBackground 0.4s ease-out forwards;
+    animation-delay: 2.0s;
+}
+
+@keyframes fadeBackground {
+    to { background-color: transparent; }
+}
+
+.custom-hover-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.custom-hover-action-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+}
+
+.custom-hover-action-btn svg {
+    fill: #fff;
+}

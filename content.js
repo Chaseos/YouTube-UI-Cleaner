@@ -249,6 +249,168 @@ function tagElements() {
 
 }
 
+// Function to inject custom hover buttons into the inline player
+function injectHoverButtons() {
+    const inlineControlsList = document.querySelectorAll('yt-inline-player-controls:not(.has-custom-hover-buttons)');
+    
+    inlineControlsList.forEach(controls => {
+        // Find the top left container where we want to inject our buttons
+        const topLeftContainer = controls.querySelector('.ytInlinePlayerControlsTopLeftControls');
+        if (!topLeftContainer) return;
+
+        controls.classList.add('has-custom-hover-buttons');
+
+        // Check if our container already exists to avoid duplicates
+        if (topLeftContainer.querySelector('.custom-hover-buttons-container')) return;
+
+        // Create container for our buttons
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'custom-hover-buttons-container';
+        
+        const eatEvent = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+        };
+
+        const attachButtonEvents = (btn, actionCallback) => {
+            ['mousedown', 'mouseup', 'pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(evt => {
+                btn.addEventListener(evt, eatEvent, true);
+            });
+            btn.addEventListener('click', (e) => {
+                eatEvent(e);
+                actionCallback(e);
+            }, true);
+        };
+
+        // --- Watch Later Button ---
+        const watchLaterBtn = document.createElement('div');
+        watchLaterBtn.className = 'custom-hover-btn';
+        watchLaterBtn.title = "Watch Later";
+        // We add the 'ytp-button' class because YouTube's global click handler ignores clicks on .ytp-button elements,
+        // preventing the click-through to the video!
+        watchLaterBtn.innerHTML = `
+            <button class="custom-hover-action-btn ytp-button" aria-label="Watch Later">
+                <svg viewBox="0 0 24 24" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                    <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1Zm0 2a9 9 0 110 18.001A9 9 0 0112 3Zm0 3a1 1 0 00-1 1v5.565l.485.292 3.33 2a1 1 0 001.03-1.714L13 11.435V7a1 1 0 00-1-1Z"></path>
+                </svg>
+            </button>
+        `;
+        
+        // --- Not Interested Button ---
+        const notInterestedBtn = document.createElement('div');
+        notInterestedBtn.className = 'custom-hover-btn';
+        notInterestedBtn.title = "Not Interested";
+        notInterestedBtn.innerHTML = `
+            <button class="custom-hover-action-btn ytp-button" aria-label="Not Interested">
+                <svg viewBox="0 0 24 24" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                    <path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1Zm0 2a9 9 0 018.246 12.605L4.755 6.661A8.99 8.99 0 0112 3ZM3.754 8.393l15.491 8.944A9 9 0 013.754 8.393Z"></path>
+                </svg>
+            </button>
+        `;
+        
+        const performMenuAction = (btn, actionText) => {
+            const preview = controls.closest('ytd-video-preview');
+            if (!preview) return;
+
+            const mediaLink = preview.querySelector('a#media-container-link');
+            if (!mediaLink) return;
+
+            const href = mediaLink.getAttribute('href');
+            if (!href) return;
+
+            let videoId = '';
+            try {
+                const urlObj = new URL(href, window.location.origin);
+                videoId = urlObj.searchParams.get('v');
+            } catch (err) {}
+
+            if (!videoId) {
+                const match = href.match(/v=([^&]+)/);
+                if (match) videoId = match[1];
+            }
+            
+            if (!videoId) return;
+            
+            // Find any link with this videoId that is NOT in the preview portal
+            const links = Array.from(document.querySelectorAll(`a[href*="${videoId}"]`));
+            const originalLink = links.find(l => !l.closest('ytd-video-preview') && l.closest('ytd-rich-item-renderer, ytd-rich-grid-media, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-reel-item-renderer'));
+            if (!originalLink) return;
+            
+            const container = originalLink.closest('ytd-rich-item-renderer, ytd-rich-grid-media, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-reel-item-renderer');
+            if (!container) return;
+
+            const menuBtn = container.querySelector('ytd-menu-renderer button, ytd-menu-renderer yt-icon-button, button[aria-label="Action menu"], button[aria-label="More actions"], button.dropdown-trigger, #menu button, yt-icon-button#button, .ytLockupMetadataViewModelMenuButton button');
+            if (!menuBtn) return;
+
+            // Inject temporary CSS to hide the dropdown instantly before it even renders
+            let hideStyle = document.getElementById('temp-hide-yt-dropdown');
+            if (!hideStyle) {
+                hideStyle = document.createElement('style');
+                hideStyle.id = 'temp-hide-yt-dropdown';
+                document.head.appendChild(hideStyle);
+            }
+            hideStyle.textContent = 'tp-yt-iron-dropdown { opacity: 0 !important; }';
+
+            const cleanupHideStyle = () => {
+                setTimeout(() => {
+                    if (hideStyle) hideStyle.textContent = '';
+                }, 300); // Wait a fraction of a second before restoring to ensure the menu has closed
+            };
+
+            // Click the menu to open it (bubbling is fine since it's on the main document, not the preview portal)
+            menuBtn.click();
+            
+            let attempts = 0;
+            const findAndClickAction = setInterval(() => {
+                attempts++;
+                if (attempts > 40) { // 2 seconds
+                    clearInterval(findAndClickAction);
+                    cleanupHideStyle();
+                    // close menu if we failed
+                    document.body.click(); 
+                    return;
+                }
+
+                const menuItems = document.querySelectorAll('ytd-menu-service-item-renderer, ytd-menu-navigation-item-renderer, yt-list-item-view-model');
+                for (const item of menuItems) {
+                    const text = item.textContent.trim().toLowerCase();
+                    if (text.includes(actionText)) {
+                        clearInterval(findAndClickAction);
+
+                        // Use a normal click so YouTube's delegated listeners catch it and show toasts/undo UI
+                        item.click();
+                        
+                        cleanupHideStyle();
+                        
+                        if (actionText === 'not interested') {
+                            // Hide the preview portal so the user can see the native Undo UI underneath
+                            preview.style.display = 'none';
+                            setTimeout(() => { preview.style.display = ''; }, 1500);
+                        } else {
+                            // Visual feedback for Watch Later directly on our button
+                            const svg = btn.querySelector('svg');
+                            const origPath = svg.innerHTML;
+                            svg.innerHTML = '<path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path>'; // Checkmark
+                            setTimeout(() => { svg.innerHTML = origPath; }, 2000);
+                        }
+                        
+                        break;
+                    }
+                }
+            }, 50);
+        };
+
+        attachButtonEvents(watchLaterBtn, () => performMenuAction(watchLaterBtn, 'watch later'));
+        attachButtonEvents(notInterestedBtn, () => performMenuAction(notInterestedBtn, 'not interested'));
+
+        buttonsContainer.appendChild(watchLaterBtn);
+        buttonsContainer.appendChild(notInterestedBtn);
+
+        topLeftContainer.appendChild(buttonsContainer);
+    });
+}
+
 // Keys to retrieve
 const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
 
@@ -271,6 +433,7 @@ function loadSettingsAndApply() {
         currentCustomFilters = result['customFilters'] || [];
         updateClasses(settings);
         tagElements(); // Re-tag with new keywords
+        injectHoverButtons(); // Inject buttons
     });
 }
 
@@ -303,6 +466,7 @@ const observer = new MutationObserver((mutations) => {
         taggingScheduled = true;
         requestAnimationFrame(() => {
             tagElements();
+            injectHoverButtons();
             taggingScheduled = false;
         });
     }
@@ -313,12 +477,15 @@ observer.observe(document.documentElement, { childList: true, subtree: true });
 // Fallback interval to catch elements that might slip past the observer
 setInterval(() => {
     tagElements();
+    injectHoverButtons();
 }, 2000);
 
 // YouTube API SPA Navigation listeners
 window.addEventListener('yt-navigate-finish', () => {
     tagElements();
+    injectHoverButtons();
 });
 
 // Initial tag
 tagElements();
+injectHoverButtons();
