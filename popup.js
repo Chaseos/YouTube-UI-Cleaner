@@ -122,8 +122,7 @@ function renderFilters(focusId = null) {
         const titleInput = item.querySelector('.filter-title-input');
         
         editBtn.addEventListener('click', () => {
-            item.classList.add('editing');
-            titleInput.focus();
+            renderFilters(filter.id);
         });
 
         // Done/Collapse Listener
@@ -177,6 +176,9 @@ function renderFilters(focusId = null) {
             
             if (addedAny || currentTitle !== filter.title) {
                 saveSetting('customFilters', customFilters);
+            }
+            
+            if (kws.length > 0 || currentTitle !== filter.title) {
                 renderFilters(filter.id + '_kw');
             }
         };
