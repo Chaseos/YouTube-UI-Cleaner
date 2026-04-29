@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "YouTube UI Cleaner",
-    "version": "1.9",
+    "version": "2.0",
     "description": "Hide Shorts, Mixes, Podcasts, Playlists, Live Streams, Dismissable Sections, and Paid Promotions for a cleaner YouTube experience.",
     "permissions": [
         "scripting",
