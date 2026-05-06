@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "YouTube UI Cleaner",
     "version": "2.0",
-    "description": "Hide Shorts, Mixes, Podcasts, Playlists, Live Streams, Dismissable Sections, and Paid Promotions for a cleaner YouTube experience.",
+    "description": "Hide Shorts, Grouped Videos, Live Streams, Paid Promos, and use Custom Keyword Filters for a cleaner YouTube experience.",
     "permissions": [
         "scripting",
         "storage"
