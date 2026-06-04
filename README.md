@@ -1,32 +1,61 @@
 # YouTube UI Cleaner
 
-Clean up your YouTube experience by hiding Shorts, Grouped Videos (Mixes, Podcasts, Playlists), Live Streams, Dismissable Sections, Paid Promotions, and by using Custom Keyword Filters.
+YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube surfaces so feeds, search results, subscriptions, and video pages feel calmer. It can hide Shorts, grouped video results, live streams, paid promotion overlays, home feed pills, dismissable feed sections, Playables shelves, and custom keyword matches.
 
 ## Features
 
-### Hide Unwanted Videos
--   **Hide Shorts**: Remove Shorts from Home Feed, Subscriptions, Search Results, and Sidebar Navigation.
--   **Hide Grouped Videos**: Toggle visibility for Mixes, Podcasts, and Playlists.
--   **Hide Live Streams**: Remove live broadcast icons and entries from your feeds.
--   **Custom Keyword Filters**: Create custom filter groups with specific keywords to automatically hide videos containing those terms in their titles.
+### Shorts Controls
 
-### Remove Distractions
--   **Hide Dismissable Sections**: Clean up your feed by removing Community posts, AI recommendations, and badges.
--   **Hide Paid Promotion Banners**: Remove the "Includes Paid Promotion" overlay from videos.
--   **Hide Home Feed Pills**: Remove the category filter chips from the top of your home feed for a cleaner look.
+- **Hide Shorts on Home**: Removes Shorts shelves from the YouTube home feed and hides the Shorts sidebar entry.
+- **Hide Shorts in Subscriptions**: Removes Shorts shelves from the Subscriptions page.
+- **Hide Shorts in Search Results**: Removes Shorts shelves and individual Shorts results from search.
+- **Master Shorts Toggle**: Turn all Shorts filters on or off at once, or control each location separately.
 
-### Quick Shortcuts
--   **Quick Action Buttons**: Access native "Watch Later" and "Not Interested" hover buttons directly on video thumbnails for faster feed management.
+### Feed Cleanup
+
+- **Hide Grouped Videos**: Removes grouped recommendation formats with separate controls for Mixes, Podcasts, and Playlists.
+- **Hide Live Streams**: Removes live stream videos and live sidebar entries detected by live badges, thumbnail overlays, and broadcast indicators.
+- **Hide Dismissable Sections**: Removes feed sections such as Community posts, nudges, AI recommendations, and similar interruptive modules.
+- **Hide Home Feed Pills**: Hides the category filter chips at the top of the home feed.
+- **Hide Playables**: Removes YouTube Playables shelves.
+
+### Video Page Cleanup
+
+- **Hide Paid Promotion Banners**: Removes YouTube's paid promotion overlay from videos.
+
+### Custom Keyword Filters
+
+- **Filter Groups**: Create named groups for topics you want to avoid, such as spoilers, sports results, reviews, reactions, or event outcomes.
+- **Multiple Keywords per Group**: Add one keyword or comma-separated keywords to each group.
+- **Per-Group Toggles**: Enable or disable individual filter groups without deleting them.
+- **Automatic Matching**: Hides videos whose visible text contains any enabled keyword.
+
+### Quick Hover Actions
+
+- **Watch Later Shortcut**: Adds a Watch Later button to YouTube's inline hover preview controls.
+- **Not Interested Shortcut**: Adds a Not Interested button to the same hover controls, using YouTube's native menu action behind the scenes.
 
 ## Installation
 
-1.  Clone or download this repository.
-2.  Open Chrome and navigate to `chrome://extensions`.
-3.  Enable **Developer mode** in the top right corner.
-4.  Click **Load unpacked** and select the directory containing this extension.
+1. Clone or download this repository.
+2. Open Chrome and go to `chrome://extensions`.
+3. Enable **Developer mode**.
+4. Click **Load unpacked**.
+5. Select this project folder.
 
 ## Usage
 
-1.  Click the extension icon in the toolbar.
-2.  Toggle the options to customize your YouTube experience.
-3.  Changes apply immediately as you browse.
+1. Open YouTube.
+2. Click the YouTube UI Cleaner extension icon.
+3. Use the **General** tab to toggle built-in cleanup options.
+4. Use the **Custom Filters** tab to create and manage keyword filter groups.
+
+Settings are saved with browser sync storage and apply automatically as YouTube updates the page or navigates within the single-page app.
+
+## Permissions
+
+- `storage`: Saves your toggle settings and custom keyword filter groups.
+- `scripting`: Supports extension behavior on YouTube pages.
+- `*://*.youtube.com/*`: Runs the cleanup logic only on YouTube.
+
+The extension does not require data collection. The manifest also declares `none` for Firefox data collection permissions.
