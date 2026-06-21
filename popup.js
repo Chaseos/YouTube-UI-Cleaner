@@ -18,6 +18,7 @@ const keys = [
 
 const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch'];
 const groupedSubKeys = ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'];
+const KOFI_URL = 'https://ko-fi.com/chaseos';
 
 // Helper to get element
 const getEl = (id) => document.getElementById(id);
@@ -248,6 +249,8 @@ function saveSetting(key, val) {
 
 // Add event listeners
 document.addEventListener('DOMContentLoaded', () => {
+    const kofiLink = getEl('kofi-link');
+    if (kofiLink) kofiLink.href = KOFI_URL;
 
     // Tab Switching
     document.querySelectorAll('.tab-btn').forEach(btn => {

@@ -70,6 +70,8 @@
       padding: 16px 20px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       position: sticky;
       top: 0;
       z-index: 10;
@@ -82,9 +84,100 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
+      line-height: 1.15;
     }
 
+    .logo span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .kofi-link {
+      position: relative;
+      box-sizing: border-box;
+      width: fit-content;
+      max-width: 154px;
+      height: 30px;
+      border-radius: var(--border-radius);
+      border: 1px solid transparent;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      padding: 0 8px;
+      color: var(--white);
+      cursor: pointer;
+      outline: none;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kofi-link:hover,
+    .kofi-link:focus-visible {
+      background: rgba(255, 90, 22, 0.16);
+      border-color: #ff5a16;
+      box-shadow: 0 0 12px rgba(255, 90, 22, 0.22);
+      transform: translateY(-1px) rotate(-2deg);
+    }
+
+    .kofi-link:hover .kofi-icon,
+    .kofi-link:focus-visible .kofi-icon {
+      animation: kofi-pop 0.45s ease;
+    }
+
+    .kofi-icon {
+      width: 18px;
+      height: 18px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .kofi-message {
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      flex: 0 1 auto;
+      line-height: 1;
+      max-width: 0;
+      min-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      text-overflow: ellipsis;
+      transform: translateX(4px);
+      transition: max-width 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .kofi-link:hover .kofi-message,
+    .kofi-link:focus-visible .kofi-message {
+      max-width: 96px;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @keyframes kofi-pop {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+
+      45% {
+        transform: scale(1.16) rotate(8deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
 
     .section {
       padding: 10px 16px;
@@ -507,7 +600,14 @@
   <div class="header">
     <div class="logo">
       <img src="icon.png" alt="Logo" width="24" height="24">
-      YouTube UI Cleaner
+      <span>YouTube UI Cleaner</span>
+    </div>
+    <div class="header-actions">
+      <a id="kofi-link" href="https://ko-fi.com/chaseos" target="_blank" rel="noopener noreferrer" class="kofi-link"
+        title="Support my work" aria-label="Support my work">
+        <span class="kofi-message">Support my work</span>
+        <img src="kofi_symbol.svg" alt="" class="kofi-icon">
+      </a>
     </div>
   </div>
 
