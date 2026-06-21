@@ -19,6 +19,17 @@ const keys = [
 const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch'];
 const groupedSubKeys = ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'];
 const KOFI_URL = 'https://ko-fi.com/chaseos';
+const REVIEW_STORE_URLS = Object.freeze({
+    chrome: 'https://chromewebstore.google.com/detail/youtube-ui-cleaner/blnbifjnjgpgfigcpkhcfkiiepokhkdf/reviews',
+    edge: 'https://microsoftedge.microsoft.com/addons/detail/youtube-ui-cleaner/dmfgeiiikimggajkkdefmngleooclhci',
+    firefox: 'https://addons.mozilla.org/en-US/firefox/addon/youtube-ui-cleaner/reviews/',
+    opera: 'https://addons.opera.com/en/extensions/details/youtube-ui-cleaner/#feedback-container'
+});
+const REVIEW_STORE_EXTENSION_IDS = Object.freeze({
+    chrome: 'blnbifjnjgpgfigcpkhcfkiiepokhkdf',
+    edge: 'dmfgeiiikimggajkkdefmngleooclhci',
+    firefox: '@youtube-ui-cleaner'
+});
 
 // Helper to get element
 const getEl = (id) => document.getElementById(id);
@@ -237,20 +248,115 @@ function updateMasterToggleState() {
 
 // Save specific key
 function saveSetting(key, val) {
-    chrome.storage.sync.set({ [key]: val }, () => {
-        // Notify content script
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs[0]) {
-                chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
-            }
-        });
+    saveSettingsAndNotify({ [key]: val });
+}
+
+function saveSettingsAndNotify(updates, options = {}) {
+    const shouldMarkInteraction = options.markInteraction !== false;
+    const payload = shouldMarkInteraction
+        ? { ...updates, hasInteractedWithApp: true }
+        : updates;
+
+    chrome.storage.sync.set(payload, () => {
+        if (shouldMarkInteraction) {
+            checkReviewPrompt();
+        }
+
+        notifyContentScript();
+
+        if (typeof options.onComplete === 'function') {
+            options.onComplete();
+        }
     });
+}
+
+function notifyContentScript() {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0]) {
+            chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
+        }
+    });
+}
+
+function checkReviewPrompt() {
+    chrome.storage.sync.get(['hasInteractedWithApp', 'reviewClicked'], updateReviewPromptVisibility);
+}
+
+function updateReviewPromptVisibility(state) {
+    const reviewCard = getEl('review-card');
+    if (!reviewCard) return;
+
+    reviewCard.style.display = state.hasInteractedWithApp && !state.reviewClicked
+        ? 'block'
+        : 'none';
+}
+
+function determineStoreUrl() {
+    return REVIEW_STORE_URLS[detectReviewStore()];
+}
+
+function getReviewRoutingEnvironment() {
+    const runtime = typeof chrome !== 'undefined' ? chrome.runtime : null;
+    const userAgentData = navigator.userAgentData || {};
+
+    return {
+        extensionId: runtime && runtime.id ? runtime.id : '',
+        extensionUrl: runtime && runtime.getURL ? runtime.getURL('') : '',
+        userAgent: navigator.userAgent || '',
+        userAgentBrands: Array.isArray(userAgentData.brands) ? userAgentData.brands : []
+    };
+}
+
+function detectReviewStore(env = getReviewRoutingEnvironment()) {
+    const extensionId = env.extensionId || '';
+    const extensionUrl = env.extensionUrl || '';
+    const ua = env.userAgent || '';
+    const brandText = (env.userAgentBrands || [])
+        .map(brand => brand && brand.brand)
+        .filter(Boolean)
+        .join(' ');
+
+    if (extensionId === REVIEW_STORE_EXTENSION_IDS.firefox || extensionUrl.startsWith('moz-extension://') || ua.includes('Firefox')) {
+        return 'firefox';
+    }
+
+    if (extensionId === REVIEW_STORE_EXTENSION_IDS.edge || /\bMicrosoft Edge\b/.test(brandText) || /Edg(A|iOS)?\//.test(ua)) {
+        return 'edge';
+    }
+
+    if (/\bOpera\b/.test(brandText) || ua.includes('OPR/') || ua.includes('Opera')) {
+        return 'opera';
+    }
+
+    return 'chrome';
 }
 
 // Add event listeners
 document.addEventListener('DOMContentLoaded', () => {
     const kofiLink = getEl('kofi-link');
     if (kofiLink) kofiLink.href = KOFI_URL;
+
+    const reviewLink = getEl('review-link');
+    if (reviewLink) {
+        reviewLink.href = determineStoreUrl();
+        reviewLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const reviewUrl = reviewLink.href;
+
+            chrome.storage.sync.set({ reviewClicked: true }, () => {
+                updateReviewPromptVisibility({
+                    hasInteractedWithApp: true,
+                    reviewClicked: true
+                });
+            });
+
+            if (reviewUrl && reviewUrl !== '#') {
+                chrome.tabs.create({ url: reviewUrl });
+            }
+        });
+    }
+
+    checkReviewPrompt();
 
     // Tab Switching
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -299,11 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const updates = { 'shorts': isChecked };
         subKeys.forEach(key => updates[key] = isChecked);
 
-        chrome.storage.sync.set(updates, () => {
-            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
-            });
-        });
+        saveSettingsAndNotify(updates);
     });
 
     // Sub-toggles
@@ -319,11 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updates['shorts'] = anyOn;
             }
 
-            chrome.storage.sync.set(updates, () => {
-                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                    if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
-                });
-            });
+            saveSettingsAndNotify(updates);
         });
     });
 
@@ -335,11 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const updates = { 'grouped': isChecked };
         groupedSubKeys.forEach(key => updates[key] = isChecked);
-        chrome.storage.sync.set(updates, () => {
-            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
-            });
-        });
+        saveSettingsAndNotify(updates);
     });
 
     // Grouped Videos Sub-toggles
@@ -355,11 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updates['grouped'] = anyOn;
             }
 
-            chrome.storage.sync.set(updates, () => {
-                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                    if (tabs[0]) chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
-                });
-            });
+            saveSettingsAndNotify(updates);
         });
     });
 

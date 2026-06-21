@@ -67,11 +67,11 @@
       border-bottom: 2px solid var(--primary-color);
       /* Red accent */
       color: var(--white);
-      padding: 16px 20px;
+      padding: 13px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       position: sticky;
       top: 0;
       z-index: 10;
@@ -79,7 +79,7 @@
     }
 
     .logo {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -105,7 +105,7 @@
       box-sizing: border-box;
       width: fit-content;
       max-width: 154px;
-      height: 30px;
+      height: 28px;
       border-radius: var(--border-radius);
       border: 1px solid transparent;
       background: transparent;
@@ -180,13 +180,11 @@
     }
 
     .section {
-      padding: 10px 16px;
-      /* Reduced padding from 12px 20px */
-      border-bottom: 1px solid var(--border-color);
+      padding: 8px 16px;
     }
 
     .section-content {
-      padding-top: 8px;
+      padding-top: 7px;
       display: grid;
       gap: 8px;
       overflow: hidden;
@@ -196,14 +194,14 @@
     .option {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
       cursor: pointer;
       /* Make whole row look clickable */
     }
 
     .option.sub-option {
-      padding-left: 44px;
+      padding-left: 40px;
     }
 
     .option.sub-option .option-title {
@@ -224,7 +222,8 @@
     .option-description {
       font-size: 12px;
       color: var(--text-secondary);
-      margin-top: 3px;
+      line-height: 1.25;
+      margin-top: 1px;
     }
 
     /* Consistent toggle switch styling */
@@ -299,7 +298,7 @@
     }
 
     .mt-4 {
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     .hidden {
@@ -311,17 +310,17 @@
       position: relative;
       display: flex;
       background-color: #2a2a2a;
-      padding: 4px;
-      margin: 8px 16px;
+      padding: 3px;
+      margin: 10px 16px 6px;
       border-radius: 8px;
     }
 
     .tab-slider {
       position: absolute;
-      top: 4px;
-      bottom: 4px;
-      left: 4px;
-      width: calc(50% - 4px);
+      top: 3px;
+      bottom: 3px;
+      left: 3px;
+      width: calc(50% - 3px);
       background-color: var(--primary-color);
       border-radius: 6px;
       transition: transform 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -338,7 +337,7 @@
       background: transparent;
       border: none;
       color: var(--text-secondary);
-      padding: 8px 12px;
+      padding: 6px 10px;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
@@ -593,6 +592,54 @@
     .icon-btn:hover {
       color: var(--primary-color);
     }
+
+    .review-card {
+      display: none;
+      margin: 2px 16px 3px;
+      padding: 9px 12px;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--border-radius);
+      background: rgba(204, 0, 0, 0.05);
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .review-card:hover {
+      background: rgba(204, 0, 0, 0.1);
+      border-color: var(--primary-color);
+      transform: translateY(-1px);
+    }
+
+    .review-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      line-height: 1.2;
+    }
+
+    .review-link:hover {
+      color: var(--white);
+    }
+
+    .star-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: #fbbf24;
+      fill: #fbbf24;
+    }
+
+    .prompt-external-icon {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
   </style>
 </head>
 
@@ -619,7 +666,7 @@
 
   <div class="container">
     <div id="view-general" class="view active">
-    <div class="section" style="padding-bottom: 12px;">
+    <div class="section" style="padding-bottom: 8px;">
       <div class="section-content">
         <!-- Shorts Main Option -->
         <div class="option">
@@ -775,6 +822,20 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div id="review-card" class="review-card">
+      <a id="review-link" href="https://chromewebstore.google.com/detail/youtube-ui-cleaner/blnbifjnjgpgfigcpkhcfkiiepokhkdf/reviews" target="_blank" rel="noopener noreferrer" class="review-link">
+        <svg class="star-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+        </svg>
+        <span>Find it useful? Leave a review</span>
+        <svg class="prompt-external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
     </div>
   </div>
 
