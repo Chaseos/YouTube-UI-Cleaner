@@ -25,10 +25,22 @@ const REVIEW_STORE_URLS = Object.freeze({
     firefox: 'https://addons.mozilla.org/en-US/firefox/addon/youtube-ui-cleaner/reviews/',
     opera: 'https://addons.opera.com/en/extensions/details/youtube-ui-cleaner/#feedback-container'
 });
+const SIMPLE_VIDEO_SPEED_CONTROLLER_STORE_URLS = Object.freeze({
+    chrome: 'https://chromewebstore.google.com/detail/simple-video-speed-contro/kcjfpmjkbkhgojilpihplkedadndnked',
+    edge: 'https://microsoftedge.microsoft.com/addons/detail/simple-video-speed-contro/mnmagmdfgdjhbfkdnonnhkfnbnjpehja',
+    firefox: 'https://addons.mozilla.org/en-US/firefox/addon/simple-video-speed-controller/',
+    opera: 'https://addons.opera.com/en/extensions/details/simple-video-speed-controller/'
+});
 const REVIEW_STORE_EXTENSION_IDS = Object.freeze({
     chrome: 'blnbifjnjgpgfigcpkhcfkiiepokhkdf',
     edge: 'dmfgeiiikimggajkkdefmngleooclhci',
     firefox: '@youtube-ui-cleaner'
+});
+const SIMPLE_VIDEO_SPEED_CONTROLLER_AD = Object.freeze({
+    cardId: 'simple-video-speed-controller-ad-card',
+    linkId: 'simple-video-speed-controller-ad-link',
+    storageKey: 'simpleVideoSpeedControllerAdShown',
+    urls: SIMPLE_VIDEO_SPEED_CONTROLLER_STORE_URLS
 });
 
 // Helper to get element
@@ -279,20 +291,51 @@ function notifyContentScript() {
 }
 
 function checkReviewPrompt() {
-    chrome.storage.sync.get(['hasInteractedWithApp', 'reviewClicked'], updateReviewPromptVisibility);
+    chrome.storage.sync.get([
+        'hasInteractedWithApp',
+        'reviewClicked',
+        SIMPLE_VIDEO_SPEED_CONTROLLER_AD.storageKey
+    ], updateReviewPromptVisibility);
 }
 
 function updateReviewPromptVisibility(state) {
     const reviewCard = getEl('review-card');
-    if (!reviewCard) return;
+    if (!reviewCard) {
+        updatePromotedExtensionAdVisibility(state);
+        return;
+    }
 
-    reviewCard.style.display = state.hasInteractedWithApp && !state.reviewClicked
-        ? 'block'
-        : 'none';
+    const shouldShowReviewPrompt = state.hasInteractedWithApp && !state.reviewClicked;
+
+    reviewCard.style.display = shouldShowReviewPrompt ? 'block' : 'none';
+
+    if (shouldShowReviewPrompt) {
+        hidePromotedExtensionAd();
+    } else {
+        updatePromotedExtensionAdVisibility(state);
+    }
 }
 
 function determineStoreUrl() {
     return REVIEW_STORE_URLS[detectReviewStore()];
+}
+
+function determineSimpleVideoSpeedControllerStoreUrl() {
+    return SIMPLE_VIDEO_SPEED_CONTROLLER_AD.urls[detectReviewStore()];
+}
+
+function updatePromotedExtensionAdVisibility(state) {
+    const card = getEl(SIMPLE_VIDEO_SPEED_CONTROLLER_AD.cardId);
+    if (!card) return;
+
+    card.style.display = state.reviewClicked && !state[SIMPLE_VIDEO_SPEED_CONTROLLER_AD.storageKey]
+        ? 'block'
+        : 'none';
+}
+
+function hidePromotedExtensionAd() {
+    const card = getEl(SIMPLE_VIDEO_SPEED_CONTROLLER_AD.cardId);
+    if (card) card.style.display = 'none';
 }
 
 function getReviewRoutingEnvironment() {
@@ -346,12 +389,30 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.storage.sync.set({ reviewClicked: true }, () => {
                 updateReviewPromptVisibility({
                     hasInteractedWithApp: true,
-                    reviewClicked: true
+                    reviewClicked: true,
+                    [SIMPLE_VIDEO_SPEED_CONTROLLER_AD.storageKey]: false
                 });
             });
 
             if (reviewUrl && reviewUrl !== '#') {
                 chrome.tabs.create({ url: reviewUrl });
+            }
+        });
+    }
+
+    const promotedExtensionLink = getEl(SIMPLE_VIDEO_SPEED_CONTROLLER_AD.linkId);
+    if (promotedExtensionLink) {
+        promotedExtensionLink.href = determineSimpleVideoSpeedControllerStoreUrl();
+        promotedExtensionLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const promotedExtensionUrl = promotedExtensionLink.href;
+
+            chrome.storage.sync.set({ [SIMPLE_VIDEO_SPEED_CONTROLLER_AD.storageKey]: true }, () => {
+                hidePromotedExtensionAd();
+            });
+
+            if (promotedExtensionUrl && promotedExtensionUrl !== '#') {
+                chrome.tabs.create({ url: promotedExtensionUrl });
             }
         });
     }

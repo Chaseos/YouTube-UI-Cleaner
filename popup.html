@@ -593,10 +593,11 @@
       color: var(--primary-color);
     }
 
-    .review-card {
+    .review-card,
+    .extension-ad-card {
       display: none;
       margin: 2px 16px 3px;
-      padding: 9px 12px;
+      padding: 5px 10px;
       border: 1px dashed var(--border-color);
       border-radius: var(--border-radius);
       background: rgba(204, 0, 0, 0.05);
@@ -604,13 +605,24 @@
       flex-shrink: 0;
     }
 
-    .review-card:hover {
+    .review-card:hover,
+    .extension-ad-card:hover {
       background: rgba(204, 0, 0, 0.1);
       border-color: var(--primary-color);
       transform: translateY(-1px);
     }
 
-    .review-link {
+    .extension-ad-card {
+      background: rgba(18, 135, 76, 0.08);
+    }
+
+    .extension-ad-card:hover {
+      background: rgba(18, 135, 76, 0.14);
+      border-color: #18a765;
+    }
+
+    .review-link,
+    .extension-ad-link {
       color: var(--text-secondary);
       text-decoration: none;
       font-size: 12px;
@@ -619,10 +631,11 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      line-height: 1.2;
+      line-height: 1.08;
     }
 
-    .review-link:hover {
+    .review-link:hover,
+    .extension-ad-link:hover {
       color: var(--white);
     }
 
@@ -639,6 +652,27 @@
       height: 13px;
       flex-shrink: 0;
       opacity: 0.65;
+    }
+
+    .extension-ad-icon {
+      border-radius: 3px;
+      display: block;
+      flex-shrink: 0;
+      height: 16px;
+      width: 16px;
+    }
+
+    .extension-ad-copy {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 0;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .extension-ad-copy span {
+      display: block;
     }
   </style>
 </head>
@@ -666,7 +700,7 @@
 
   <div class="container">
     <div id="view-general" class="view active">
-    <div class="section" style="padding-bottom: 8px;">
+    <div class="section" style="padding-top: 4px; padding-bottom: 8px;">
       <div class="section-content">
         <!-- Shorts Main Option -->
         <div class="option">
@@ -830,6 +864,21 @@
           <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
         </svg>
         <span>Find it useful? Leave a review</span>
+        <svg class="prompt-external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+    </div>
+
+    <div id="simple-video-speed-controller-ad-card" class="extension-ad-card">
+      <a id="simple-video-speed-controller-ad-link" href="https://chromewebstore.google.com/detail/simple-video-speed-contro/kcjfpmjkbkhgojilpihplkedadndnked" target="_blank" rel="noopener noreferrer" class="extension-ad-link">
+        <img src="simple-video-speed-controller-icon.png" alt="" class="extension-ad-icon">
+        <span class="extension-ad-copy">
+          <span>Need speed controls?</span>
+          <span>Try Simple Video Speed Controller.</span>
+        </span>
         <svg class="prompt-external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
           <polyline points="15 3 21 3 21 9"></polyline>
