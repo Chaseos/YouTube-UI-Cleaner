@@ -9,7 +9,7 @@ The **YouTube UI Cleaner** extension does **not** collect, store, or transmit an
 ## Permissions
 
 -   **Storage**: Used to save your preference settings locally (e.g., whether you want to hide Shorts or Paid Promotions).
--   **Scripting / ActiveTab**: Used to modify the CSS and HTML on YouTube.com to hide specific elements based on your settings.
+-   **YouTube host access**: Used to run the extension's cleanup logic on YouTube.com based on your settings.
 
 ## Data Sharing
 

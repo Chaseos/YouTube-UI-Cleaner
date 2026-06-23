@@ -55,7 +55,6 @@ Settings are saved with browser sync storage and apply automatically as YouTube 
 ## Permissions
 
 - `storage`: Saves your toggle settings and custom keyword filter groups.
-- `scripting`: Supports extension behavior on YouTube pages.
 - `*://*.youtube.com/*`: Runs the cleanup logic only on YouTube.
 
 The extension does not require data collection. The manifest also declares `none` for Firefox data collection permissions.
