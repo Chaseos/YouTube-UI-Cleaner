@@ -145,4 +145,45 @@ html.yt-hide-feed-pills ytd-feed-filter-chip-bar-renderer {
 
 .custom-hover-action-btn svg {
     fill: #fff;
+    pointer-events: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Watch-page recommendations use smaller thumbnails than feed previews. */
+.custom-watch-buttons-container {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.has-custom-watch-buttons .ytLockupViewModelHost,
+ytd-compact-video-renderer.has-custom-watch-buttons {
+    position: relative;
+}
+
+.has-custom-watch-buttons:hover .custom-watch-buttons-container,
+.has-custom-watch-buttons:focus-within .custom-watch-buttons-container {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.custom-hover-btn--compact {
+    width: 30px;
+    height: 30px;
+    animation: none;
+    background-color: rgba(0, 0, 0, 0.72);
+}
+
+.custom-hover-btn--compact .custom-hover-action-btn {
+    width: 19px;
+    height: 19px;
 }

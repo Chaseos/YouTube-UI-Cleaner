@@ -1,6 +1,6 @@
 # YouTube UI Cleaner
 
-YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube surfaces so feeds, search results, subscriptions, and video pages feel calmer. It can hide Shorts, grouped video results, live streams, paid promotion overlays, home feed pills, dismissable feed sections, Playables shelves, and custom keyword matches.
+YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube surfaces so feeds, search results, subscriptions, and video pages feel calmer. It can hide Shorts, grouped video results, live streams, paid promotion overlays, home feed pills, dismissible feed sections, Playables shelves, and custom keyword matches.
 
 ## Features
 
@@ -15,7 +15,7 @@ YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube s
 
 - **Hide Grouped Videos**: Removes grouped recommendation formats with separate controls for Mixes, Podcasts, and Playlists.
 - **Hide Live Streams**: Removes live stream videos and live sidebar entries detected by live badges, thumbnail overlays, and broadcast indicators.
-- **Hide Dismissable Sections**: Removes feed sections such as Community posts, nudges, AI recommendations, and similar interruptive modules.
+- **Hide Dismissible Sections**: Removes feed sections such as Community posts, nudges, AI recommendations, and similar interruptive modules.
 - **Hide Home Feed Pills**: Hides the category filter chips at the top of the home feed.
 - **Hide Playables**: Removes YouTube Playables shelves.
 
@@ -32,8 +32,55 @@ YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube s
 
 ### Quick Hover Actions
 
-- **Watch Later Shortcut**: Adds a Watch Later button to YouTube's inline hover preview controls.
-- **Not Interested Shortcut**: Adds a Not Interested button to the same hover controls, using YouTube's native menu action behind the scenes.
+- **Watch Later Shortcut**: Adds a Watch Later button to YouTube's inline hover previews and watch-page recommendation thumbnails.
+- **Not Interested Shortcut**: Adds a Not Interested button to the same hover surfaces, using YouTube's native menu action behind the scenes.
+
+## Store Listing Copy
+
+### Suggested Title
+
+YouTube UI Cleaner: Hide Shorts & Distractions
+
+### Short Description
+
+Hide YouTube Shorts, live streams, mixes, playlists, promotions, and unwanted topics for a cleaner, distraction-free feed.
+
+### Full Description
+
+Take control of what appears on YouTube. YouTube UI Cleaner hides distracting video formats, unwanted topics, and clutter across your Home feed, subscriptions, search results, and watch pages.
+
+Every feature can be controlled individually, allowing you to create a cleaner YouTube experience without replacing or redesigning the interface.
+
+#### Cleaner YouTube Feeds
+
+- Hide Shorts from the Home feed, subscriptions, search results, and sidebar navigation.
+- Hide Mixes, podcasts, and playlists.
+- Hide live streams and live video recommendations.
+- Remove dismissible feed sections such as Community posts, nudges, and recommendation shelves.
+- Hide category filter chips from the top of the Home feed.
+- Remove "Includes paid promotion" overlays from videos.
+
+#### Custom Keyword Filters
+
+Create named filter groups for topics you do not want to see—such as spoilers, sports results, celebrity news, reactions, or reviews. Enabled filters automatically hide video cards containing matching text.
+
+#### Quick Video Actions
+
+Hover over supported video thumbnails to access Watch Later and Not Interested without opening the three-dot menu. These shortcuts work in feeds and on recommendations shown beside or below the video you are watching.
+
+The shortcuts use YouTube's native actions, preserving normal confirmation messages and Undo behavior.
+
+#### Private and Open Source
+
+YouTube UI Cleaner operates locally and does not collect, store, or transmit personal data.
+
+Source code:
+
+https://github.com/Chaseos/YouTube-UI-Cleaner
+
+Support development on Ko-fi:
+
+https://ko-fi.com/chaseos
 
 ## Installation
 
@@ -42,6 +89,21 @@ YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube s
 3. Enable **Developer mode**.
 4. Click **Load unpacked**.
 5. Select this project folder.
+
+## Building Release Packages
+
+Run the following command from the project directory:
+
+```sh
+npm run build
+```
+
+This creates unpacked and zipped builds in `dist/`:
+
+- `dist/chromium/` and `dist/youtube-ui-cleaner-chromium.zip` omit Firefox-only manifest settings.
+- `dist/firefox/` and `dist/youtube-ui-cleaner-firefox.zip` retain `browser_specific_settings.gecko`.
+
+The packages exclude development files such as `.git/`, `.github/`, `node_modules/`, tests, build scripts, package metadata, and existing ZIP archives.
 
 ## Usage
 

@@ -15,3 +15,6 @@ yarn-error.log
 *.swp
 
 extension.zip
+
+# Generated extension packages
+dist/
