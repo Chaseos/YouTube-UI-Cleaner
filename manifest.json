@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "YouTube UI Cleaner",
-    "version": "2.5",
+    "version": "2.6",
     "description": "Hide Shorts, Grouped Videos, Live Streams, Paid Promos, and use Custom Keyword Filters for a cleaner YouTube experience.",
     "permissions": [
         "storage"

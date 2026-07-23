@@ -5,6 +5,7 @@ const keys = [
     'shortsHome',
     'shortsSubs',
     'shortsSearch',
+    'shortsSidebar',
     'playables',
     'paidPromotion',
     'grouped',
@@ -12,12 +13,20 @@ const keys = [
     'groupedPodcasts',
     'groupedPlaylists',
     'hideLive',
+    'hideUpcoming',
+    'hideMembersOnly',
+    'hideFeaturedServices',
     'feedPills',
     'hideSections'
 ];
 
-const subKeys = ['shortsHome', 'shortsSubs', 'shortsSearch'];
-const groupedSubKeys = ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'];
+const toggleGroups = Object.freeze([
+    { masterId: 'shorts', childKeys: ['shortsHome', 'shortsSidebar', 'shortsSubs', 'shortsSearch'], storeMaster: true },
+    { masterId: 'grouped', childKeys: ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'], storeMaster: true },
+    { masterId: 'liveUpcoming', childKeys: ['hideLive', 'hideUpcoming'], storeMaster: false },
+    { masterId: 'feedExtras', childKeys: ['feedPills', 'hideSections'], storeMaster: false },
+    { masterId: 'promotions', childKeys: ['hideFeaturedServices', 'paidPromotion'], storeMaster: false }
+]);
 const KOFI_URL = 'https://ko-fi.com/chaseos';
 const REVIEW_STORE_URLS = Object.freeze({
     chrome: 'https://chromewebstore.google.com/detail/youtube-ui-cleaner/blnbifjnjgpgfigcpkhcfkiiepokhkdf/reviews',
@@ -59,10 +68,20 @@ chrome.storage.sync.get([...keys, 'customFilters'], (result) => {
     // Let's default all to true for "cleaner" experience out of box.
     const settings = {};
     keys.forEach(key => {
-        settings[key] = result[key] !== undefined ? result[key] : true;
+        // When the sidebar setting was previously removed, it followed the
+        // Home setting. Preserve that behavior until the user changes it.
+        settings[key] = key === 'shortsSidebar' && result[key] === undefined
+            ? (result.shortsHome !== undefined ? result.shortsHome : true)
+            : (result[key] !== undefined ? result[key] : true);
         const el = getEl(key);
         if (el) el.checked = settings[key];
     });
+
+    // Persist the inferred value once so Home and Sidebar are independent
+    // after this migration, even if only the Home option changes later.
+    if (result.shortsSidebar === undefined) {
+        chrome.storage.sync.set({ shortsSidebar: settings.shortsSidebar });
+    }
 
     // Handle custom filters list
     customFilters = result['customFilters'] || [];
@@ -249,13 +268,14 @@ function renderFilters(focusId = null) {
     });
 }
 
-// Update Main Toggle based on Sub-toggles
+// Update grouped master toggles, including a mixed-state indicator.
 function updateMasterToggleState() {
-    const anySubOn = subKeys.some(key => getEl(key).checked);
-    getEl('shorts').checked = anySubOn;
-
-    const anyGroupedOn = groupedSubKeys.some(key => getEl(key).checked);
-    if (getEl('grouped')) getEl('grouped').checked = anyGroupedOn;
+    toggleGroups.forEach(({ masterId, childKeys }) => {
+        const master = getEl(masterId);
+        const enabledCount = childKeys.filter(key => getEl(key).checked).length;
+        master.checked = enabledCount === childKeys.length;
+        master.indeterminate = enabledCount > 0 && enabledCount < childKeys.length;
+    });
 }
 
 // Save specific key
@@ -453,69 +473,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Main Shorts Toggle
-    getEl('shorts').addEventListener('change', (e) => {
-        const isChecked = e.target.checked;
+    // Expandable master toggles and their independent child settings.
+    toggleGroups.forEach(({ masterId, childKeys, storeMaster }) => {
+        getEl(masterId).addEventListener('change', (e) => {
+            const isChecked = e.target.checked;
+            e.target.indeterminate = false;
 
-        // Update UI for sub-toggles
-        subKeys.forEach(key => {
-            getEl(key).checked = isChecked;
-        });
-
-        // Save all states
-        const updates = { 'shorts': isChecked };
-        subKeys.forEach(key => updates[key] = isChecked);
-
-        saveSettingsAndNotify(updates);
-    });
-
-    // Sub-toggles
-    subKeys.forEach(key => {
-        getEl(key).addEventListener('change', (e) => {
-            const anyOn = subKeys.some(k => getEl(k).checked);
-            const masterEl = getEl('shorts');
-            
-            const updates = { [key]: e.target.checked };
-            
-            if (masterEl.checked !== anyOn) {
-                masterEl.checked = anyOn;
-                updates['shorts'] = anyOn;
-            }
+            const updates = {};
+            childKeys.forEach(key => {
+                getEl(key).checked = isChecked;
+                updates[key] = isChecked;
+            });
+            if (storeMaster) updates[masterId] = isChecked;
 
             saveSettingsAndNotify(updates);
         });
-    });
 
-    // Main Grouped Videos Toggle
-    getEl('grouped').addEventListener('change', (e) => {
-        const isChecked = e.target.checked;
-        groupedSubKeys.forEach(key => {
-            getEl(key).checked = isChecked;
+        childKeys.forEach(key => {
+            getEl(key).addEventListener('change', (e) => {
+                updateMasterToggleState();
+                const updates = { [key]: e.target.checked };
+                if (storeMaster) updates[masterId] = getEl(masterId).checked;
+                saveSettingsAndNotify(updates);
+            });
         });
-        const updates = { 'grouped': isChecked };
-        groupedSubKeys.forEach(key => updates[key] = isChecked);
-        saveSettingsAndNotify(updates);
     });
 
-    // Grouped Videos Sub-toggles
-    groupedSubKeys.forEach(key => {
-        getEl(key).addEventListener('change', (e) => {
-            const anyOn = groupedSubKeys.some(k => getEl(k).checked);
-            const masterEl = getEl('grouped');
-            
-            const updates = { [key]: e.target.checked };
-
-            if (masterEl.checked !== anyOn) {
-                masterEl.checked = anyOn;
-                updates['grouped'] = anyOn;
-            }
-
-            saveSettingsAndNotify(updates);
+    document.querySelectorAll('.group-expander').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const group = button.closest('.option-group');
+            const isExpanded = group.classList.toggle('expanded');
+            const children = group.querySelector('.option-group-children');
+            children.toggleAttribute('inert', !isExpanded);
+            children.setAttribute('aria-hidden', String(!isExpanded));
+            button.setAttribute('aria-expanded', String(isExpanded));
+            button.setAttribute('aria-label', button.getAttribute('aria-label').replace(isExpanded ? 'Show' : 'Hide', isExpanded ? 'Hide' : 'Show'));
         });
     });
 
     // Other separate toggles
-    ['playables', 'paidPromotion', 'hideLive', 'feedPills', 'hideSections'].forEach(key => {
+    ['playables', 'hideMembersOnly'].forEach(key => {
         getEl(key).addEventListener('change', (e) => {
             saveSetting(key, e.target.checked);
         });
@@ -525,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.option').forEach(option => {
         option.addEventListener('click', (e) => {
             // If the user clicked the toggle itself, do nothing (let default behavior happen)
-            if (e.target.closest('.toggle')) return;
+            if (e.target.closest('.toggle, .group-expander')) return;
 
             // Otherwise, find the checkbox and click it
             const checkbox = option.querySelector('input[type="checkbox"]');

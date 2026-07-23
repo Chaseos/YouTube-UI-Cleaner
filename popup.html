@@ -208,6 +208,59 @@
       font-size: 13px;
     }
 
+    .option-group {
+      display: grid;
+      gap: 0;
+    }
+
+    .option-group-children {
+      display: grid;
+      gap: 8px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.22s ease, opacity 0.18s ease, margin-top 0.22s ease;
+    }
+
+    .option-group.expanded .option-group-children {
+      max-height: 180px;
+      margin-top: 8px;
+      opacity: 1;
+    }
+
+    .group-expander {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .group-expander:hover,
+    .group-expander:focus-visible {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+    }
+
+    .group-expander svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      transition: transform 0.22s ease;
+    }
+
+    .option-group.expanded .group-expander svg {
+      transform: rotate(90deg);
+    }
+
     .option-content {
       flex: 1;
     }
@@ -271,6 +324,15 @@
 
     input:checked+.toggle-slider:before {
       transform: translateX(16px);
+      background-color: #fff;
+    }
+
+    input:indeterminate+.toggle-slider {
+      background-color: #7a3d3d;
+    }
+
+    input:indeterminate+.toggle-slider:before {
+      transform: translateX(8px);
       background-color: #fff;
     }
 
@@ -702,120 +764,133 @@
     <div id="view-general" class="view active">
     <div class="section" style="padding-top: 4px; padding-bottom: 8px;">
       <div class="section-content">
-        <!-- Shorts Main Option -->
-        <div class="option">
-          <label class="toggle">
-            <input type="checkbox" id="shorts">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Hide Shorts</div>
+        <!-- Shorts Group -->
+        <div class="option-group" data-group="shorts">
+          <div class="option option-group-header">
+            <label class="toggle">
+              <input type="checkbox" id="shorts">
+              <span class="toggle-slider"></span>
+            </label>
+            <div class="option-content">
+              <div class="option-title">Hide Shorts</div>
+            </div>
+            <button type="button" class="group-expander" aria-label="Show Shorts options" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
+            </button>
+          </div>
+          <div class="option-group-children" aria-hidden="true" inert>
+            <div class="option sub-option">
+              <label class="toggle">
+                <input type="checkbox" id="shortsHome">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="option-content"><div class="option-title">Home</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle">
+                <input type="checkbox" id="shortsSidebar">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="option-content"><div class="option-title">Sidebar Button</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle">
+                <input type="checkbox" id="shortsSubs">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="option-content"><div class="option-title">Subscriptions</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle">
+                <input type="checkbox" id="shortsSearch">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="option-content"><div class="option-title">Search Results</div></div>
+            </div>
           </div>
         </div>
 
-        <!-- Shorts Sub-options -->
-        <div class="option sub-option">
-          <label class="toggle">
-            <input type="checkbox" id="shortsHome">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Home</div>
+        <!-- Grouped Videos Group -->
+        <div class="option-group mt-4" data-group="grouped">
+          <div class="option option-group-header">
+            <label class="toggle">
+              <input type="checkbox" id="grouped">
+              <span class="toggle-slider"></span>
+            </label>
+            <div class="option-content"><div class="option-title">Hide Grouped Videos</div></div>
+            <button type="button" class="group-expander" aria-label="Show grouped video options" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
+            </button>
+          </div>
+          <div class="option-group-children" aria-hidden="true" inert>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="groupedMixes"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title">Mixes</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="groupedPodcasts"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title">Podcasts</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="groupedPlaylists"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title">Playlists</div></div>
+            </div>
           </div>
         </div>
 
-        <div class="option sub-option">
-          <label class="toggle">
-            <input type="checkbox" id="shortsSubs">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Subscriptions</div>
+        <!-- Live and Upcoming Group -->
+        <div class="option-group mt-4" data-group="live-upcoming">
+          <div class="option option-group-header">
+            <label class="toggle"><input type="checkbox" id="liveUpcoming"><span class="toggle-slider"></span></label>
+            <div class="option-content"><div class="option-title">Hide Live &amp; Upcoming</div></div>
+            <button type="button" class="group-expander" aria-label="Show live and upcoming options" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
+            </button>
+          </div>
+          <div class="option-group-children" aria-hidden="true" inert>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="hideLive"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title">Live Streams</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="hideUpcoming"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title">Upcoming Videos &amp; Premieres</div></div>
+            </div>
           </div>
         </div>
 
-        <div class="option sub-option">
-          <label class="toggle">
-            <input type="checkbox" id="shortsSearch">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Search Results</div>
-          </div>
-        </div>
-
-        <!-- Grouped Videos Option -->
+        <!-- Members-only Videos Option -->
         <div class="option mt-4">
-          <label class="toggle">
-            <input type="checkbox" id="grouped">
-            <span class="toggle-slider"></span>
-          </label>
+          <label class="toggle"><input type="checkbox" id="hideMembersOnly"><span class="toggle-slider"></span></label>
           <div class="option-content">
-            <div class="option-title">Hide Grouped Videos</div>
+            <div class="option-title">Hide Members-Only Videos</div>
           </div>
         </div>
 
-        <div class="option sub-option">
-          <label class="toggle">
-            <input type="checkbox" id="groupedMixes">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Mixes</div>
+        <!-- Home Feed Extras Group -->
+        <div class="option-group mt-4" data-group="feed-extras">
+          <div class="option option-group-header">
+            <label class="toggle"><input type="checkbox" id="feedExtras"><span class="toggle-slider"></span></label>
+            <div class="option-content"><div class="option-title">Hide Home Feed Extras</div></div>
+            <button type="button" class="group-expander" aria-label="Show Home feed extra options" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
+            </button>
           </div>
-        </div>
-
-        <div class="option sub-option">
-          <label class="toggle">
-            <input type="checkbox" id="groupedPodcasts">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Podcasts</div>
-          </div>
-        </div>
-
-        <div class="option sub-option">
-          <label class="toggle">
-            <input type="checkbox" id="groupedPlaylists">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Playlists</div>
-          </div>
-        </div>
-
-        <!-- Live Streams Option -->
-        <div class="option mt-4">
-          <label class="toggle">
-            <input type="checkbox" id="hideLive">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Hide Live Streams</div>
-          </div>
-        </div>
-
-        <!-- Feed Pills Option -->
-        <div class="option mt-4">
-          <label class="toggle">
-            <input type="checkbox" id="feedPills">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Hide Home Feed Pills</div>
-          </div>
-        </div>
-
-        <!-- Dismissable Sections Option -->
-        <div class="option mt-4">
-          <label class="toggle">
-            <input type="checkbox" id="hideSections">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Hide Dismissable Sections</div>
-            <div class="option-description">Community posts, AI recs, etc.</div>
+          <div class="option-group-children" aria-hidden="true" inert>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="feedPills"><span class="toggle-slider"></span></label>
+              <div class="option-content">
+                <div class="option-title">Feed Pills</div>
+                <div class="option-description">Top categories on Home</div>
+              </div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="hideSections"><span class="toggle-slider"></span></label>
+              <div class="option-content">
+                <div class="option-title">Dismissible Sections</div>
+                <div class="option-description">Community posts, AI recs, etc.</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -831,14 +906,27 @@
           </div>
         </div>
 
-        <!-- Paid Promotion Option -->
-        <div class="option mt-4">
-          <label class="toggle">
-            <input type="checkbox" id="paidPromotion">
-            <span class="toggle-slider"></span>
-          </label>
-          <div class="option-content">
-            <div class="option-title">Hide Paid Promotion Banners</div>
+        <!-- Promotions Group -->
+        <div class="option-group mt-4" data-group="promotions">
+          <div class="option option-group-header">
+            <label class="toggle"><input type="checkbox" id="promotions"><span class="toggle-slider"></span></label>
+            <div class="option-content"><div class="option-title">Hide Promotions</div></div>
+            <button type="button" class="group-expander" aria-label="Show promotion options" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
+            </button>
+          </div>
+          <div class="option-group-children" aria-hidden="true" inert>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="hideFeaturedServices"><span class="toggle-slider"></span></label>
+              <div class="option-content">
+                <div class="option-title">Featured Service Videos</div>
+                <div class="option-description">Subscription and trial offers from additional services</div>
+              </div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle"><input type="checkbox" id="paidPromotion"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title">Paid Promotion Banners</div></div>
+            </div>
           </div>
         </div>
 

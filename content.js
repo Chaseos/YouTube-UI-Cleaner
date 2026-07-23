@@ -3,6 +3,7 @@
 console.log('YouTube Feed Cleaner: Active');
 
 let currentCustomFilters = [];
+const MEMBERS_ONLY_ICON_PATH_PREFIX = 'M6 .5a5.5 5.5 0 100 11';
 
 // Function to update classes on the HTML element
 function updateClasses(settings) {
@@ -20,6 +21,10 @@ function updateClasses(settings) {
     if (settings.shortsSearch) html.classList.add('yt-hide-shorts-search');
     else html.classList.remove('yt-hide-shorts-search');
 
+    // Shorts: Sidebar
+    if (settings.shortsSidebar) html.classList.add('yt-hide-shorts-sidebar');
+    else html.classList.remove('yt-hide-shorts-sidebar');
+
     // Playables
     if (settings.playables) html.classList.add('yt-hide-playables');
     else html.classList.remove('yt-hide-playables');
@@ -27,6 +32,18 @@ function updateClasses(settings) {
     // Paid Promotion
     if (settings.paidPromotion) html.classList.add('yt-hide-promoted');
     else html.classList.remove('yt-hide-promoted');
+
+    // Featured videos promoting trials for external content services
+    if (settings.hideFeaturedServices) html.classList.add('yt-hide-featured-services');
+    else html.classList.remove('yt-hide-featured-services');
+
+    // Videos restricted to channel members
+    if (settings.hideMembersOnly) html.classList.add('yt-hide-members-only');
+    else html.classList.remove('yt-hide-members-only');
+
+    // Scheduled videos and premieres that are not watchable yet
+    if (settings.hideUpcoming) html.classList.add('yt-hide-upcoming');
+    else html.classList.remove('yt-hide-upcoming');
 
     // Grouped Videos
     if (settings.groupedMixes) html.classList.add('yt-hide-mixes');
@@ -165,7 +182,58 @@ function tagElements() {
         }
     });
 
-    // 6. Tag Live Streams
+    // 6. Tag Featured Service Videos
+    const potentialFeaturedServices = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer');
+    potentialFeaturedServices.forEach(el => {
+        // The commerce + promoted badge pairing is the stable signal in the
+        // current lockup. The visible CTA is retained as a fallback for older
+        // or experimental markup that does not expose the promoted class.
+        const commerceBadge = el.querySelector('.ytBadgeShapeCommerce, .yt-badge-shape--commerce');
+        const promotedBadge = el.querySelector('.ytBadgeShapePromoted, .yt-badge-shape--promoted');
+        const tryNowBadge = Array.from(el.querySelectorAll('badge-shape, .yt-badge-shape')).some(badge => {
+            const ariaLabel = badge.getAttribute('aria-label') || '';
+            return ariaLabel.trim().toLowerCase() === 'try now' || badge.textContent.trim().toLowerCase() === 'try now';
+        });
+
+        el.classList.toggle('is-featured-service-item', Boolean((commerceBadge && promotedBadge) || tryNowBadge));
+    });
+
+    // 7. Tag Members-only Videos
+    const filterableVideoCards = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer');
+    filterableVideoCards.forEach(el => {
+        const structuralBadge = el.querySelector('ytd-members-only-badge-renderer, .badge-style-type-members-only, .ytBadgeShapeMembersOnly, .yt-badge-shape--members-only, [overlay-style="MEMBERS_ONLY"]');
+        const commerceBadge = el.querySelector('.ytBadgeShapeCommerce, .yt-badge-shape--commerce');
+        const membersOnlyIcon = commerceBadge && Array.from(commerceBadge.querySelectorAll('path[d]')).some(path => {
+            return path.getAttribute('d').startsWith(MEMBERS_ONLY_ICON_PATH_PREFIX);
+        });
+        const textBadge = Array.from(el.querySelectorAll('badge-shape, ytd-badge-supported-renderer, .yt-badge-shape')).some(badge => {
+            const ariaLabel = (badge.getAttribute('aria-label') || '').trim().toLowerCase();
+            const visibleText = (badge.textContent || '').trim().toLowerCase();
+            return ariaLabel === 'members only' || ariaLabel === 'members-only' || visibleText === 'members only' || visibleText === 'members-only';
+        });
+
+        el.classList.toggle('is-members-only-item', Boolean(structuralBadge || membersOnlyIcon || textBadge));
+    });
+
+    // 8. Tag Upcoming Videos and Premieres
+    filterableVideoCards.forEach(el => {
+        const structuralBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"], .badge-style-type-upcoming, .ytBadgeShapeUpcoming, .yt-badge-shape--upcoming, [overlay-style="UPCOMING"]');
+        const textBadge = Array.from(el.querySelectorAll('badge-shape, ytd-badge-supported-renderer, ytd-thumbnail-overlay-time-status-renderer, .yt-badge-shape')).some(badge => {
+            const ariaLabel = (badge.getAttribute('aria-label') || '').trim().toLowerCase();
+            const visibleText = (badge.textContent || '').trim().toLowerCase();
+            return ariaLabel === 'upcoming' || visibleText === 'upcoming' || ariaLabel.startsWith('premieres ');
+        });
+        const scheduledMetadata = Array.from(el.querySelectorAll('.ytContentMetadataViewModelMetadataRow, #metadata-line')).some(row => {
+            return (row.textContent || '').trim().toLowerCase().startsWith('scheduled for ');
+        });
+        const notifyAction = Array.from(el.querySelectorAll('lockup-attachments-view-model button, ytd-button-renderer button')).some(button => {
+            return (button.textContent || '').trim().toLowerCase() === 'notify me';
+        });
+
+        el.classList.toggle('is-upcoming-item', Boolean(structuralBadge || textBadge || scheduledMetadata || notifyAction));
+    });
+
+    // 9. Tag Live Streams
     const allContainers = document.querySelectorAll('ytd-rich-item-renderer:not(.is-live-item), ytd-video-renderer:not(.is-live-item), ytd-grid-video-renderer:not(.is-live-item), ytd-compact-video-renderer:not(.is-live-item), ytd-guide-entry-renderer:not(.is-live-item)');
     allContainers.forEach(el => {
         // 1. Direct Video Overlay (MOST RELIABLE)
@@ -193,7 +261,7 @@ function tagElements() {
         }
     });
 
-    // 7. Tag Downloads Section
+    // 10. Tag Downloads Section
     const potentialDownloads = document.querySelectorAll('ytd-rich-section-renderer:not(.is-downloads-section)');
     potentialDownloads.forEach(el => {
         let isDownloads = false;
@@ -215,7 +283,7 @@ function tagElements() {
         }
     });
 
-    // 8. Tag Custom Keywords
+    // 11. Tag Custom Keywords
     const activeFilters = [];
     if (currentCustomFilters && currentCustomFilters.length > 0) {
         currentCustomFilters.filter(f => f.enabled).forEach(f => {
@@ -421,7 +489,7 @@ function injectWatchPageHoverButtons() {
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'playables', 'paidPromotion', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideFeaturedServices', 'hideMembersOnly', 'hideUpcoming', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
 
 // Apply defaults immediately to prevent flash on load
 const defaultSettings = {};
@@ -436,7 +504,9 @@ function loadSettingsAndApply() {
         const settings = {};
         keys.forEach(key => {
             if (key !== 'customFilters') {
-                settings[key] = result[key] !== undefined ? result[key] : true;
+                settings[key] = key === 'shortsSidebar' && result[key] === undefined
+                    ? (result.shortsHome !== undefined ? result.shortsHome : true)
+                    : (result[key] !== undefined ? result[key] : true);
             }
         });
         currentCustomFilters = result['customFilters'] || [];

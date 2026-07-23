@@ -1,12 +1,13 @@
 # YouTube UI Cleaner
 
-YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube surfaces so feeds, search results, subscriptions, and video pages feel calmer. It can hide Shorts, grouped video results, live streams, paid promotion overlays, home feed pills, dismissible feed sections, Playables shelves, and custom keyword matches.
+YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube surfaces so feeds, search results, subscriptions, and video pages feel calmer. It can hide Shorts, grouped video results, live streams, upcoming premieres, members-only videos, promotions, home feed extras, Playables shelves, and custom keyword matches.
 
 ## Features
 
 ### Shorts Controls
 
-- **Hide Shorts on Home**: Removes Shorts shelves from the YouTube home feed and hides the Shorts sidebar entry.
+- **Hide Shorts on Home**: Removes Shorts shelves from the YouTube home feed.
+- **Hide Shorts Sidebar Button**: Removes the Shorts entry from YouTube's full and compact sidebars.
 - **Hide Shorts in Subscriptions**: Removes Shorts shelves from the Subscriptions page.
 - **Hide Shorts in Search Results**: Removes Shorts shelves and individual Shorts results from search.
 - **Master Shorts Toggle**: Turn all Shorts filters on or off at once, or control each location separately.
@@ -14,9 +15,10 @@ YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube s
 ### Feed Cleanup
 
 - **Hide Grouped Videos**: Removes grouped recommendation formats with separate controls for Mixes, Podcasts, and Playlists.
-- **Hide Live Streams**: Removes live stream videos and live sidebar entries detected by live badges, thumbnail overlays, and broadcast indicators.
-- **Hide Dismissible Sections**: Removes feed sections such as Community posts, nudges, AI recommendations, and similar interruptive modules.
-- **Hide Home Feed Pills**: Hides the category filter chips at the top of the home feed.
+- **Hide Live & Upcoming**: Removes live streams, scheduled videos, and upcoming premieres with separate controls for each type.
+- **Hide Members-Only Videos**: Removes videos restricted to channel members from supported feeds and recommendation lists.
+- **Hide Home Feed Extras**: Groups separate controls for category filter chips and dismissible sections such as Community posts, nudges, and AI recommendations.
+- **Hide Featured Service Videos**: Removes featured trial offers from additional content services, detected by YouTube's commerce and promoted metadata badges.
 - **Hide Playables**: Removes YouTube Playables shelves.
 
 ### Video Page Cleanup
@@ -56,8 +58,10 @@ Every feature can be controlled individually, allowing you to create a cleaner Y
 - Hide Shorts from the Home feed, subscriptions, search results, and sidebar navigation.
 - Hide Mixes, podcasts, and playlists.
 - Hide live streams and live video recommendations.
+- Hide scheduled videos, upcoming premieres, and members-only videos.
 - Remove dismissible feed sections such as Community posts, nudges, and recommendation shelves.
-- Hide category filter chips from the top of the Home feed.
+- Hide category filter chips, Community posts, nudges, and other Home feed extras.
+- Hide featured videos offering trials for additional content services.
 - Remove "Includes paid promotion" overlays from videos.
 
 #### Custom Keyword Filters

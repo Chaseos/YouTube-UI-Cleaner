@@ -9,11 +9,11 @@ html.yt-hide-shorts-home ytd-browse[page-subtype="home"] ytd-rich-section-render
 }
 
 /* Sidebar Shorts Button */
-html.yt-hide-shorts-home .is-shorts-sidebar-entry,
-html.yt-hide-shorts-home ytd-guide-entry-renderer:has(a[title="Shorts"]),
-html.yt-hide-shorts-home ytd-guide-entry-renderer:has(a[aria-label="Shorts"]),
-html.yt-hide-shorts-home ytd-mini-guide-entry-renderer:has(a[title="Shorts"]),
-html.yt-hide-shorts-home ytd-mini-guide-entry-renderer:has(a[aria-label="Shorts"]) {
+html.yt-hide-shorts-sidebar .is-shorts-sidebar-entry,
+html.yt-hide-shorts-sidebar ytd-guide-entry-renderer:has(a[title="Shorts"]),
+html.yt-hide-shorts-sidebar ytd-guide-entry-renderer:has(a[aria-label="Shorts"]),
+html.yt-hide-shorts-sidebar ytd-mini-guide-entry-renderer:has(a[title="Shorts"]),
+html.yt-hide-shorts-sidebar ytd-mini-guide-entry-renderer:has(a[aria-label="Shorts"]) {
     display: none !important;
 }
 
@@ -48,6 +48,37 @@ html.yt-hide-playables .is-playables-shelf {
 /* --- PAID PROMOTION --- */
 html.yt-hide-promoted .ytp-paid-content-overlay,
 html.yt-hide-promoted ytm-paid-content-overlay-renderer {
+    display: none !important;
+}
+
+/* --- FEATURED SERVICE VIDEOS --- */
+html.yt-hide-featured-services .is-featured-service-item,
+html.yt-hide-featured-services ytd-rich-item-renderer:has(.ytBadgeShapeCommerce):has(.ytBadgeShapePromoted),
+html.yt-hide-featured-services ytd-video-renderer:has(.ytBadgeShapeCommerce):has(.ytBadgeShapePromoted),
+html.yt-hide-featured-services ytd-grid-video-renderer:has(.ytBadgeShapeCommerce):has(.ytBadgeShapePromoted),
+html.yt-hide-featured-services ytd-compact-video-renderer:has(.ytBadgeShapeCommerce):has(.ytBadgeShapePromoted) {
+    display: none !important;
+}
+
+/* --- MEMBERS-ONLY VIDEOS --- */
+html.yt-hide-members-only .is-members-only-item,
+html.yt-hide-members-only ytd-rich-item-renderer:has(.ytBadgeShapeCommerce path[d^="M6 .5a5.5 5.5 0 100 11"]),
+html.yt-hide-members-only ytd-video-renderer:has(.ytBadgeShapeCommerce path[d^="M6 .5a5.5 5.5 0 100 11"]),
+html.yt-hide-members-only ytd-grid-video-renderer:has(.ytBadgeShapeCommerce path[d^="M6 .5a5.5 5.5 0 100 11"]),
+html.yt-hide-members-only ytd-compact-video-renderer:has(.ytBadgeShapeCommerce path[d^="M6 .5a5.5 5.5 0 100 11"]),
+html.yt-hide-members-only ytd-rich-item-renderer:has(.badge-style-type-members-only, ytd-members-only-badge-renderer),
+html.yt-hide-members-only ytd-video-renderer:has(.badge-style-type-members-only, ytd-members-only-badge-renderer),
+html.yt-hide-members-only ytd-grid-video-renderer:has(.badge-style-type-members-only, ytd-members-only-badge-renderer),
+html.yt-hide-members-only ytd-compact-video-renderer:has(.badge-style-type-members-only, ytd-members-only-badge-renderer) {
+    display: none !important;
+}
+
+/* --- UPCOMING VIDEOS AND PREMIERES --- */
+html.yt-hide-upcoming .is-upcoming-item,
+html.yt-hide-upcoming ytd-rich-item-renderer:has([overlay-style="UPCOMING"], .badge-style-type-upcoming),
+html.yt-hide-upcoming ytd-video-renderer:has([overlay-style="UPCOMING"], .badge-style-type-upcoming),
+html.yt-hide-upcoming ytd-grid-video-renderer:has([overlay-style="UPCOMING"], .badge-style-type-upcoming),
+html.yt-hide-upcoming ytd-compact-video-renderer:has([overlay-style="UPCOMING"], .badge-style-type-upcoming) {
     display: none !important;
 }
 
