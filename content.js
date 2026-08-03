@@ -319,6 +319,7 @@ function tagElements() {
 
 const videoCardSelector = 'ytd-rich-item-renderer, ytd-rich-grid-media, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-reel-item-renderer, yt-lockup-view-model';
 const menuButtonSelector = 'ytd-menu-renderer button, ytd-menu-renderer yt-icon-button, button[aria-label="Action menu"], button[aria-label="More actions"], button.dropdown-trigger, #menu button, yt-icon-button#button, .ytLockupMetadataViewModelMenuButton button';
+let menuActionInProgress = false;
 
 const eatActionEvent = (event) => {
     event.preventDefault();
@@ -365,11 +366,14 @@ function showWatchLaterFeedback(button) {
     setTimeout(() => { svg.innerHTML = originalMarkup; }, 2000);
 }
 
-function performMenuAction(button, container, actionText, preview = null) {
+function performMenuAction(button, containerResolver, actionText, preview = null) {
+    if (menuActionInProgress) return;
+    const container = containerResolver();
     if (!container) return;
 
     const menuButton = container.querySelector(menuButtonSelector);
     if (!menuButton) return;
+    menuActionInProgress = true;
 
     // Keep the native action behavior and toast, but suppress the transient menu.
     let hideStyle = document.getElementById('temp-hide-yt-dropdown');
@@ -383,9 +387,11 @@ function performMenuAction(button, container, actionText, preview = null) {
     const cleanup = () => {
         setTimeout(() => {
             hideStyle.textContent = '';
+            menuActionInProgress = false;
         }, 300);
     };
 
+    document.body.click();
     menuButton.click();
 
     let attempts = 0;
@@ -398,7 +404,9 @@ function performMenuAction(button, container, actionText, preview = null) {
             return;
         }
 
-        const menuItems = document.querySelectorAll('ytd-menu-service-item-renderer, ytd-menu-navigation-item-renderer, yt-list-item-view-model');
+        const dropdown = Array.from(document.querySelectorAll('tp-yt-iron-dropdown'))
+            .find(element => element.getBoundingClientRect().width > 0);
+        const menuItems = dropdown?.querySelectorAll('ytd-menu-service-item-renderer, ytd-menu-navigation-item-renderer, yt-list-item-view-model') || [];
         for (const item of menuItems) {
             const text = item.textContent.trim().toLowerCase();
             if (!text.includes(actionText)) continue;
@@ -418,15 +426,15 @@ function performMenuAction(button, container, actionText, preview = null) {
     }, 50);
 }
 
-function createActionButtons(container, className, compact = false, preview = null) {
+function createActionButtons(containerResolver, className, compact = false, preview = null) {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = className;
 
     const watchLaterButton = createHoverActionButton('watch later', compact);
     const notInterestedButton = createHoverActionButton('not interested', compact);
 
-    attachButtonEvents(watchLaterButton, () => performMenuAction(watchLaterButton, container, 'watch later', preview));
-    attachButtonEvents(notInterestedButton, () => performMenuAction(notInterestedButton, container, 'not interested', preview));
+    attachButtonEvents(watchLaterButton, () => performMenuAction(watchLaterButton, containerResolver, 'watch later', preview));
+    attachButtonEvents(notInterestedButton, () => performMenuAction(notInterestedButton, containerResolver, 'not interested', preview));
 
     buttonsContainer.appendChild(watchLaterButton);
     buttonsContainer.appendChild(notInterestedButton);
@@ -450,22 +458,20 @@ function injectHoverButtons() {
         const preview = controls.closest('ytd-video-preview');
         if (!preview) return;
 
-        const mediaLink = preview.querySelector('a#media-container-link');
-        const href = mediaLink && mediaLink.getAttribute('href');
-        if (!href) return;
+        const resolveContainer = () => {
+            const href = preview.querySelector('a#media-container-link')?.getAttribute('href');
+            const videoId = href && new URL(href, window.location.origin).searchParams.get('v');
+            const previewLeft = preview.getBoundingClientRect().left;
+            return Array.from(document.querySelectorAll('a[href*="/watch?v="]'))
+                .filter(link => !link.closest('ytd-video-preview')
+                    && new URL(link.href).searchParams.get('v') === videoId)
+                .map(link => link.closest(videoCardSelector))
+                .filter((card, index, cards) => card && cards.indexOf(card) === index)
+                .sort((a, b) => Math.abs(a.getBoundingClientRect().left - previewLeft)
+                    - Math.abs(b.getBoundingClientRect().left - previewLeft))[0];
+        };
 
-        let videoId = '';
-        try {
-            videoId = new URL(href, window.location.origin).searchParams.get('v') || '';
-        } catch (err) {}
-        if (!videoId) return;
-
-        const originalLink = Array.from(document.querySelectorAll(`a[href*="${videoId}"]`))
-            .find(link => !link.closest('ytd-video-preview') && link.closest(videoCardSelector));
-        const container = originalLink && originalLink.closest(videoCardSelector);
-        if (!container) return;
-
-        topLeftContainer.appendChild(createActionButtons(container, 'custom-hover-buttons-container', false, preview));
+        topLeftContainer.appendChild(createActionButtons(resolveContainer, 'custom-hover-buttons-container', false, preview));
     });
 }
 
@@ -483,7 +489,7 @@ function injectWatchPageHoverButtons() {
         const host = card.querySelector('.ytLockupViewModelHost') || card;
         if (!thumbnailLink || !host || !card.querySelector(menuButtonSelector)) return;
 
-        host.appendChild(createActionButtons(card, 'custom-watch-buttons-container', true));
+        host.appendChild(createActionButtons(() => card, 'custom-watch-buttons-container', true));
         card.classList.add('has-custom-watch-buttons');
     });
 }
