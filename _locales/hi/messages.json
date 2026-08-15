@@ -1,0 +1,18 @@
+{
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"YouTube को साफ़-सुथरा बनाने के लिए Shorts, समूह वाले वीडियो, लाइव स्ट्रीम, प्रचार और अनचाहे विषय छिपाएँ।"},
+  "supportWork":{"message":"मेरे काम को सहयोग दें"},"general":{"message":"सामान्य"},"customFilters":{"message":"कस्टम फ़िल्टर"},
+  "hideShorts":{"message":"Shorts छिपाएँ"},"showShortsOptions":{"message":"Shorts के विकल्प दिखाएँ"},"hideShortsOptions":{"message":"Shorts के विकल्प छिपाएँ"},
+  "home":{"message":"होम"},"sidebarButton":{"message":"साइडबार बटन"},"subscriptions":{"message":"सदस्यताएँ"},"searchResults":{"message":"खोज के नतीजे"},
+  "hideGroupedVideos":{"message":"समूह वाले वीडियो छिपाएँ"},"showGroupedOptions":{"message":"समूह वाले वीडियो के विकल्प दिखाएँ"},"hideGroupedOptions":{"message":"समूह वाले वीडियो के विकल्प छिपाएँ"},
+  "mixes":{"message":"मिक्स"},"podcasts":{"message":"पॉडकास्ट"},"playlists":{"message":"प्लेलिस्ट"},
+  "hideLiveUpcoming":{"message":"लाइव और आगामी वीडियो छिपाएँ"},"showLiveUpcomingOptions":{"message":"लाइव और आगामी वीडियो के विकल्प दिखाएँ"},"hideLiveUpcomingOptions":{"message":"लाइव और आगामी वीडियो के विकल्प छिपाएँ"},
+  "liveStreams":{"message":"लाइव स्ट्रीम"},"upcomingVideosPremieres":{"message":"आगामी वीडियो और प्रीमियर"},"hideMembersOnlyVideos":{"message":"सिर्फ़ सदस्यों के वीडियो छिपाएँ"},
+  "hideHomeFeedExtras":{"message":"होम फ़ीड की अतिरिक्त चीज़ें छिपाएँ"},"showFeedExtrasOptions":{"message":"होम फ़ीड के अतिरिक्त विकल्प दिखाएँ"},"hideFeedExtrasOptions":{"message":"होम फ़ीड के अतिरिक्त विकल्प छिपाएँ"},
+  "feedPills":{"message":"फ़ीड श्रेणियाँ"},"feedPillsDescription":{"message":"होम के ऊपर की श्रेणियाँ"},"dismissibleSections":{"message":"हटाए जा सकने वाले सेक्शन"},"dismissibleSectionsDescription":{"message":"कम्यूनिटी पोस्ट, एआई सुझाव वगैरह"},
+  "hidePlayables":{"message":"गेम छिपाएँ"},"hidePlayablesDescription":{"message":"गेम सेक्शन हटाता है"},"hidePromotions":{"message":"प्रचार छिपाएँ"},"showPromotionOptions":{"message":"प्रचार के विकल्प दिखाएँ"},"hidePromotionOptions":{"message":"प्रचार के विकल्प छिपाएँ"},
+  "featuredServiceVideos":{"message":"दिखाई गई सेवाओं के वीडियो"},"featuredServiceDescription":{"message":"अन्य सेवाओं के सदस्यता और मुफ़्त आज़माइश ऑफ़र"},"paidPromotionBanners":{"message":"पैसे देकर किए गए प्रचार के बैनर"},
+  "createNewFilter":{"message":"+ नया फ़िल्टर बनाएँ"},"reviewPrompt":{"message":"काम का लगा? समीक्षा दें"},"needSpeedControls":{"message":"स्पीड कंट्रोल चाहिए?"},"trySpeedController":{"message":"Simple Video Speed Controller आज़माएँ।"},"settingsSaved":{"message":"सेटिंग सेव हो गईं!"},
+  "noKeywordsAdded":{"message":"कोई कीवर्ड नहीं जोड़ा गया"},"unnamedFilter":{"message":"बिना नाम का फ़िल्टर"},"enterFilterName":{"message":"फ़िल्टर का नाम डालें"},"edit":{"message":"बदलें"},"delete":{"message":"मिटाएँ"},"keywordsInGroup":{"message":"इस समूह के कीवर्ड:"},
+  "addKeywordExample":{"message":"कीवर्ड जोड़ें (जैसे, $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"जोड़ें"},"save":{"message":"सेव करें"},"removeKeyword":{"message":"$keyword$ हटाएँ","placeholders":{"keyword":{"content":"$1"}}},
+  "keywordHintSpoiler":{"message":"स्पॉइलर"},"keywordHintScore":{"message":"स्कोर"},"keywordHintResult":{"message":"नतीजा"},"keywordHintEnding":{"message":"अंत"},"keywordHintWinner":{"message":"विजेता"},"keywordHintHighlights":{"message":"हाइलाइट"},"keywordHintFinale":{"message":"फ़िनाले"},"keywordHintDefeats":{"message":"हराया"},"keywordHintEliminated":{"message":"बाहर"},"keywordHintDrafted":{"message":"चुना गया"},"keywordHintReview":{"message":"समीक्षा"},"keywordHintReaction":{"message":"प्रतिक्रिया"}
+}

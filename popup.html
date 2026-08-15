@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>YouTube UI Cleaner</title>
+  <title data-i18n="extensionName">YouTube UI Cleaner</title>
 
   <style>
     :root {
@@ -223,7 +223,7 @@
     }
 
     .option-group.expanded .option-group-children {
-      max-height: 180px;
+      max-height: 320px;
       margin-top: 8px;
       opacity: 1;
     }
@@ -263,6 +263,7 @@
 
     .option-content {
       flex: 1;
+      min-width: 0;
     }
 
     .option-title {
@@ -407,6 +408,9 @@
       transition: color 0.25s;
       position: relative;
       z-index: 2;
+      min-width: 0;
+      line-height: 1.2;
+      white-space: normal;
     }
 
     .tab-btn:hover:not(.active) {
@@ -742,13 +746,13 @@
 <body>
   <div class="header">
     <div class="logo">
-      <img src="icon.png" alt="Logo" width="24" height="24">
-      <span>YouTube UI Cleaner</span>
+      <img src="icon.png" alt="" width="24" height="24">
+      <span data-i18n="extensionName">YouTube UI Cleaner</span>
     </div>
     <div class="header-actions">
       <a id="kofi-link" href="https://ko-fi.com/chaseos" target="_blank" rel="noopener noreferrer" class="kofi-link"
-        title="Support my work" aria-label="Support my work">
-        <span class="kofi-message">Support my work</span>
+        title="Support my work" aria-label="Support my work" data-i18n-title="supportWork" data-i18n-aria-label="supportWork">
+        <span class="kofi-message" data-i18n="supportWork">Support my work</span>
         <img src="kofi_symbol.svg" alt="" class="kofi-icon">
       </a>
     </div>
@@ -756,8 +760,8 @@
 
   <div class="tabs">
     <div class="tab-slider"></div>
-    <button class="tab-btn active" data-target="view-general">General</button>
-    <button class="tab-btn" data-target="view-custom">Custom Filters</button>
+    <button class="tab-btn active" data-target="view-general" data-i18n="general">General</button>
+    <button class="tab-btn" data-target="view-custom" data-i18n="customFilters">Custom Filters</button>
   </div>
 
   <div class="container">
@@ -768,44 +772,44 @@
         <div class="option-group" data-group="shorts">
           <div class="option option-group-header">
             <label class="toggle">
-              <input type="checkbox" id="shorts">
+              <input type="checkbox" id="shorts" aria-label="Hide Shorts" data-i18n-aria-label="hideShorts">
               <span class="toggle-slider"></span>
             </label>
             <div class="option-content">
-              <div class="option-title">Hide Shorts</div>
+              <div class="option-title" data-i18n="hideShorts">Hide Shorts</div>
             </div>
-            <button type="button" class="group-expander" aria-label="Show Shorts options" aria-expanded="false">
+            <button type="button" class="group-expander" aria-label="Show Shorts options" aria-expanded="false" data-i18n-show="showShortsOptions" data-i18n-hide="hideShortsOptions">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
             </button>
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
               <label class="toggle">
-                <input type="checkbox" id="shortsHome">
+                <input type="checkbox" id="shortsHome" aria-label="Home" data-i18n-aria-label="home">
                 <span class="toggle-slider"></span>
               </label>
-              <div class="option-content"><div class="option-title">Home</div></div>
+              <div class="option-content"><div class="option-title" data-i18n="home">Home</div></div>
             </div>
             <div class="option sub-option">
               <label class="toggle">
-                <input type="checkbox" id="shortsSidebar">
+                <input type="checkbox" id="shortsSidebar" aria-label="Sidebar Button" data-i18n-aria-label="sidebarButton">
                 <span class="toggle-slider"></span>
               </label>
-              <div class="option-content"><div class="option-title">Sidebar Button</div></div>
+              <div class="option-content"><div class="option-title" data-i18n="sidebarButton">Sidebar Button</div></div>
             </div>
             <div class="option sub-option">
               <label class="toggle">
-                <input type="checkbox" id="shortsSubs">
+                <input type="checkbox" id="shortsSubs" aria-label="Subscriptions" data-i18n-aria-label="subscriptions">
                 <span class="toggle-slider"></span>
               </label>
-              <div class="option-content"><div class="option-title">Subscriptions</div></div>
+              <div class="option-content"><div class="option-title" data-i18n="subscriptions">Subscriptions</div></div>
             </div>
             <div class="option sub-option">
               <label class="toggle">
-                <input type="checkbox" id="shortsSearch">
+                <input type="checkbox" id="shortsSearch" aria-label="Search Results" data-i18n-aria-label="searchResults">
                 <span class="toggle-slider"></span>
               </label>
-              <div class="option-content"><div class="option-title">Search Results</div></div>
+              <div class="option-content"><div class="option-title" data-i18n="searchResults">Search Results</div></div>
             </div>
           </div>
         </div>
@@ -814,26 +818,26 @@
         <div class="option-group mt-4" data-group="grouped">
           <div class="option option-group-header">
             <label class="toggle">
-              <input type="checkbox" id="grouped">
+              <input type="checkbox" id="grouped" aria-label="Hide Grouped Videos" data-i18n-aria-label="hideGroupedVideos">
               <span class="toggle-slider"></span>
             </label>
-            <div class="option-content"><div class="option-title">Hide Grouped Videos</div></div>
-            <button type="button" class="group-expander" aria-label="Show grouped video options" aria-expanded="false">
+            <div class="option-content"><div class="option-title" data-i18n="hideGroupedVideos">Hide Grouped Videos</div></div>
+            <button type="button" class="group-expander" aria-label="Show grouped video options" aria-expanded="false" data-i18n-show="showGroupedOptions" data-i18n-hide="hideGroupedOptions">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
             </button>
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="groupedMixes"><span class="toggle-slider"></span></label>
-              <div class="option-content"><div class="option-title">Mixes</div></div>
+              <label class="toggle"><input type="checkbox" id="groupedMixes" aria-label="Mixes" data-i18n-aria-label="mixes"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title" data-i18n="mixes">Mixes</div></div>
             </div>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="groupedPodcasts"><span class="toggle-slider"></span></label>
-              <div class="option-content"><div class="option-title">Podcasts</div></div>
+              <label class="toggle"><input type="checkbox" id="groupedPodcasts" aria-label="Podcasts" data-i18n-aria-label="podcasts"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title" data-i18n="podcasts">Podcasts</div></div>
             </div>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="groupedPlaylists"><span class="toggle-slider"></span></label>
-              <div class="option-content"><div class="option-title">Playlists</div></div>
+              <label class="toggle"><input type="checkbox" id="groupedPlaylists" aria-label="Playlists" data-i18n-aria-label="playlists"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title" data-i18n="playlists">Playlists</div></div>
             </div>
           </div>
         </div>
@@ -841,54 +845,54 @@
         <!-- Live and Upcoming Group -->
         <div class="option-group mt-4" data-group="live-upcoming">
           <div class="option option-group-header">
-            <label class="toggle"><input type="checkbox" id="liveUpcoming"><span class="toggle-slider"></span></label>
-            <div class="option-content"><div class="option-title">Hide Live &amp; Upcoming</div></div>
-            <button type="button" class="group-expander" aria-label="Show live and upcoming options" aria-expanded="false">
+            <label class="toggle"><input type="checkbox" id="liveUpcoming" aria-label="Hide Live &amp; Upcoming" data-i18n-aria-label="hideLiveUpcoming"><span class="toggle-slider"></span></label>
+            <div class="option-content"><div class="option-title" data-i18n="hideLiveUpcoming">Hide Live &amp; Upcoming</div></div>
+            <button type="button" class="group-expander" aria-label="Show live and upcoming options" aria-expanded="false" data-i18n-show="showLiveUpcomingOptions" data-i18n-hide="hideLiveUpcomingOptions">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
             </button>
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="hideLive"><span class="toggle-slider"></span></label>
-              <div class="option-content"><div class="option-title">Live Streams</div></div>
+              <label class="toggle"><input type="checkbox" id="hideLive" aria-label="Live Streams" data-i18n-aria-label="liveStreams"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title" data-i18n="liveStreams">Live Streams</div></div>
             </div>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="hideUpcoming"><span class="toggle-slider"></span></label>
-              <div class="option-content"><div class="option-title">Upcoming Videos &amp; Premieres</div></div>
+              <label class="toggle"><input type="checkbox" id="hideUpcoming" aria-label="Upcoming Videos &amp; Premieres" data-i18n-aria-label="upcomingVideosPremieres"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title" data-i18n="upcomingVideosPremieres">Upcoming Videos &amp; Premieres</div></div>
             </div>
           </div>
         </div>
 
         <!-- Members-only Videos Option -->
         <div class="option mt-4">
-          <label class="toggle"><input type="checkbox" id="hideMembersOnly"><span class="toggle-slider"></span></label>
+          <label class="toggle"><input type="checkbox" id="hideMembersOnly" aria-label="Hide Members-Only Videos" data-i18n-aria-label="hideMembersOnlyVideos"><span class="toggle-slider"></span></label>
           <div class="option-content">
-            <div class="option-title">Hide Members-Only Videos</div>
+            <div class="option-title" data-i18n="hideMembersOnlyVideos">Hide Members-Only Videos</div>
           </div>
         </div>
 
         <!-- Home Feed Extras Group -->
         <div class="option-group mt-4" data-group="feed-extras">
           <div class="option option-group-header">
-            <label class="toggle"><input type="checkbox" id="feedExtras"><span class="toggle-slider"></span></label>
-            <div class="option-content"><div class="option-title">Hide Home Feed Extras</div></div>
-            <button type="button" class="group-expander" aria-label="Show Home feed extra options" aria-expanded="false">
+            <label class="toggle"><input type="checkbox" id="feedExtras" aria-label="Hide Home Feed Extras" data-i18n-aria-label="hideHomeFeedExtras"><span class="toggle-slider"></span></label>
+            <div class="option-content"><div class="option-title" data-i18n="hideHomeFeedExtras">Hide Home Feed Extras</div></div>
+            <button type="button" class="group-expander" aria-label="Show Home feed extra options" aria-expanded="false" data-i18n-show="showFeedExtrasOptions" data-i18n-hide="hideFeedExtrasOptions">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
             </button>
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="feedPills"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" id="feedPills" aria-label="Feed Pills" data-i18n-aria-label="feedPills"><span class="toggle-slider"></span></label>
               <div class="option-content">
-                <div class="option-title">Feed Pills</div>
-                <div class="option-description">Top categories on Home</div>
+                <div class="option-title" data-i18n="feedPills">Feed Pills</div>
+                <div class="option-description" data-i18n="feedPillsDescription">Top categories on Home</div>
               </div>
             </div>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="hideSections"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" id="hideSections" aria-label="Dismissible Sections" data-i18n-aria-label="dismissibleSections"><span class="toggle-slider"></span></label>
               <div class="option-content">
-                <div class="option-title">Dismissible Sections</div>
-                <div class="option-description">Community posts, AI recs, etc.</div>
+                <div class="option-title" data-i18n="dismissibleSections">Dismissible Sections</div>
+                <div class="option-description" data-i18n="dismissibleSectionsDescription">Community posts, AI recommendations, etc.</div>
               </div>
             </div>
           </div>
@@ -897,35 +901,35 @@
         <!-- Playables Option - HIDDEN FROM UI -->
         <div class="option hidden">
           <label class="toggle">
-            <input type="checkbox" id="playables">
+            <input type="checkbox" id="playables" aria-label="Hide Playables" data-i18n-aria-label="hidePlayables">
             <span class="toggle-slider"></span>
           </label>
           <div class="option-content">
-            <div class="option-title">Hide Playables</div>
-            <div class="option-description">Removes Playables section</div>
+            <div class="option-title" data-i18n="hidePlayables">Hide Playables</div>
+            <div class="option-description" data-i18n="hidePlayablesDescription">Removes the Playables section</div>
           </div>
         </div>
 
         <!-- Promotions Group -->
         <div class="option-group mt-4" data-group="promotions">
           <div class="option option-group-header">
-            <label class="toggle"><input type="checkbox" id="promotions"><span class="toggle-slider"></span></label>
-            <div class="option-content"><div class="option-title">Hide Promotions</div></div>
-            <button type="button" class="group-expander" aria-label="Show promotion options" aria-expanded="false">
+            <label class="toggle"><input type="checkbox" id="promotions" aria-label="Hide Promotions" data-i18n-aria-label="hidePromotions"><span class="toggle-slider"></span></label>
+            <div class="option-content"><div class="option-title" data-i18n="hidePromotions">Hide Promotions</div></div>
+            <button type="button" class="group-expander" aria-label="Show promotion options" aria-expanded="false" data-i18n-show="showPromotionOptions" data-i18n-hide="hidePromotionOptions">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
             </button>
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="hideFeaturedServices"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" id="hideFeaturedServices" aria-label="Featured Service Videos" data-i18n-aria-label="featuredServiceVideos"><span class="toggle-slider"></span></label>
               <div class="option-content">
-                <div class="option-title">Featured Service Videos</div>
-                <div class="option-description">Subscription and trial offers from additional services</div>
+                <div class="option-title" data-i18n="featuredServiceVideos">Featured Service Videos</div>
+                <div class="option-description" data-i18n="featuredServiceDescription">Subscription and trial offers from additional services</div>
               </div>
             </div>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="paidPromotion"><span class="toggle-slider"></span></label>
-              <div class="option-content"><div class="option-title">Paid Promotion Banners</div></div>
+              <label class="toggle"><input type="checkbox" id="paidPromotion" aria-label="Paid Promotion Banners" data-i18n-aria-label="paidPromotionBanners"><span class="toggle-slider"></span></label>
+              <div class="option-content"><div class="option-title" data-i18n="paidPromotionBanners">Paid Promotion Banners</div></div>
             </div>
           </div>
         </div>
@@ -937,7 +941,7 @@
     <div id="view-custom" class="view">
       <div class="section">
         <div class="section-content">
-          <button id="createGroupBtn" class="create-filter-btn">+ Create New Filter</button>
+          <button id="createGroupBtn" class="create-filter-btn" data-i18n="createNewFilter">+ Create New Filter</button>
 
           <div id="filterList" class="filter-list mt-4">
             <!-- Filter items will be populated here -->
@@ -951,7 +955,7 @@
         <svg class="star-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
         </svg>
-        <span>Find it useful? Leave a review</span>
+        <span data-i18n="reviewPrompt">Find it useful? Leave a review</span>
         <svg class="prompt-external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
           <polyline points="15 3 21 3 21 9"></polyline>
@@ -964,8 +968,8 @@
       <a id="simple-video-speed-controller-ad-link" href="https://chromewebstore.google.com/detail/simple-video-speed-contro/kcjfpmjkbkhgojilpihplkedadndnked" target="_blank" rel="noopener noreferrer" class="extension-ad-link">
         <img src="simple-video-speed-controller-icon.png" alt="" class="extension-ad-icon">
         <span class="extension-ad-copy">
-          <span>Need speed controls?</span>
-          <span>Try Simple Video Speed Controller.</span>
+          <span data-i18n="needSpeedControls">Need speed controls?</span>
+          <span data-i18n="trySpeedController">Try Simple Video Speed Controller.</span>
         </span>
         <svg class="prompt-external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -976,7 +980,7 @@
     </div>
   </div>
 
-  <div class="status" id="statusMessage">Settings saved successfully!</div>
+  <div class="status" id="statusMessage" data-i18n="settingsSaved">Settings saved successfully!</div>
 
   <script src="popup.js"></script>
 </body>

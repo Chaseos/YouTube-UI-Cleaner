@@ -3,7 +3,17 @@
 console.log('YouTube Feed Cleaner: Active');
 
 let currentCustomFilters = [];
+let currentSettings = {};
 const MEMBERS_ONLY_ICON_PATH_PREFIX = 'M6 .5a5.5 5.5 0 100 11';
+const pageLocales = globalThis.YouTubeUICleanerLocales;
+
+function getPageTerms() {
+    return pageLocales.getTerms(pageLocales.resolvePageLocale());
+}
+
+function isPlaylistsLibraryPage() {
+    return window.location.pathname === '/feed/playlists';
+}
 
 // Function to update classes on the HTML element
 function updateClasses(settings) {
@@ -52,7 +62,9 @@ function updateClasses(settings) {
     if (settings.groupedPodcasts) html.classList.add('yt-hide-podcasts');
     else html.classList.remove('yt-hide-podcasts');
 
-    if (settings.groupedPlaylists) html.classList.add('yt-hide-playlists');
+    // The Playlists page is the user's library, so never hide its entries.
+    // Keep the filter active for playlists that appear in feeds and results.
+    if (settings.groupedPlaylists && !isPlaylistsLibraryPage()) html.classList.add('yt-hide-playlists');
     else html.classList.remove('yt-hide-playlists');
     
     // Live Streams
@@ -70,6 +82,7 @@ function updateClasses(settings) {
 
 // Selectors for elements we need to tag based on text content
 function tagElements() {
+    const terms = getPageTerms();
     // 1. Tag Shorts Shelves (Grid/Reel)
     // Target both ytd-rich-shelf-renderer and grid-shelf-view-model
     const potentialShorts = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-shorts-shelf), grid-shelf-view-model:not(.is-shorts-shelf), ytd-reel-shelf-renderer:not(.is-shorts-shelf)');
@@ -104,8 +117,8 @@ function tagElements() {
     // 3. Tag Playables
     const potentialPlayables = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-playables-shelf), ytd-rich-section-renderer:not(.is-playables-shelf)');
     potentialPlayables.forEach(el => {
-        if (el.innerText.includes("Playables")) {
-            if (el.querySelector('#title') && el.querySelector('#title').textContent.includes("Playables")) {
+        if (pageLocales.matchesAny(el.innerText, terms.playables, 'contains')) {
+            if (el.querySelector('#title') && pageLocales.matchesAny(el.querySelector('#title').textContent, terms.playables, 'contains')) {
                 el.classList.add('is-playables-shelf');
             }
         }
@@ -138,8 +151,8 @@ function tagElements() {
             const badges = el.querySelectorAll('.yt-badge-shape__text');
             badges.forEach(badge => {
                 const badgeText = badge.textContent.trim();
-                if (badgeText === 'Mix') isMix = true;
-                if (badgeText === 'Podcast') isPodcast = true;
+                if (pageLocales.matchesAny(badgeText, terms.mix)) isMix = true;
+                if (pageLocales.matchesAny(badgeText, terms.podcast)) isPodcast = true;
             });
         }
 
@@ -162,10 +175,10 @@ function tagElements() {
             links.forEach(link => {
                 const text = link.textContent.trim();
                 
-                if (text === 'Podcast') isPodcast = true;
+                if (pageLocales.matchesAny(text, terms.podcast)) isPodcast = true;
                 
                 if (!isPlaylist) {
-                    if (text === 'View full playlist' || text === 'Playlist') isPlaylist = true;
+                    if (pageLocales.matchesAny(text, terms.viewFullPlaylist) || pageLocales.matchesAny(text, terms.playlist)) isPlaylist = true;
                     // Check href URL for playlist indicator
                     if (link.href && link.href.includes('/playlist?list=')) isPlaylist = true;
                 }
@@ -192,7 +205,7 @@ function tagElements() {
         const promotedBadge = el.querySelector('.ytBadgeShapePromoted, .yt-badge-shape--promoted');
         const tryNowBadge = Array.from(el.querySelectorAll('badge-shape, .yt-badge-shape')).some(badge => {
             const ariaLabel = badge.getAttribute('aria-label') || '';
-            return ariaLabel.trim().toLowerCase() === 'try now' || badge.textContent.trim().toLowerCase() === 'try now';
+            return pageLocales.matchesAny(ariaLabel, terms.tryNow) || pageLocales.matchesAny(badge.textContent, terms.tryNow);
         });
 
         el.classList.toggle('is-featured-service-item', Boolean((commerceBadge && promotedBadge) || tryNowBadge));
@@ -207,9 +220,9 @@ function tagElements() {
             return path.getAttribute('d').startsWith(MEMBERS_ONLY_ICON_PATH_PREFIX);
         });
         const textBadge = Array.from(el.querySelectorAll('badge-shape, ytd-badge-supported-renderer, .yt-badge-shape')).some(badge => {
-            const ariaLabel = (badge.getAttribute('aria-label') || '').trim().toLowerCase();
-            const visibleText = (badge.textContent || '').trim().toLowerCase();
-            return ariaLabel === 'members only' || ariaLabel === 'members-only' || visibleText === 'members only' || visibleText === 'members-only';
+            const ariaLabel = badge.getAttribute('aria-label') || '';
+            const visibleText = badge.textContent || '';
+            return pageLocales.matchesAny(ariaLabel, terms.membersOnly) || pageLocales.matchesAny(visibleText, terms.membersOnly);
         });
 
         el.classList.toggle('is-members-only-item', Boolean(structuralBadge || membersOnlyIcon || textBadge));
@@ -219,15 +232,17 @@ function tagElements() {
     filterableVideoCards.forEach(el => {
         const structuralBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"], .badge-style-type-upcoming, .ytBadgeShapeUpcoming, .yt-badge-shape--upcoming, [overlay-style="UPCOMING"]');
         const textBadge = Array.from(el.querySelectorAll('badge-shape, ytd-badge-supported-renderer, ytd-thumbnail-overlay-time-status-renderer, .yt-badge-shape')).some(badge => {
-            const ariaLabel = (badge.getAttribute('aria-label') || '').trim().toLowerCase();
-            const visibleText = (badge.textContent || '').trim().toLowerCase();
-            return ariaLabel === 'upcoming' || visibleText === 'upcoming' || ariaLabel.startsWith('premieres ');
+            const ariaLabel = badge.getAttribute('aria-label') || '';
+            const visibleText = badge.textContent || '';
+            return pageLocales.matchesAny(ariaLabel, terms.upcoming)
+                || pageLocales.matchesAny(visibleText, terms.upcoming)
+                || pageLocales.matchesAny(ariaLabel, terms.premierePrefixes, 'prefix');
         });
         const scheduledMetadata = Array.from(el.querySelectorAll('.ytContentMetadataViewModelMetadataRow, #metadata-line')).some(row => {
-            return (row.textContent || '').trim().toLowerCase().startsWith('scheduled for ');
+            return pageLocales.matchesAny(row.textContent, terms.scheduledPrefixes, 'prefix');
         });
         const notifyAction = Array.from(el.querySelectorAll('lockup-attachments-view-model button, ytd-button-renderer button')).some(button => {
-            return (button.textContent || '').trim().toLowerCase() === 'notify me';
+            return pageLocales.matchesAny(button.textContent, terms.notifyMe);
         });
 
         el.classList.toggle('is-upcoming-item', Boolean(structuralBadge || textBadge || scheduledMetadata || notifyAction));
@@ -268,13 +283,13 @@ function tagElements() {
         
         // Check for Smart Downloads banner
         const alertBanner = el.querySelector('yt-alert-banner-view-model');
-        if (alertBanner && alertBanner.innerText && alertBanner.innerText.toLowerCase().includes("downloads")) {
+        if (alertBanner && alertBanner.innerText && pageLocales.matchesAny(alertBanner.innerText, terms.downloads, 'contains')) {
             isDownloads = true;
         }
         
         // Check for Your downloads shelf
         const titleEl = el.querySelector('#title');
-        if (titleEl && titleEl.textContent && titleEl.textContent.toLowerCase().includes("downloads")) {
+        if (titleEl && titleEl.textContent && pageLocales.matchesAny(titleEl.textContent, terms.downloads, 'contains')) {
             isDownloads = true;
         }
 
@@ -338,14 +353,16 @@ function attachButtonEvents(button, actionCallback) {
 }
 
 function createHoverActionButton(action, compact = false) {
-    const isWatchLater = action === 'watch later';
-    const label = isWatchLater ? 'Watch Later' : 'Not Interested';
+    const isWatchLater = action === 'watchLater';
+    const terms = getPageTerms();
+    const label = isWatchLater ? terms.watchLaterLabel : terms.notInterestedLabel;
     const path = isWatchLater
         ? 'M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1Zm0 2a9 9 0 110 18.001A9 9 0 0112 3Zm0 3a1 1 0 00-1 1v5.565l.485.292 3.33 2a1 1 0 001.03-1.714L13 11.435V7a1 1 0 00-1-1Z'
         : 'M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1Zm0 2a9 9 0 018.246 12.605L4.755 6.661A8.99 8.99 0 0112 3ZM3.754 8.393l15.491 8.944A9 9 0 013.754 8.393Z';
 
     const wrapper = document.createElement('div');
     wrapper.className = `custom-hover-btn${compact ? ' custom-hover-btn--compact' : ''}`;
+    wrapper.dataset.action = action;
     wrapper.title = label;
     wrapper.innerHTML = `
         <button class="custom-hover-action-btn ytp-button" type="button" aria-label="${label}">
@@ -366,7 +383,7 @@ function showWatchLaterFeedback(button) {
     setTimeout(() => { svg.innerHTML = originalMarkup; }, 2000);
 }
 
-function performMenuAction(button, containerResolver, actionText, preview = null) {
+function performMenuAction(button, containerResolver, action, preview = null) {
     if (menuActionInProgress) return;
     const container = containerResolver();
     if (!container) return;
@@ -407,18 +424,19 @@ function performMenuAction(button, containerResolver, actionText, preview = null
         const dropdown = Array.from(document.querySelectorAll('tp-yt-iron-dropdown'))
             .find(element => element.getBoundingClientRect().width > 0);
         const menuItems = dropdown?.querySelectorAll('ytd-menu-service-item-renderer, ytd-menu-navigation-item-renderer, yt-list-item-view-model') || [];
+        const terms = getPageTerms();
+        const actionAliases = action === 'notInterested' ? terms.notInterestedActions : terms.watchLaterActions;
         for (const item of menuItems) {
-            const text = item.textContent.trim().toLowerCase();
-            if (!text.includes(actionText)) continue;
+            if (!pageLocales.matchesAny(item.textContent, actionAliases, 'contains')) continue;
 
             clearInterval(findAndClickAction);
             item.click();
             cleanup();
 
-            if (actionText === 'not interested' && preview) {
+            if (action === 'notInterested' && preview) {
                 preview.style.display = 'none';
                 setTimeout(() => { preview.style.display = ''; }, 1500);
-            } else if (actionText === 'watch later') {
+            } else if (action === 'watchLater') {
                 showWatchLaterFeedback(button);
             }
             break;
@@ -430,15 +448,24 @@ function createActionButtons(containerResolver, className, compact = false, prev
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = className;
 
-    const watchLaterButton = createHoverActionButton('watch later', compact);
-    const notInterestedButton = createHoverActionButton('not interested', compact);
+    const watchLaterButton = createHoverActionButton('watchLater', compact);
+    const notInterestedButton = createHoverActionButton('notInterested', compact);
 
-    attachButtonEvents(watchLaterButton, () => performMenuAction(watchLaterButton, containerResolver, 'watch later', preview));
-    attachButtonEvents(notInterestedButton, () => performMenuAction(notInterestedButton, containerResolver, 'not interested', preview));
+    attachButtonEvents(watchLaterButton, () => performMenuAction(watchLaterButton, containerResolver, 'watchLater', preview));
+    attachButtonEvents(notInterestedButton, () => performMenuAction(notInterestedButton, containerResolver, 'notInterested', preview));
 
     buttonsContainer.appendChild(watchLaterButton);
     buttonsContainer.appendChild(notInterestedButton);
     return buttonsContainer;
+}
+
+function updateInjectedActionLabels() {
+    const terms = getPageTerms();
+    document.querySelectorAll('.custom-hover-btn[data-action]').forEach(wrapper => {
+        const label = wrapper.dataset.action === 'watchLater' ? terms.watchLaterLabel : terms.notInterestedLabel;
+        wrapper.title = label;
+        wrapper.querySelector('button')?.setAttribute('aria-label', label);
+    });
 }
 
 // Function to inject custom hover buttons into the inline player
@@ -502,7 +529,8 @@ const defaultSettings = {};
 keys.forEach(key => {
     if (key !== 'customFilters') defaultSettings[key] = true;
 });
-updateClasses(defaultSettings);
+currentSettings = defaultSettings;
+updateClasses(currentSettings);
 
 function loadSettingsAndApply() {
     chrome.storage.sync.get(keys, (result) => {
@@ -516,7 +544,8 @@ function loadSettingsAndApply() {
             }
         });
         currentCustomFilters = result['customFilters'] || [];
-        updateClasses(settings);
+        currentSettings = settings;
+        updateClasses(currentSettings);
         tagElements(); // Re-tag with new keywords
         injectHoverButtons(); // Inject buttons
         injectWatchPageHoverButtons();
@@ -570,10 +599,17 @@ setInterval(() => {
 
 // YouTube API SPA Navigation listeners
 window.addEventListener('yt-navigate-finish', () => {
+    updateClasses(currentSettings);
+    updateInjectedActionLabels();
     tagElements();
     injectHoverButtons();
     injectWatchPageHoverButtons();
 });
+
+new MutationObserver(() => {
+    updateInjectedActionLabels();
+    tagElements();
+}).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 
 // Initial tag
 tagElements();

@@ -1,5 +1,39 @@
 /* popup.js */
 
+function getMessage(key, substitutions = undefined, fallback = '') {
+    const translated = chrome.i18n?.getMessage(key, substitutions);
+    return translated || fallback || key;
+}
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+}
+
+function localizeDocument() {
+    const uiLanguage = chrome.i18n?.getUILanguage?.();
+    if (uiLanguage) document.documentElement.lang = uiLanguage.replace('_', '-');
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        element.textContent = getMessage(element.dataset.i18n, undefined, element.textContent);
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(element => {
+        element.title = getMessage(element.dataset.i18nTitle, undefined, element.title);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        element.placeholder = getMessage(element.dataset.i18nPlaceholder, undefined, element.placeholder);
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(element => {
+        element.setAttribute('aria-label', getMessage(element.dataset.i18nAriaLabel, undefined, element.getAttribute('aria-label')));
+    });
+    document.querySelectorAll('.group-expander[data-i18n-show]').forEach(element => {
+        element.setAttribute('aria-label', getMessage(element.dataset.i18nShow, undefined, element.getAttribute('aria-label')));
+    });
+}
+
+localizeDocument();
+
 const keys = [
     'shorts',
     'shortsHome',
@@ -110,49 +144,54 @@ function renderFilters(focusId = null) {
         
         let summaryHtml = '';
         if (filter.keywords.length > 0) {
-            summaryHtml = `<div class="filter-summary">${filter.keywords.join(', ')}</div>`;
+            summaryHtml = `<div class="filter-summary">${filter.keywords.map(escapeHtml).join(', ')}</div>`;
         } else {
-            summaryHtml = `<div class="filter-summary filter-no-keywords">No keywords added</div>`;
+            summaryHtml = `<div class="filter-summary filter-no-keywords">${getMessage('noKeywordsAdded', undefined, 'No keywords added')}</div>`;
         }
         
-        const hints = ['Spoiler', 'Score', 'Result', 'Ending', 'Winner', 'Highlights', 'Finale', 'Defeats', 'Eliminated', 'Drafted', 'Review', 'Reaction'];
+        const hints = [
+            'keywordHintSpoiler', 'keywordHintScore', 'keywordHintResult', 'keywordHintEnding',
+            'keywordHintWinner', 'keywordHintHighlights', 'keywordHintFinale', 'keywordHintDefeats',
+            'keywordHintEliminated', 'keywordHintDrafted', 'keywordHintReview', 'keywordHintReaction'
+        ].map(key => getMessage(key));
         const randomHint = hints[Math.floor(Math.random() * hints.length)];
+        const removeKeywordLabel = keyword => getMessage('removeKeyword', keyword, `Remove ${keyword}`);
         
         item.innerHTML = `
             <div class="filter-header">
               <label class="toggle">
-                <input type="checkbox" class="filter-toggle" ${filter.enabled ? 'checked' : ''}>
+                <input type="checkbox" class="filter-toggle" aria-label="${escapeHtml(filter.title || getMessage('unnamedFilter', undefined, 'Unnamed Filter'))}" ${filter.enabled ? 'checked' : ''}>
                 <span class="toggle-slider"></span>
               </label>
               <div class="filter-title-container">
-                <div class="filter-title">${filter.title || 'Unnamed Filter'}</div>
+                <div class="filter-title">${escapeHtml(filter.title || getMessage('unnamedFilter', undefined, 'Unnamed Filter'))}</div>
                 ${summaryHtml}
               </div>
-              <input type="text" class="filter-title-input" value="${filter.title || ''}" placeholder="Enter Filter Name" />
+              <input type="text" class="filter-title-input" value="${escapeHtml(filter.title || '')}" placeholder="${escapeHtml(getMessage('enterFilterName', undefined, 'Enter Filter Name'))}" />
               <div class="filter-actions">
-                <button class="icon-btn edit-btn" title="Edit">
+                <button class="icon-btn edit-btn" title="${getMessage('edit', undefined, 'Edit')}" aria-label="${getMessage('edit', undefined, 'Edit')}">
                   ${EDIT_ICON}
                 </button>
-                <button class="icon-btn delete-btn" title="Delete">
+                <button class="icon-btn delete-btn" title="${getMessage('delete', undefined, 'Delete')}" aria-label="${getMessage('delete', undefined, 'Delete')}">
                   ${DELETE_ICON}
                 </button>
               </div>
             </div>
             <div class="filter-body">
-              <div class="filter-keywords-label">Keywords in this group:</div>
+              <div class="filter-keywords-label">${getMessage('keywordsInGroup', undefined, 'Keywords in this group:')}</div>
               <div class="keyword-input-group">
-                <input type="text" class="group-keyword-input" placeholder="Add keyword (e.g., ${randomHint})" />
-                <button class="add-group-keyword-btn">Add</button>
+                <input type="text" class="group-keyword-input" placeholder="${escapeHtml(getMessage('addKeywordExample', randomHint, `Add keyword (e.g., ${randomHint})`))}" />
+                <button class="add-group-keyword-btn">${getMessage('add', undefined, 'Add')}</button>
               </div>
               <div class="keyword-list">
                 ${filter.keywords.map(kw => `
                   <div class="keyword-chip">
-                    ${kw}
-                    <button class="remove-kw-btn" data-kw="${kw}">&#10005;</button>
+                    ${escapeHtml(kw)}
+                    <button class="remove-kw-btn" data-kw="${escapeHtml(kw)}" title="${escapeHtml(removeKeywordLabel(kw))}" aria-label="${escapeHtml(removeKeywordLabel(kw))}">&#10005;</button>
                   </div>
                 `).join('')}
               </div>
-              <button class="done-btn">${SAVE_ICON} SAVE</button>
+              <button class="done-btn">${SAVE_ICON} ${getMessage('save', undefined, 'Save').toLocaleUpperCase()}</button>
             </div>
         `;
         
@@ -508,7 +547,8 @@ document.addEventListener('DOMContentLoaded', () => {
             children.toggleAttribute('inert', !isExpanded);
             children.setAttribute('aria-hidden', String(!isExpanded));
             button.setAttribute('aria-expanded', String(isExpanded));
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace(isExpanded ? 'Show' : 'Hide', isExpanded ? 'Hide' : 'Show'));
+            const messageKey = isExpanded ? button.dataset.i18nHide : button.dataset.i18nShow;
+            button.setAttribute('aria-label', getMessage(messageKey, undefined, button.getAttribute('aria-label')));
         });
     });
 

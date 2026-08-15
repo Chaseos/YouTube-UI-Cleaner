@@ -1,0 +1,56 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+
+await import('../youtube-locales.js');
+const locales = globalThis.YouTubeUICleanerLocales;
+
+test('normalizes supported locale aliases and falls back safely', () => {
+    assert.equal(locales.normalizeLocale('es-419'), 'es');
+    assert.equal(locales.normalizeLocale('pt-BR'), 'pt_BR');
+    assert.equal(locales.normalizeLocale('pt-PT'), 'pt_PT');
+    assert.equal(locales.normalizeLocale('pt'), 'pt_PT');
+    assert.equal(locales.normalizeLocale('zh-Hant-HK'), 'zh_TW');
+    assert.equal(locales.normalizeLocale('zh-TW'), 'zh_TW');
+    assert.equal(locales.normalizeLocale('ar'), 'en');
+});
+
+test('keeps Portuguese variants distinct', () => {
+    assert.equal(locales.getTerms('pt-BR').watchLaterLabel, 'Assistir mais tarde');
+    assert.equal(locales.getTerms('pt-PT').watchLaterLabel, 'Ver mais tarde');
+});
+
+test('matches localized YouTube actions but rejects unrelated text', () => {
+    assert.equal(locales.matchesAny('Guardar en Ver más tarde', locales.getTerms('es').watchLaterActions), true);
+    assert.equal(locales.matchesAny('儲存至「稍後觀看」', locales.getTerms('zh-TW').watchLaterActions), true);
+    assert.equal(locales.matchesAny('İlgilenmiyorum', locales.getTerms('tr').notInterestedActions), true);
+    assert.equal(locales.matchesAny('Compartir', locales.getTerms('es').watchLaterActions), false);
+    assert.equal(locales.matchesAny('No recomendar este canal', locales.getTerms('es').notInterestedActions), false);
+});
+
+test('supports prefix and contains matching explicitly', () => {
+    assert.equal(locales.matchesAny('Premieres tomorrow', locales.getTerms('en').premierePrefixes, 'prefix'), true);
+    assert.equal(locales.matchesAny('Save to Watch Later', ['watch later'], 'contains'), true);
+    assert.equal(locales.matchesAny('Watch history', ['watch later'], 'contains'), false);
+});
+
+test('every supported page locale has complete and distinct terminology', () => {
+    const expectedLocales = ['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'zh_TW'];
+    const arrayKeys = [
+        'playables', 'mix', 'podcast', 'viewFullPlaylist', 'playlist', 'tryNow', 'membersOnly',
+        'upcoming', 'premierePrefixes', 'scheduledPrefixes', 'notifyMe', 'downloads',
+        'watchLaterActions', 'notInterestedActions'
+    ];
+
+    assert.deepEqual(Object.keys(locales.localeTerms), expectedLocales);
+    for (const locale of expectedLocales) {
+        const terms = locales.getTerms(locale);
+        for (const key of arrayKeys) {
+            assert.ok(Array.isArray(terms[key]) && terms[key].length > 0, `${locale}.${key} must contain aliases`);
+            assert.equal(locales.matchesAny(terms[key][0], terms[key]), true, `${locale}.${key} must match its canonical term`);
+        }
+        assert.ok(terms.watchLaterLabel, `${locale}.watchLaterLabel must be present`);
+        assert.ok(terms.notInterestedLabel, `${locale}.notInterestedLabel must be present`);
+        assert.equal(locales.matchesAny('share this video', terms.watchLaterActions, 'contains'), false);
+        assert.equal(locales.matchesAny('share this video', terms.notInterestedActions, 'contains'), false);
+    }
+});

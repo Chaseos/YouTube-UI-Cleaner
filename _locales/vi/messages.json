@@ -1,0 +1,18 @@
+{
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Ẩn Shorts, video theo nhóm, sự kiện trực tiếp, nội dung quảng bá và chủ đề không mong muốn để YouTube gọn gàng hơn."},
+  "supportWork":{"message":"Ủng hộ công việc của tôi"},"general":{"message":"Chung"},"customFilters":{"message":"Bộ lọc tùy chỉnh"},
+  "hideShorts":{"message":"Ẩn Shorts"},"showShortsOptions":{"message":"Hiện tùy chọn Shorts"},"hideShortsOptions":{"message":"Ẩn tùy chọn Shorts"},
+  "home":{"message":"Trang chủ"},"sidebarButton":{"message":"Nút thanh bên"},"subscriptions":{"message":"Kênh đăng ký"},"searchResults":{"message":"Kết quả tìm kiếm"},
+  "hideGroupedVideos":{"message":"Ẩn video theo nhóm"},"showGroupedOptions":{"message":"Hiện tùy chọn video theo nhóm"},"hideGroupedOptions":{"message":"Ẩn tùy chọn video theo nhóm"},
+  "mixes":{"message":"Tuyển tập"},"podcasts":{"message":"Podcast"},"playlists":{"message":"Danh sách phát"},
+  "hideLiveUpcoming":{"message":"Ẩn video trực tiếp và sắp ra mắt"},"showLiveUpcomingOptions":{"message":"Hiện tùy chọn video trực tiếp và sắp ra mắt"},"hideLiveUpcomingOptions":{"message":"Ẩn tùy chọn video trực tiếp và sắp ra mắt"},
+  "liveStreams":{"message":"Sự kiện trực tiếp"},"upcomingVideosPremieres":{"message":"Video sắp ra mắt và công chiếu"},"hideMembersOnlyVideos":{"message":"Ẩn video chỉ dành cho hội viên"},
+  "hideHomeFeedExtras":{"message":"Ẩn nội dung bổ sung trên Trang chủ"},"showFeedExtrasOptions":{"message":"Hiện tùy chọn nội dung bổ sung trên Trang chủ"},"hideFeedExtrasOptions":{"message":"Ẩn tùy chọn nội dung bổ sung trên Trang chủ"},
+  "feedPills":{"message":"Danh mục trên bảng tin"},"feedPillsDescription":{"message":"Danh mục ở đầu Trang chủ"},"dismissibleSections":{"message":"Mục có thể đóng"},"dismissibleSectionsDescription":{"message":"Bài đăng cộng đồng, đề xuất AI, v.v."},
+  "hidePlayables":{"message":"Ẩn trò chơi"},"hidePlayablesDescription":{"message":"Xóa mục Trò chơi"},"hidePromotions":{"message":"Ẩn nội dung quảng bá"},"showPromotionOptions":{"message":"Hiện tùy chọn quảng bá"},"hidePromotionOptions":{"message":"Ẩn tùy chọn quảng bá"},
+  "featuredServiceVideos":{"message":"Video dịch vụ nổi bật"},"featuredServiceDescription":{"message":"Ưu đãi đăng ký và dùng thử từ các dịch vụ khác"},"paidPromotionBanners":{"message":"Nhãn nội dung quảng cáo có trả phí"},
+  "createNewFilter":{"message":"+ Tạo bộ lọc mới"},"reviewPrompt":{"message":"Thấy hữu ích? Hãy viết bài đánh giá"},"needSpeedControls":{"message":"Cần điều khiển tốc độ?"},"trySpeedController":{"message":"Hãy thử Simple Video Speed Controller."},"settingsSaved":{"message":"Đã lưu chế độ cài đặt!"},
+  "noKeywordsAdded":{"message":"Chưa thêm từ khóa"},"unnamedFilter":{"message":"Bộ lọc chưa đặt tên"},"enterFilterName":{"message":"Nhập tên bộ lọc"},"edit":{"message":"Chỉnh sửa"},"delete":{"message":"Xóa"},"keywordsInGroup":{"message":"Từ khóa trong nhóm này:"},
+  "addKeywordExample":{"message":"Thêm từ khóa (ví dụ: $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Thêm"},"save":{"message":"Lưu"},"removeKeyword":{"message":"Xóa $keyword$","placeholders":{"keyword":{"content":"$1"}}},
+  "keywordHintSpoiler":{"message":"Tiết lộ nội dung"},"keywordHintScore":{"message":"Tỷ số"},"keywordHintResult":{"message":"Kết quả"},"keywordHintEnding":{"message":"Kết thúc"},"keywordHintWinner":{"message":"Người thắng"},"keywordHintHighlights":{"message":"Điểm nổi bật"},"keywordHintFinale":{"message":"Tập cuối"},"keywordHintDefeats":{"message":"Đánh bại"},"keywordHintEliminated":{"message":"Bị loại"},"keywordHintDrafted":{"message":"Được tuyển"},"keywordHintReview":{"message":"Đánh giá"},"keywordHintReaction":{"message":"Phản ứng"}
+}

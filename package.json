@@ -1,8 +1,10 @@
 {
   "name": "youtube-ui-cleaner",
-  "version": "2.6.0",
+  "version": "2.8.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "check:locales": "node scripts/validate-locales.mjs",
+    "test": "node --check popup.js && node --check content.js && node --check youtube-locales.js && node --test tests/*.test.mjs",
+    "build": "npm run check:locales && npm test && node scripts/build.mjs"
   }
 }
