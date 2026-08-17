@@ -1,0 +1,18 @@
+{
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"隐藏 Shorts、分组视频、直播、推广内容和不想看到的主题，让 YouTube 更简洁。"},
+  "supportWork":{"message":"支持我的工作"},"general":{"message":"常规"},"customFilters":{"message":"自定义过滤器"},
+  "hideShorts":{"message":"隐藏 Shorts"},"showShortsOptions":{"message":"显示 Shorts 选项"},"hideShortsOptions":{"message":"隐藏 Shorts 选项"},
+  "home":{"message":"首页"},"sidebarButton":{"message":"侧边栏按钮"},"subscriptions":{"message":"订阅内容"},"searchResults":{"message":"搜索结果"},
+  "hideGroupedVideos":{"message":"隐藏分组视频"},"showGroupedOptions":{"message":"显示分组视频选项"},"hideGroupedOptions":{"message":"隐藏分组视频选项"},
+  "mixes":{"message":"合辑"},"podcasts":{"message":"播客"},"playlists":{"message":"播放列表"},
+  "hideLiveUpcoming":{"message":"隐藏直播和即将推出的视频"},"showLiveUpcomingOptions":{"message":"显示直播和即将推出的视频选项"},"hideLiveUpcomingOptions":{"message":"隐藏直播和即将推出的视频选项"},
+  "liveStreams":{"message":"直播"},"upcomingVideosPremieres":{"message":"即将推出的视频和首播"},"hideMembersOnlyVideos":{"message":"隐藏会员专享视频"},
+  "hideHomeFeedExtras":{"message":"隐藏首页动态中的额外内容"},"showFeedExtrasOptions":{"message":"显示首页动态额外选项"},"hideFeedExtrasOptions":{"message":"隐藏首页动态额外选项"},
+  "feedPills":{"message":"动态分类"},"feedPillsDescription":{"message":"首页顶部的分类"},"dismissibleSections":{"message":"可关闭的版块"},"dismissibleSectionsDescription":{"message":"社区帖子、AI 推荐内容等"},
+  "hidePlayables":{"message":"隐藏游戏"},"hidePlayablesDescription":{"message":"移除游戏版块"},"hidePromotions":{"message":"隐藏推广内容"},"showPromotionOptions":{"message":"显示推广内容选项"},"hidePromotionOptions":{"message":"隐藏推广内容选项"},
+  "featuredServiceVideos":{"message":"精选服务视频"},"featuredServiceDescription":{"message":"其他服务的订阅和试用优惠"},"paidPromotionBanners":{"message":"付费宣传横幅"},
+  "createNewFilter":{"message":"+ 新建过滤器"},"reviewPrompt":{"message":"觉得有用吗？欢迎留下评价"},"needSpeedControls":{"message":"需要播放速度控制吗？"},"trySpeedController":{"message":"试用 Simple Video Speed Controller。"},"settingsSaved":{"message":"设置已成功保存！"},
+  "noKeywordsAdded":{"message":"尚未添加关键词"},"unnamedFilter":{"message":"未命名的过滤器"},"enterFilterName":{"message":"输入过滤器名称"},"edit":{"message":"编辑"},"delete":{"message":"删除"},"keywordsInGroup":{"message":"该组中的关键词："},
+  "addKeywordExample":{"message":"添加关键词（例如：$example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"添加"},"save":{"message":"保存"},"removeKeyword":{"message":"移除 $keyword$","placeholders":{"keyword":{"content":"$1"}}},
+  "keywordHintSpoiler":{"message":"剧透"},"keywordHintScore":{"message":"比分"},"keywordHintResult":{"message":"结果"},"keywordHintEnding":{"message":"结局"},"keywordHintWinner":{"message":"获胜者"},"keywordHintHighlights":{"message":"精彩片段"},"keywordHintFinale":{"message":"大结局"},"keywordHintDefeats":{"message":"击败"},"keywordHintEliminated":{"message":"淘汰"},"keywordHintDrafted":{"message":"选秀"},"keywordHintReview":{"message":"评价"},"keywordHintReaction":{"message":"反应"}
+}

@@ -9,8 +9,13 @@ test('normalizes supported locale aliases and falls back safely', () => {
     assert.equal(locales.normalizeLocale('pt-BR'), 'pt_BR');
     assert.equal(locales.normalizeLocale('pt-PT'), 'pt_PT');
     assert.equal(locales.normalizeLocale('pt'), 'pt_PT');
-    assert.equal(locales.normalizeLocale('zh-Hant-HK'), 'zh_TW');
+    assert.equal(locales.normalizeLocale('zh-CN'), 'zh_CN');
+    assert.equal(locales.normalizeLocale('zh-Hans-SG'), 'zh_CN');
+    assert.equal(locales.normalizeLocale('zh'), 'zh_CN');
+    assert.equal(locales.normalizeLocale('zh-Hant-HK'), 'zh_HK');
+    assert.equal(locales.normalizeLocale('zh-HK'), 'zh_HK');
     assert.equal(locales.normalizeLocale('zh-TW'), 'zh_TW');
+    assert.equal(locales.normalizeLocale('zh-Hant'), 'zh_TW');
     assert.equal(locales.normalizeLocale('ar'), 'en');
 });
 
@@ -22,6 +27,8 @@ test('keeps Portuguese variants distinct', () => {
 test('matches localized YouTube actions but rejects unrelated text', () => {
     assert.equal(locales.matchesAny('Guardar en Ver más tarde', locales.getTerms('es').watchLaterActions), true);
     assert.equal(locales.matchesAny('儲存至「稍後觀看」', locales.getTerms('zh-TW').watchLaterActions), true);
+    assert.equal(locales.matchesAny('保存到“稍后观看”', locales.getTerms('zh-CN').watchLaterActions), true);
+    assert.equal(locales.matchesAny('儲存至「稍後觀看」', locales.getTerms('zh-HK').watchLaterActions), true);
     assert.equal(locales.matchesAny('İlgilenmiyorum', locales.getTerms('tr').notInterestedActions), true);
     assert.equal(locales.matchesAny('Compartir', locales.getTerms('es').watchLaterActions), false);
     assert.equal(locales.matchesAny('No recomendar este canal', locales.getTerms('es').notInterestedActions), false);
@@ -34,7 +41,7 @@ test('supports prefix and contains matching explicitly', () => {
 });
 
 test('every supported page locale has complete and distinct terminology', () => {
-    const expectedLocales = ['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'zh_TW'];
+    const expectedLocales = ['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'zh_CN', 'zh_TW', 'zh_HK'];
     const arrayKeys = [
         'playables', 'mix', 'podcast', 'viewFullPlaylist', 'playlist', 'tryNow', 'membersOnly',
         'upcoming', 'premierePrefixes', 'scheduledPrefixes', 'notifyMe', 'downloads',

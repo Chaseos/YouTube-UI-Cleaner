@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const port = Number(process.env.LOCALIZATION_AUDIT_PORT || 4173);
-const supportedLocales = new Set(['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'zh_TW']);
+const supportedLocales = new Set(['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'zh_CN', 'zh_TW', 'zh_HK']);
 const contentTypes = new Map([
     ['.css', 'text/css'], ['.html', 'text/html'], ['.js', 'text/javascript'],
     ['.json', 'application/json'], ['.png', 'image/png'], ['.svg', 'image/svg+xml']

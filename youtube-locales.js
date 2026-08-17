@@ -110,11 +110,29 @@
             watchLaterActions: ['나중에 볼 동영상', '나중에 볼 동영상에 저장'], notInterestedActions: ['관심 없음'],
             watchLaterLabel: '나중에 볼 동영상', notInterestedLabel: '관심 없음'
         },
+        zh_CN: {
+            playables: ['游戏', 'playables'], mix: ['合辑', '混合播放列表', 'mix'], podcast: ['播客', 'podcast'],
+            viewFullPlaylist: ['查看完整播放列表'], playlist: ['播放列表'], tryNow: ['立即试用', '立即体验'],
+            membersOnly: ['会员专享', '仅限会员'], upcoming: ['即将推出', '即将开始', '即将发布'],
+            premierePrefixes: ['首播 '], scheduledPrefixes: ['预定发布时间 ', '定于 '],
+            notifyMe: ['通知我', '设置提醒'], downloads: ['下载内容', '已下载的视频'],
+            watchLaterActions: ['稍后观看', '保存到“稍后观看”', '保存至“稍后观看”'], notInterestedActions: ['不感兴趣'],
+            watchLaterLabel: '稍后观看', notInterestedLabel: '不感兴趣'
+        },
         zh_TW: {
             playables: ['遊戲', 'playables'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
             viewFullPlaylist: ['查看完整播放清單'], playlist: ['播放清單'], tryNow: ['立即試用'],
             membersOnly: ['會員限定', '僅限會員'], upcoming: ['即將推出', '即將開始'],
             premierePrefixes: ['首播 '], scheduledPrefixes: ['預定發布時間 ', '預定於 '],
+            notifyMe: ['通知我', '設定提醒'], downloads: ['下載內容', '已下載的影片'],
+            watchLaterActions: ['稍後觀看', '儲存至「稍後觀看」'], notInterestedActions: ['不感興趣'],
+            watchLaterLabel: '稍後觀看', notInterestedLabel: '不感興趣'
+        },
+        zh_HK: {
+            playables: ['遊戲', 'playables'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
+            viewFullPlaylist: ['查看完整播放清單'], playlist: ['播放清單'], tryNow: ['立即試用'],
+            membersOnly: ['會員專享', '會員限定', '僅限會員'], upcoming: ['即將推出', '即將開始'],
+            premierePrefixes: ['首播 '], scheduledPrefixes: ['預定發布時間 ', '定於 '],
             notifyMe: ['通知我', '設定提醒'], downloads: ['下載內容', '已下載的影片'],
             watchLaterActions: ['稍後觀看', '儲存至「稍後觀看」'], notInterestedActions: ['不感興趣'],
             watchLaterLabel: '稍後觀看', notInterestedLabel: '不感興趣'
@@ -125,7 +143,15 @@
         const normalized = String(locale || '').replace('_', '-').toLowerCase();
         if (normalized === 'pt-br' || normalized.startsWith('pt-br-')) return 'pt_BR';
         if (normalized === 'pt' || normalized === 'pt-pt' || normalized.startsWith('pt-pt-')) return 'pt_PT';
-        if (normalized === 'zh-tw' || normalized.startsWith('zh-tw-') || normalized === 'zh-hant' || normalized.startsWith('zh-hant-')) return 'zh_TW';
+        if (normalized === 'zh-hk' || normalized.startsWith('zh-hk-')
+            || normalized === 'zh-mo' || normalized.startsWith('zh-mo-')
+            || normalized === 'zh-hant-hk' || normalized.startsWith('zh-hant-hk-')
+            || normalized === 'zh-hant-mo' || normalized.startsWith('zh-hant-mo-')) return 'zh_HK';
+        if (normalized === 'zh-tw' || normalized.startsWith('zh-tw-')
+            || normalized === 'zh-hant' || normalized === 'zh-hant-tw' || normalized.startsWith('zh-hant-tw-')) return 'zh_TW';
+        if (normalized === 'zh' || normalized === 'zh-cn' || normalized.startsWith('zh-cn-')
+            || normalized === 'zh-sg' || normalized.startsWith('zh-sg-')
+            || normalized === 'zh-hans' || normalized.startsWith('zh-hans-')) return 'zh_CN';
         const base = normalized.split('-')[0];
         return Object.prototype.hasOwnProperty.call(localeTerms, base) ? base : 'en';
     }
