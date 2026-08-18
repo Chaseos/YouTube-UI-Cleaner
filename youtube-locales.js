@@ -110,6 +110,51 @@
             watchLaterActions: ['나중에 볼 동영상', '나중에 볼 동영상에 저장'], notInterestedActions: ['관심 없음'],
             watchLaterLabel: '나중에 볼 동영상', notInterestedLabel: '관심 없음'
         },
+        ar: {
+            playables: ['ألعاب', 'الألعاب القابلة للتشغيل'], mix: ['مزيج', 'mix'], podcast: ['بودكاست'],
+            viewFullPlaylist: ['عرض قائمة التشغيل كاملة'], playlist: ['قائمة تشغيل', 'قائمة التشغيل'], tryNow: ['جرّب الآن', 'التجربة الآن'],
+            membersOnly: ['مخصّص للأعضاء فقط', 'للأعضاء فقط'], upcoming: ['قريبًا', 'قادم'],
+            premierePrefixes: ['عرض أول ', 'العرض الأول '], scheduledPrefixes: ['تم تحديد موعد العرض في ', 'مجدول في '],
+            notifyMe: ['تذكيري', 'إشعاري'], downloads: ['عمليات التنزيل', 'التنزيلات'],
+            watchLaterActions: ['المشاهدة لاحقًا', 'مشاهدة لاحقًا', 'الحفظ في قائمة المشاهدة لاحقًا'], notInterestedActions: ['لا يهمّني', 'لا يهمني', 'محتوى لا يهمّني'],
+            watchLaterLabel: 'المشاهدة لاحقًا', notInterestedLabel: 'لا يهمّني'
+        },
+        th: {
+            playables: ['ฟีเจอร์เล่นเกม', 'เกม'], mix: ['มิกซ์', 'mix'], podcast: ['พอดแคสต์'],
+            viewFullPlaylist: ['ดูเพลย์ลิสต์แบบเต็ม'], playlist: ['เพลย์ลิสต์'], tryNow: ['ลองเลย'],
+            membersOnly: ['สำหรับสมาชิกเท่านั้น'], upcoming: ['เร็วๆ นี้', 'กำลังจะเผยแพร่'],
+            premierePrefixes: ['พรีเมียร์ '], scheduledPrefixes: ['กำหนดเวลาไว้สำหรับ ', 'มีกำหนดการ '],
+            notifyMe: ['แจ้งเตือนฉัน', 'ตั้งการช่วยเตือน'], downloads: ['ดาวน์โหลด', 'วิดีโอที่ดาวน์โหลด'],
+            watchLaterActions: ['ดูภายหลัง', 'บันทึกไว้ดูภายหลัง', 'บันทึกลงในดูภายหลัง'], notInterestedActions: ['ไม่สนใจ'],
+            watchLaterLabel: 'ดูภายหลัง', notInterestedLabel: 'ไม่สนใจ'
+        },
+        it: {
+            playables: ['sala giochi', 'giochi', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            viewFullPlaylist: ['visualizza playlist completa'], playlist: ['playlist'], tryNow: ['prova ora'],
+            membersOnly: ['solo per abbonati', 'riservato agli abbonati'], upcoming: ['in arrivo'],
+            premierePrefixes: ['premiere ', 'prima visione '], scheduledPrefixes: ['programmato per ', 'in programma per '],
+            notifyMe: ['avvisami', 'imposta promemoria'], downloads: ['download'],
+            watchLaterActions: ['guarda più tardi', 'salva in guarda più tardi'], notInterestedActions: ['non mi interessa'],
+            watchLaterLabel: 'Guarda più tardi', notInterestedLabel: 'Non mi interessa'
+        },
+        pl: {
+            playables: ['pokój gier', 'gry', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            viewFullPlaylist: ['wyświetl pełną playlistę'], playlist: ['playlista', 'playlistę'], tryNow: ['wypróbuj teraz'],
+            membersOnly: ['tylko dla wspierających', 'tylko dla członków'], upcoming: ['wkrótce'],
+            premierePrefixes: ['premiera '], scheduledPrefixes: ['zaplanowano na ', 'planowana data '],
+            notifyMe: ['powiadom mnie', 'ustaw przypomnienie'], downloads: ['pobrane'],
+            watchLaterActions: ['do obejrzenia', 'zapisz na liście do obejrzenia'], notInterestedActions: ['nie interesuje mnie to', 'nie interesuje mnie'],
+            watchLaterLabel: 'Do obejrzenia', notInterestedLabel: 'Nie interesuje mnie to'
+        },
+        uk: {
+            playables: ['ігрова кімната', 'ігри', 'playables'], mix: ['мікс', 'mix'], podcast: ['подкаст'],
+            viewFullPlaylist: ['переглянути весь список відтворення'], playlist: ['список відтворення'], tryNow: ['спробувати зараз'],
+            membersOnly: ['лише для спонсорів', 'тільки для учасників'], upcoming: ['незабаром', 'очікується'],
+            premierePrefixes: ['прем’єра ', "прем'єра "], scheduledPrefixes: ['заплановано на '],
+            notifyMe: ['нагадати', 'сповістити мене'], downloads: ['завантаження', 'завантажені відео'],
+            watchLaterActions: ['переглянути пізніше', 'зберегти в список «переглянути пізніше»', 'зберегти в список "переглянути пізніше"'], notInterestedActions: ['не цікавить'],
+            watchLaterLabel: 'Переглянути пізніше', notInterestedLabel: 'Не цікавить'
+        },
         zh_CN: {
             playables: ['游戏', 'playables'], mix: ['合辑', '混合播放列表', 'mix'], podcast: ['播客', 'podcast'],
             viewFullPlaylist: ['查看完整播放列表'], playlist: ['播放列表'], tryNow: ['立即试用', '立即体验'],

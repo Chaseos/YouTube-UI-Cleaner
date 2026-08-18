@@ -201,7 +201,7 @@
     }
 
     .option.sub-option {
-      padding-left: 40px;
+      padding-inline-start: 40px;
     }
 
     .option.sub-option .option-title {
@@ -341,7 +341,7 @@
     .status {
       position: fixed;
       top: 16px;
-      right: 16px;
+      inset-inline-end: 16px;
       background-color: #2e7d32;
       color: white;
       padding: 10px 16px;
@@ -393,6 +393,15 @@
 
     .tabs:has(.tab-btn:nth-child(3).active) .tab-slider {
       transform: translateX(100%);
+    }
+
+    :root[dir="rtl"] .tab-slider {
+      left: auto;
+      right: 3px;
+    }
+
+    :root[dir="rtl"] .tabs:has(.tab-btn:nth-child(3).active) .tab-slider {
+      transform: translateX(-100%);
     }
 
     .tab-btn {

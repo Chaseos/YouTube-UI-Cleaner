@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const localesRoot = path.join(projectRoot, '_locales');
-const expectedLocales = ['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'zh_CN', 'zh_TW', 'zh_HK'];
+const expectedLocales = ['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'ar', 'th', 'it', 'pl', 'uk', 'zh_CN', 'zh_TW', 'zh_HK'];
 const allowedUnchangedKeys = new Set([
     'extensionName', 'general', 'edit', 'mixes', 'podcasts', 'playlists',
     'keywordHintSpoiler', 'keywordHintScore', 'keywordHintHighlights', 'keywordHintFinale'

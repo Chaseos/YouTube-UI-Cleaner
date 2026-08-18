@@ -408,7 +408,6 @@ function performMenuAction(button, containerResolver, action, preview = null) {
         }, 300);
     };
 
-    document.body.click();
     menuButton.click();
 
     let attempts = 0;
@@ -416,8 +415,8 @@ function performMenuAction(button, containerResolver, action, preview = null) {
         attempts++;
         if (attempts > 40) {
             clearInterval(findAndClickAction);
+            menuButton.click();
             cleanup();
-            document.body.click();
             return;
         }
 
@@ -430,7 +429,8 @@ function performMenuAction(button, containerResolver, action, preview = null) {
             if (!pageLocales.matchesAny(item.textContent, actionAliases, 'contains')) continue;
 
             clearInterval(findAndClickAction);
-            item.click();
+            const actionTarget = item.querySelector('[role="menuitem"], button, a') || item;
+            actionTarget.click();
             cleanup();
 
             if (action === 'notInterested' && preview) {

@@ -13,7 +13,10 @@ function escapeHtml(value) {
 
 function localizeDocument() {
     const uiLanguage = chrome.i18n?.getUILanguage?.();
-    if (uiLanguage) document.documentElement.lang = uiLanguage.replace('_', '-');
+    if (uiLanguage) {
+        document.documentElement.lang = uiLanguage.replace('_', '-');
+        document.documentElement.dir = /^ar(?:[-_]|$)/i.test(uiLanguage) ? 'rtl' : 'ltr';
+    }
 
     document.querySelectorAll('[data-i18n]').forEach(element => {
         element.textContent = getMessage(element.dataset.i18n, undefined, element.textContent);
