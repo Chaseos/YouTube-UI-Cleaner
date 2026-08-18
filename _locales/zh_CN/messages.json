@@ -9,7 +9,7 @@
   "liveStreams":{"message":"直播"},"upcomingVideosPremieres":{"message":"即将推出的视频和首播"},"hideMembersOnlyVideos":{"message":"隐藏会员专享视频"},
   "hideHomeFeedExtras":{"message":"隐藏首页动态中的额外内容"},"showFeedExtrasOptions":{"message":"显示首页动态额外选项"},"hideFeedExtrasOptions":{"message":"隐藏首页动态额外选项"},
   "feedPills":{"message":"动态分类"},"feedPillsDescription":{"message":"首页顶部的分类"},"dismissibleSections":{"message":"可关闭的版块"},"dismissibleSectionsDescription":{"message":"社区帖子、AI 推荐内容等"},
-  "hidePlayables":{"message":"隐藏游戏"},"hidePlayablesDescription":{"message":"移除游戏版块"},"hidePromotions":{"message":"隐藏推广内容"},"showPromotionOptions":{"message":"显示推广内容选项"},"hidePromotionOptions":{"message":"隐藏推广内容选项"},
+  "hidePlayables":{"message":"隐藏游戏大本营"},"hidePlayablesDescription":{"message":"移除游戏大本营版块"},"hidePromotions":{"message":"隐藏推广内容"},"showPromotionOptions":{"message":"显示推广内容选项"},"hidePromotionOptions":{"message":"隐藏推广内容选项"},
   "featuredServiceVideos":{"message":"精选服务视频"},"featuredServiceDescription":{"message":"其他服务的订阅和试用优惠"},"paidPromotionBanners":{"message":"付费宣传横幅"},
   "createNewFilter":{"message":"+ 新建过滤器"},"reviewPrompt":{"message":"觉得有用吗？欢迎留下评价"},"needSpeedControls":{"message":"需要播放速度控制吗？"},"trySpeedController":{"message":"试用 Simple Video Speed Controller。"},"settingsSaved":{"message":"设置已成功保存！"},
   "noKeywordsAdded":{"message":"尚未添加关键词"},"unnamedFilter":{"message":"未命名的过滤器"},"enterFilterName":{"message":"输入过滤器名称"},"edit":{"message":"编辑"},"delete":{"message":"删除"},"keywordsInGroup":{"message":"该组中的关键词："},

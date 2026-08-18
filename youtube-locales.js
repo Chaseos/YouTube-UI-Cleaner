@@ -12,7 +12,7 @@
             watchLaterLabel: 'Watch Later', notInterestedLabel: 'Not Interested'
         },
         es: {
-            playables: ['juegos', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['jugables'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['ver lista de reproducción completa'], playlist: ['lista de reproducción'], tryNow: ['probar ahora'],
             membersOnly: ['solo para miembros', 'exclusivo para miembros'], upcoming: ['próximamente'],
             premierePrefixes: ['se estrena ', 'estreno '], scheduledPrefixes: ['programado para '],
@@ -21,7 +21,7 @@
             watchLaterLabel: 'Ver más tarde', notInterestedLabel: 'No me interesa'
         },
         pt_PT: {
-            playables: ['jogos', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['sala de jogos'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['ver playlist completa', 'ver lista de reprodução completa'], playlist: ['playlist', 'lista de reprodução'], tryNow: ['experimentar agora'],
             membersOnly: ['apenas para membros', 'exclusivo para membros'], upcoming: ['em breve'],
             premierePrefixes: ['estreia ', 'estreia em '], scheduledPrefixes: ['agendado para '],
@@ -30,7 +30,7 @@
             watchLaterLabel: 'Ver mais tarde', notInterestedLabel: 'Não tenho interesse'
         },
         pt_BR: {
-            playables: ['jogos', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['sala de jogos'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['ver playlist completa', 'ver lista de reprodução completa'], playlist: ['playlist', 'lista de reprodução'], tryNow: ['teste agora', 'experimentar agora'],
             membersOnly: ['somente para membros', 'exclusivo para membros'], upcoming: ['em breve'],
             premierePrefixes: ['estreia ', 'estreia em '], scheduledPrefixes: ['programado para '],
@@ -39,7 +39,7 @@
             watchLaterLabel: 'Assistir mais tarde', notInterestedLabel: 'Não tenho interesse'
         },
         id: {
-            playables: ['game', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['ruang game'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['lihat playlist lengkap'], playlist: ['playlist'], tryNow: ['coba sekarang'],
             membersOnly: ['khusus pelanggan', 'khusus anggota'], upcoming: ['mendatang'],
             premierePrefixes: ['tayang perdana '], scheduledPrefixes: ['dijadwalkan untuk '],
@@ -48,16 +48,16 @@
             watchLaterLabel: 'Tonton nanti', notInterestedLabel: 'Tidak tertarik'
         },
         ja: {
-            playables: ['ゲーム', 'playables'], mix: ['ミックス', 'mix'], podcast: ['ポッドキャスト'],
+            playables: ['ゲームルーム'], mix: ['ミックス', 'mix'], podcast: ['ポッドキャスト'],
             viewFullPlaylist: ['再生リストをすべて表示'], playlist: ['再生リスト'], tryNow: ['今すぐ試す'],
             membersOnly: ['メンバー限定'], upcoming: ['近日公開', '公開予定'],
             premierePrefixes: ['プレミア公開'], scheduledPrefixes: ['公開予定'],
             notifyMe: ['通知する'], downloads: ['オフライン', 'ダウンロード'],
-            watchLaterActions: ['後で見る', '「後で見る」に保存'], notInterestedActions: ['興味なし'],
-            watchLaterLabel: '後で見る', notInterestedLabel: '興味なし'
+            watchLaterActions: ['後で見る', '「後で見る」に保存'], notInterestedActions: ['興味がない', '興味なし'],
+            watchLaterLabel: '後で見る', notInterestedLabel: '興味がない'
         },
         de: {
-            playables: ['spiele', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['playables'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['vollständige playlist ansehen'], playlist: ['playlist'], tryNow: ['jetzt testen'],
             membersOnly: ['nur für mitglieder'], upcoming: ['demnächst'],
             premierePrefixes: ['premiere '], scheduledPrefixes: ['geplant für '],
@@ -66,7 +66,7 @@
             watchLaterLabel: 'Später ansehen', notInterestedLabel: 'Kein Interesse'
         },
         fr: {
-            playables: ['jeux', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['jeux intégrés'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['afficher la playlist complète'], playlist: ['playlist'], tryNow: ['essayer', 'essayer maintenant'],
             membersOnly: ['réservé aux membres', 'réservée aux membres'], upcoming: ['à venir'],
             premierePrefixes: ['première '], scheduledPrefixes: ['prévue pour ', 'prévu pour '],
@@ -75,7 +75,7 @@
             watchLaterLabel: 'À regarder plus tard', notInterestedLabel: 'Pas intéressé'
         },
         hi: {
-            playables: ['गेम', 'playables'], mix: ['मिक्स'], podcast: ['पॉडकास्ट'],
+            playables: ['playables'], mix: ['मिक्स'], podcast: ['पॉडकास्ट'],
             viewFullPlaylist: ['पूरी प्लेलिस्ट देखें'], playlist: ['प्लेलिस्ट'], tryNow: ['अभी आज़माएं', 'अभी आज़माएँ'],
             membersOnly: ['सिर्फ़ सदस्यों के लिए', 'केवल सदस्यों के लिए'], upcoming: ['आगामी'],
             premierePrefixes: ['प्रीमियर '], scheduledPrefixes: ['इसके लिए शेड्यूल किया गया '],
@@ -84,7 +84,7 @@
             watchLaterLabel: 'बाद में देखें', notInterestedLabel: 'दिलचस्पी नहीं है'
         },
         vi: {
-            playables: ['trò chơi', 'playables'], mix: ['tuyển tập', 'mix'], podcast: ['podcast'],
+            playables: ['chơi game'], mix: ['tuyển tập', 'mix'], podcast: ['podcast'],
             viewFullPlaylist: ['xem toàn bộ danh sách phát'], playlist: ['danh sách phát'], tryNow: ['dùng thử ngay'],
             membersOnly: ['chỉ dành cho hội viên'], upcoming: ['sắp ra mắt'],
             premierePrefixes: ['công chiếu '], scheduledPrefixes: ['đã lên lịch vào '],
@@ -93,7 +93,7 @@
             watchLaterLabel: 'Xem sau', notInterestedLabel: 'Không quan tâm'
         },
         tr: {
-            playables: ['oyunlar', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['hazır oyunlar'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['oynatma listesinin tamamını görüntüle'], playlist: ['oynatma listesi'], tryNow: ['şimdi dene'],
             membersOnly: ['yalnızca üyelere özel'], upcoming: ['yakında'],
             premierePrefixes: ['ilk gösterim '], scheduledPrefixes: ['planlanan tarih ', 'şu tarih için planlandı '],
@@ -102,7 +102,7 @@
             watchLaterLabel: 'Daha sonra izle', notInterestedLabel: 'İlgilenmiyorum'
         },
         ko: {
-            playables: ['게임', 'playables'], mix: ['믹스'], podcast: ['팟캐스트'],
+            playables: ['게임 룸', '게임룸'], mix: ['믹스'], podcast: ['팟캐스트'],
             viewFullPlaylist: ['전체 재생목록 보기'], playlist: ['재생목록'], tryNow: ['지금 사용해 보기'],
             membersOnly: ['회원 전용'], upcoming: ['공개 예정'],
             premierePrefixes: ['최초 공개 '], scheduledPrefixes: ['예약 시간 ', '공개 예정 '],
@@ -111,7 +111,7 @@
             watchLaterLabel: '나중에 볼 동영상', notInterestedLabel: '관심 없음'
         },
         ar: {
-            playables: ['ألعاب', 'الألعاب القابلة للتشغيل'], mix: ['مزيج', 'mix'], podcast: ['بودكاست'],
+            playables: ['هيّا نلعب', 'هيا نلعب'], mix: ['مزيج', 'mix'], podcast: ['بودكاست'],
             viewFullPlaylist: ['عرض قائمة التشغيل كاملة'], playlist: ['قائمة تشغيل', 'قائمة التشغيل'], tryNow: ['جرّب الآن', 'التجربة الآن'],
             membersOnly: ['مخصّص للأعضاء فقط', 'للأعضاء فقط'], upcoming: ['قريبًا', 'قادم'],
             premierePrefixes: ['عرض أول ', 'العرض الأول '], scheduledPrefixes: ['تم تحديد موعد العرض في ', 'مجدول في '],
@@ -120,7 +120,7 @@
             watchLaterLabel: 'المشاهدة لاحقًا', notInterestedLabel: 'لا يهمّني'
         },
         th: {
-            playables: ['ฟีเจอร์เล่นเกม', 'เกม'], mix: ['มิกซ์', 'mix'], podcast: ['พอดแคสต์'],
+            playables: ['ฟีเจอร์เล่นเกม'], mix: ['มิกซ์', 'mix'], podcast: ['พอดแคสต์'],
             viewFullPlaylist: ['ดูเพลย์ลิสต์แบบเต็ม'], playlist: ['เพลย์ลิสต์'], tryNow: ['ลองเลย'],
             membersOnly: ['สำหรับสมาชิกเท่านั้น'], upcoming: ['เร็วๆ นี้', 'กำลังจะเผยแพร่'],
             premierePrefixes: ['พรีเมียร์ '], scheduledPrefixes: ['กำหนดเวลาไว้สำหรับ ', 'มีกำหนดการ '],
@@ -129,7 +129,7 @@
             watchLaterLabel: 'ดูภายหลัง', notInterestedLabel: 'ไม่สนใจ'
         },
         it: {
-            playables: ['sala giochi', 'giochi', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['sala giochi'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['visualizza playlist completa'], playlist: ['playlist'], tryNow: ['prova ora'],
             membersOnly: ['solo per abbonati', 'riservato agli abbonati'], upcoming: ['in arrivo'],
             premierePrefixes: ['premiere ', 'prima visione '], scheduledPrefixes: ['programmato per ', 'in programma per '],
@@ -138,7 +138,7 @@
             watchLaterLabel: 'Guarda più tardi', notInterestedLabel: 'Non mi interessa'
         },
         pl: {
-            playables: ['pokój gier', 'gry', 'playables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['pokój gier'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['wyświetl pełną playlistę'], playlist: ['playlista', 'playlistę'], tryNow: ['wypróbuj teraz'],
             membersOnly: ['tylko dla wspierających', 'tylko dla członków'], upcoming: ['wkrótce'],
             premierePrefixes: ['premiera '], scheduledPrefixes: ['zaplanowano na ', 'planowana data '],
@@ -147,7 +147,7 @@
             watchLaterLabel: 'Do obejrzenia', notInterestedLabel: 'Nie interesuje mnie to'
         },
         uk: {
-            playables: ['ігрова кімната', 'ігри', 'playables'], mix: ['мікс', 'mix'], podcast: ['подкаст'],
+            playables: ['ігрова кімната'], mix: ['мікс', 'mix'], podcast: ['подкаст'],
             viewFullPlaylist: ['переглянути весь список відтворення'], playlist: ['список відтворення'], tryNow: ['спробувати зараз'],
             membersOnly: ['лише для спонсорів', 'тільки для учасників'], upcoming: ['незабаром', 'очікується'],
             premierePrefixes: ['прем’єра ', "прем'єра "], scheduledPrefixes: ['заплановано на '],
@@ -156,7 +156,7 @@
             watchLaterLabel: 'Переглянути пізніше', notInterestedLabel: 'Не цікавить'
         },
         zh_CN: {
-            playables: ['游戏', 'playables'], mix: ['合辑', '混合播放列表', 'mix'], podcast: ['播客', 'podcast'],
+            playables: ['游戏大本营'], mix: ['合辑', '混合播放列表', 'mix'], podcast: ['播客', 'podcast'],
             viewFullPlaylist: ['查看完整播放列表'], playlist: ['播放列表'], tryNow: ['立即试用', '立即体验'],
             membersOnly: ['会员专享', '仅限会员'], upcoming: ['即将推出', '即将开始', '即将发布'],
             premierePrefixes: ['首播 '], scheduledPrefixes: ['预定发布时间 ', '定于 '],
@@ -165,7 +165,7 @@
             watchLaterLabel: '稍后观看', notInterestedLabel: '不感兴趣'
         },
         zh_TW: {
-            playables: ['遊戲', 'playables'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
+            playables: ['遊戲角落'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
             viewFullPlaylist: ['查看完整播放清單'], playlist: ['播放清單'], tryNow: ['立即試用'],
             membersOnly: ['會員限定', '僅限會員'], upcoming: ['即將推出', '即將開始'],
             premierePrefixes: ['首播 '], scheduledPrefixes: ['預定發布時間 ', '預定於 '],
@@ -174,7 +174,7 @@
             watchLaterLabel: '稍後觀看', notInterestedLabel: '不感興趣'
         },
         zh_HK: {
-            playables: ['遊戲', 'playables'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
+            playables: ['playables'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
             viewFullPlaylist: ['查看完整播放清單'], playlist: ['播放清單'], tryNow: ['立即試用'],
             membersOnly: ['會員專享', '會員限定', '僅限會員'], upcoming: ['即將推出', '即將開始'],
             premierePrefixes: ['首播 '], scheduledPrefixes: ['預定發布時間 ', '定於 '],

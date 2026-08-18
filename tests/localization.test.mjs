@@ -29,12 +29,42 @@ test('keeps Portuguese variants distinct', () => {
     assert.equal(locales.getTerms('pt-PT').watchLaterLabel, 'Ver mais tarde');
 });
 
+test('uses the current YouTube product name for Playables in every locale', () => {
+    const officialNames = new Map([
+        ['en', 'playables'],
+        ['es', 'jugables'],
+        ['pt-PT', 'sala de jogos'],
+        ['pt-BR', 'sala de jogos'],
+        ['id', 'ruang game'],
+        ['ja', 'ゲームルーム'],
+        ['de', 'playables'],
+        ['fr', 'jeux intégrés'],
+        ['hi', 'playables'],
+        ['vi', 'chơi game'],
+        ['tr', 'hazır oyunlar'],
+        ['ko', '게임 룸'],
+        ['ar', 'هيّا نلعب'],
+        ['th', 'ฟีเจอร์เล่นเกม'],
+        ['it', 'sala giochi'],
+        ['pl', 'pokój gier'],
+        ['uk', 'ігрова кімната'],
+        ['zh-CN', '游戏大本营'],
+        ['zh-TW', '遊戲角落'],
+        ['zh-HK', 'playables']
+    ]);
+
+    for (const [locale, productName] of officialNames) {
+        assert.equal(locales.getTerms(locale).playables[0], productName);
+    }
+});
+
 test('matches localized YouTube actions but rejects unrelated text', () => {
     assert.equal(locales.matchesAny('Guardar en Ver más tarde', locales.getTerms('es').watchLaterActions), true);
     assert.equal(locales.matchesAny('儲存至「稍後觀看」', locales.getTerms('zh-TW').watchLaterActions), true);
     assert.equal(locales.matchesAny('保存到“稍后观看”', locales.getTerms('zh-CN').watchLaterActions), true);
     assert.equal(locales.matchesAny('儲存至「稍後觀看」', locales.getTerms('zh-HK').watchLaterActions), true);
     assert.equal(locales.matchesAny('İlgilenmiyorum', locales.getTerms('tr').notInterestedActions), true);
+    assert.equal(locales.matchesAny('興味がない', locales.getTerms('ja').notInterestedActions), true);
     assert.equal(locales.matchesAny('لا يهمّني', locales.getTerms('ar').notInterestedActions), true);
     assert.equal(locales.matchesAny('الحفظ في قائمة المشاهدة لاحقًا', locales.getTerms('ar').watchLaterActions), true);
     assert.equal(locales.matchesAny('ดูภายหลัง', locales.getTerms('th').watchLaterActions), true);

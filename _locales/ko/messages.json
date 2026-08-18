@@ -9,7 +9,7 @@
   "liveStreams":{"message":"실시간 스트림"},"upcomingVideosPremieres":{"message":"공개 예정 동영상 및 최초 공개"},"hideMembersOnlyVideos":{"message":"회원 전용 동영상 숨기기"},
   "hideHomeFeedExtras":{"message":"홈 피드 추가 항목 숨기기"},"showFeedExtrasOptions":{"message":"홈 피드 추가 옵션 표시"},"hideFeedExtrasOptions":{"message":"홈 피드 추가 옵션 숨기기"},
   "feedPills":{"message":"피드 카테고리"},"feedPillsDescription":{"message":"홈 상단의 카테고리"},"dismissibleSections":{"message":"닫을 수 있는 섹션"},"dismissibleSectionsDescription":{"message":"커뮤니티 게시물, AI 추천 등"},
-  "hidePlayables":{"message":"게임 숨기기"},"hidePlayablesDescription":{"message":"게임 섹션을 삭제합니다"},"hidePromotions":{"message":"프로모션 숨기기"},"showPromotionOptions":{"message":"프로모션 옵션 표시"},"hidePromotionOptions":{"message":"프로모션 옵션 숨기기"},
+  "hidePlayables":{"message":"게임 룸 숨기기"},"hidePlayablesDescription":{"message":"게임 룸 섹션을 삭제합니다"},"hidePromotions":{"message":"프로모션 숨기기"},"showPromotionOptions":{"message":"프로모션 옵션 표시"},"hidePromotionOptions":{"message":"프로모션 옵션 숨기기"},
   "featuredServiceVideos":{"message":"추천 서비스 동영상"},"featuredServiceDescription":{"message":"다른 서비스의 구독 및 체험 혜택"},"paidPromotionBanners":{"message":"유료 프로모션 배너"},
   "createNewFilter":{"message":"+ 새 필터 만들기"},"reviewPrompt":{"message":"유용한가요? 리뷰를 남겨 주세요"},"needSpeedControls":{"message":"재생 속도 조절이 필요한가요?"},"trySpeedController":{"message":"Simple Video Speed Controller를 사용해 보세요."},"settingsSaved":{"message":"설정을 저장했습니다!"},
   "noKeywordsAdded":{"message":"추가된 키워드 없음"},"unnamedFilter":{"message":"이름 없는 필터"},"enterFilterName":{"message":"필터 이름 입력"},"edit":{"message":"수정"},"delete":{"message":"삭제"},"keywordsInGroup":{"message":"이 그룹의 키워드:"},

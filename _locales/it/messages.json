@@ -28,7 +28,7 @@
   "hideFeedExtrasOptions": { "message": "Nascondi le opzioni extra del feed Home" },
   "feedPills": { "message": "Categorie del feed" },
   "feedPillsDescription": { "message": "Categorie principali nella Home" },
-  "dismissibleSections": { "message": "Sezioni ignorabili" },
+  "dismissibleSections": { "message": "Sezioni che puoi chiudere" },
   "dismissibleSectionsDescription": { "message": "Post della community, consigli dell'IA e altro" },
   "hidePlayables": { "message": "Nascondi Sala giochi" },
   "hidePlayablesDescription": { "message": "Rimuove la sezione Sala giochi" },
