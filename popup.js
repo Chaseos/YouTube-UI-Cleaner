@@ -66,18 +66,21 @@ const REVIEW_STORE_URLS = Object.freeze({
     chrome: 'https://chromewebstore.google.com/detail/youtube-ui-cleaner/blnbifjnjgpgfigcpkhcfkiiepokhkdf/reviews',
     edge: 'https://microsoftedge.microsoft.com/addons/detail/youtube-ui-cleaner/dmfgeiiikimggajkkdefmngleooclhci',
     firefox: 'https://addons.mozilla.org/en-US/firefox/addon/youtube-ui-cleaner/reviews/',
-    opera: 'https://addons.opera.com/en/extensions/details/youtube-ui-cleaner/#feedback-container'
+    opera: 'https://addons.opera.com/en/extensions/details/youtube-ui-cleaner/#feedback-container',
+    whale: 'https://store.whale.naver.com/detail/nkiaddacajkdagoaajbjdlfglidkedlk'
 });
 const SIMPLE_VIDEO_SPEED_CONTROLLER_STORE_URLS = Object.freeze({
     chrome: 'https://chromewebstore.google.com/detail/simple-video-speed-contro/kcjfpmjkbkhgojilpihplkedadndnked',
     edge: 'https://microsoftedge.microsoft.com/addons/detail/simple-video-speed-contro/mnmagmdfgdjhbfkdnonnhkfnbnjpehja',
     firefox: 'https://addons.mozilla.org/en-US/firefox/addon/simple-video-speed-controller/',
-    opera: 'https://addons.opera.com/en/extensions/details/simple-video-speed-controller/'
+    opera: 'https://addons.opera.com/en/extensions/details/simple-video-speed-controller/',
+    whale: 'https://store.whale.naver.com/detail/fkcbnblnjclbfnkkhnmoaelklgfiigbc'
 });
 const REVIEW_STORE_EXTENSION_IDS = Object.freeze({
     chrome: 'blnbifjnjgpgfigcpkhcfkiiepokhkdf',
     edge: 'dmfgeiiikimggajkkdefmngleooclhci',
-    firefox: '@youtube-ui-cleaner'
+    firefox: '@youtube-ui-cleaner',
+    whale: 'nkiaddacajkdagoaajbjdlfglidkedlk'
 });
 const SIMPLE_VIDEO_SPEED_CONTROLLER_AD = Object.freeze({
     cardId: 'simple-video-speed-controller-ad-card',
@@ -420,6 +423,10 @@ function detectReviewStore(env = getReviewRoutingEnvironment()) {
 
     if (extensionId === REVIEW_STORE_EXTENSION_IDS.firefox || extensionUrl.startsWith('moz-extension://') || ua.includes('Firefox')) {
         return 'firefox';
+    }
+
+    if (extensionId === REVIEW_STORE_EXTENSION_IDS.whale || /\bWhale\b/.test(brandText) || /Whale\//.test(ua)) {
+        return 'whale';
     }
 
     if (extensionId === REVIEW_STORE_EXTENSION_IDS.edge || /\bMicrosoft Edge\b/.test(brandText) || /Edg(A|iOS)?\//.test(ua)) {
