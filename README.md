@@ -1,126 +1,116 @@
 # YouTube UI Cleaner
 
-YouTube UI Cleaner is a lightweight browser extension that trims noisy YouTube surfaces so feeds, search results, subscriptions, and video pages feel calmer. It can hide Shorts, grouped video results, live streams, upcoming premieres, members-only videos, promotions, home feed extras, Playables shelves, and custom keyword matches.
+YouTube UI Cleaner is a lightweight, open-source browser extension that removes distracting content from YouTube without redesigning the site. Hide Shorts, live and upcoming videos, grouped recommendations, promotions, unwanted topics, and more with controls for each type of content.
+
+All processing happens locally in your browser. No browsing data or personal information is collected or transmitted.
+
+## Install
+
+Install YouTube UI Cleaner from your browser's official extension store:
+
+| Browser | Store |
+| --- | --- |
+| Google Chrome | [Install from the Chrome Web Store](https://chromewebstore.google.com/detail/youtube-ui-cleaner/blnbifjnjgpgfigcpkhcfkiiepokhkdf) |
+| Microsoft Edge | [Install from Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/youtube-ui-cleaner/dmfgeiiikimggajkkdefmngleooclhci) |
+| Mozilla Firefox | [Install from Firefox Browser Add-ons](https://addons.mozilla.org/firefox/addon/youtube-ui-cleaner/) |
+| Opera | [Install from Opera Add-ons](https://addons.opera.com/extensions/details/youtube-ui-cleaner/) |
+| NAVER Whale | [Install from Whale Store](https://store.whale.naver.com/detail/nkiaddacajkdagoaajbjdlfglidkedlk) |
 
 ## Features
 
-### Shorts Controls
+### Fine-grained feed cleanup
 
-- **Hide Shorts on Home**: Removes Shorts shelves from the YouTube home feed.
-- **Hide Shorts Sidebar Button**: Removes the Shorts entry from YouTube's full and compact sidebars.
-- **Hide Shorts in Subscriptions**: Removes Shorts shelves from the Subscriptions page.
-- **Hide Shorts in Search Results**: Removes Shorts shelves and individual Shorts results from search.
-- **Master Shorts Toggle**: Turn all Shorts filters on or off at once, or control each location separately.
+Use master switches for a whole category or expand a category to control its filters independently.
 
-### Feed Cleanup
+| Category | Available controls |
+| --- | --- |
+| Shorts | Hide Shorts on Home, in the sidebar, in Subscriptions, and in Search results |
+| Grouped videos | Hide Mixes, podcasts, and playlists while leaving your Playlists library intact |
+| Live and upcoming | Hide live streams separately from scheduled videos and upcoming premieres |
+| Home feed extras | Hide the category filter chips or dismissible sections such as Community posts, nudges, and recommendation shelves |
+| Promotions | Hide featured subscription or trial offers and paid-promotion overlays |
+| Other content | Hide members-only videos and YouTube Playables shelves |
 
-- **Hide Grouped Videos**: Removes grouped recommendation formats with separate controls for Mixes, Podcasts, and Playlists.
-- **Hide Live & Upcoming**: Removes live streams, scheduled videos, and upcoming premieres with separate controls for each type.
-- **Hide Members-Only Videos**: Removes videos restricted to channel members from supported feeds and recommendation lists.
-- **Hide Home Feed Extras**: Groups separate controls for category filter chips and dismissible sections such as Community posts, nudges, and AI recommendations.
-- **Hide Featured Service Videos**: Removes featured trial offers from additional content services, detected by YouTube's commerce and promoted metadata badges.
-- **Hide Playables**: Removes YouTube Playables shelves.
+Built-in cleanup filters are enabled on first install and can be changed at any time from the extension popup.
 
-### Video Page Cleanup
+### Custom keyword filters
 
-- **Hide Paid Promotion Banners**: Removes YouTube's paid promotion overlay from videos.
+- Create named filter groups for topics you do not want to see.
+- Add one keyword or several comma-separated keywords to a group.
+- Enable, disable, edit, or delete each group independently.
+- Hide matching video cards automatically using case-insensitive matching against their visible text.
 
-### Custom Keyword Filters
+Keyword groups are useful for spoilers, sports results, reviews, reactions, celebrity news, event outcomes, and any other topics you would rather avoid.
 
-- **Filter Groups**: Create named groups for topics you want to avoid, such as spoilers, sports results, reviews, reactions, or event outcomes.
-- **Multiple Keywords per Group**: Add one keyword or comma-separated keywords to each group.
-- **Per-Group Toggles**: Enable or disable individual filter groups without deleting them.
-- **Automatic Matching**: Hides videos whose visible text contains any enabled keyword.
+### Quick video actions
 
-### Quick Hover Actions
+YouTube UI Cleaner adds **Watch Later** and **Not Interested** shortcuts to supported inline hover previews and watch-page recommendation thumbnails. The shortcuts trigger YouTube's native actions, including its normal confirmation and Undo behavior, without requiring you to open the three-dot menu.
 
-- **Watch Later Shortcut**: Adds a Watch Later button to YouTube's inline hover previews and watch-page recommendation thumbnails.
-- **Not Interested Shortcut**: Adds a Not Interested button to the same hover surfaces, using YouTube's native menu action behind the scenes.
+### YouTube navigation support
 
-## Store Listing Copy
+Filters are reapplied as YouTube loads new content or moves between pages in its single-page interface, so settings continue working across Home, Subscriptions, Search, and watch-page recommendations.
 
-### Suggested Title
+## Languages
 
-YouTube UI Cleaner: Hide Shorts & Distractions
+The extension popup and localized YouTube text detection support 20 locales:
 
-### Short Description
+| | | |
+| --- | --- | --- |
+| Arabic | German | Polish |
+| Chinese (Simplified) | Hindi | Portuguese (Brazil) |
+| Chinese (Hong Kong) | Indonesian | Portuguese (Portugal) |
+| Chinese (Traditional) | Italian | Spanish |
+| English | Japanese | Thai |
+| French | Korean | Turkish |
+| Ukrainian | Vietnamese | |
 
-Hide YouTube Shorts, live streams, mixes, playlists, promotions, and unwanted topics for a cleaner, distraction-free feed.
-
-### Full Description
-
-Take control of what appears on YouTube. YouTube UI Cleaner hides distracting video formats, unwanted topics, and clutter across your Home feed, subscriptions, search results, and watch pages.
-
-Every feature can be controlled individually, allowing you to create a cleaner YouTube experience without replacing or redesigning the interface.
-
-#### Cleaner YouTube Feeds
-
-- Hide Shorts from the Home feed, subscriptions, search results, and sidebar navigation.
-- Hide Mixes, podcasts, and playlists.
-- Hide live streams and live video recommendations.
-- Hide scheduled videos, upcoming premieres, and members-only videos.
-- Remove dismissible feed sections such as Community posts, nudges, and recommendation shelves.
-- Hide category filter chips, Community posts, nudges, and other Home feed extras.
-- Hide featured videos offering trials for additional content services.
-- Remove "Includes paid promotion" overlays from videos.
-
-#### Custom Keyword Filters
-
-Create named filter groups for topics you do not want to see—such as spoilers, sports results, celebrity news, reactions, or reviews. Enabled filters automatically hide video cards containing matching text.
-
-#### Quick Video Actions
-
-Hover over supported video thumbnails to access Watch Later and Not Interested without opening the three-dot menu. These shortcuts work in feeds and on recommendations shown beside or below the video you are watching.
-
-The shortcuts use YouTube's native actions, preserving normal confirmation messages and Undo behavior.
-
-#### Private and Open Source
-
-YouTube UI Cleaner operates locally and does not collect, store, or transmit personal data.
-
-Source code:
-
-https://github.com/Chaseos/YouTube-UI-Cleaner
-
-Support development on Ko-fi:
-
-https://ko-fi.com/chaseos
-
-## Installation
-
-1. Clone or download this repository.
-2. Open Chrome and go to `chrome://extensions`.
-3. Enable **Developer mode**.
-4. Click **Load unpacked**.
-5. Select this project folder.
-
-## Building Release Packages
-
-Run the following command from the project directory:
-
-```sh
-npm run build
-```
-
-This creates unpacked and zipped builds in `dist/`:
-
-- `dist/chromium/` and `dist/youtube-ui-cleaner-chromium.zip` omit Firefox-only manifest settings.
-- `dist/firefox/` and `dist/youtube-ui-cleaner-firefox.zip` retain `browser_specific_settings.gecko`.
-
-The packages exclude development files such as `.git/`, `.github/`, `node_modules/`, tests, build scripts, package metadata, and existing ZIP archives.
+The popup follows your browser's UI language, while content detection follows the language set on the YouTube page. Unsupported locales fall back to English.
 
 ## Usage
 
-1. Open YouTube.
-2. Click the YouTube UI Cleaner extension icon.
-3. Use the **General** tab to toggle built-in cleanup options.
-4. Use the **Custom Filters** tab to create and manage keyword filter groups.
+1. Open YouTube in a supported browser.
+2. Select the YouTube UI Cleaner icon in the browser toolbar.
+3. Use the **General** tab to configure the built-in cleanup options.
+4. Use the **Custom Filters** tab to create and manage keyword groups.
 
-Settings are saved with browser sync storage and apply automatically as YouTube updates the page or navigates within the single-page app.
+Settings are saved with browser sync storage and applied automatically.
 
-## Permissions
+## Privacy and permissions
 
-- `storage`: Saves your toggle settings and custom keyword filter groups.
-- `*://*.youtube.com/*`: Runs the cleanup logic only on YouTube.
+YouTube UI Cleaner operates locally and does not collect, store, or transmit personal data. See the [privacy policy](PRIVACYPOLICY.md) for details.
 
-The extension does not require data collection. The manifest also declares `none` for Firefox data collection permissions.
+The extension requests only the permissions needed for its core functionality:
+
+- `storage` saves toggles and custom keyword groups using browser sync storage.
+- `*://*.youtube.com/*` lets the extension apply cleanup rules on YouTube only.
+
+The Firefox manifest explicitly declares that no data collection is required.
+
+## Build from source
+
+Requirements:
+
+- A current version of Node.js and npm
+- The `zip` command-line utility for release archives
+
+Clone the repository and create both browser builds:
+
+```sh
+git clone https://github.com/Chaseos/YouTube-UI-Cleaner.git
+cd YouTube-UI-Cleaner
+npm run build
+```
+
+The build validates every locale, runs the JavaScript and localization tests, and creates these packages in `dist/`:
+
+- `dist/chromium/` and `dist/youtube-ui-cleaner-chromium.zip` for Chrome, Edge, Opera, Whale, and other Chromium-based browsers
+- `dist/firefox/` and `dist/youtube-ui-cleaner-firefox.zip` for Firefox, including its Gecko-specific manifest settings
+
+To test an unpacked build:
+
+- In a Chromium-based browser, open its extensions page, enable developer mode, choose **Load unpacked**, and select `dist/chromium/`.
+- In Firefox, open `about:debugging#/runtime/this-firefox`, choose **Load Temporary Add-on**, and select `dist/firefox/manifest.json`.
+
+## Support
+
+If YouTube UI Cleaner is useful to you, you can [support development on Ko-fi](https://ko-fi.com/chaseos).
