@@ -116,4 +116,12 @@ To test an unpacked build:
 
 ## Support
 
-If YouTube UI Cleaner is useful to you, you can [support development on Ko-fi](https://ko-fi.com/chaseos).
+<p align="center">
+<a href="https://chaseos.app">🌐 Explore my work</a>
+</p>
+
+<p align="center">
+<a href="https://ko-fi.com/chaseos" target="_blank">
+<img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" />
+</a>
+</p>
