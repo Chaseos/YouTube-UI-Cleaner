@@ -18,6 +18,9 @@ Install YouTube UI Cleaner from your browser's official extension store:
 
 ## Features
 
+<img width="360" height="600" alt="Youtube UI Cleaner Main UI" src="https://github.com/user-attachments/assets/91e8ef39-fdf1-46e2-9f4c-c62d91024cb0" />
+<img width="354" height="374" alt="YouTube UI Cleaner Hide Keywords" src="https://github.com/user-attachments/assets/ed2f9e7a-5dd6-4c9b-878e-1ee887e13613" />
+
 ### Fine-grained feed cleanup
 
 Use master switches for a whole category or expand a category to control its filters independently.
