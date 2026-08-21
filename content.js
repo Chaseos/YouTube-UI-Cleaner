@@ -55,7 +55,7 @@ function updateClasses(settings) {
     if (settings.hideUpcoming) html.classList.add('yt-hide-upcoming');
     else html.classList.remove('yt-hide-upcoming');
 
-    // Grouped Videos
+    // Mixes, Podcasts, and Playlists
     if (settings.groupedMixes) html.classList.add('yt-hide-mixes');
     else html.classList.remove('yt-hide-mixes');
 

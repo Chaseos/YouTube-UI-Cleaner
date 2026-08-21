@@ -1,18 +1,18 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Shorts、まとめ動画、ライブ配信、プロモーション、不要なトピックを非表示にして、YouTubeをすっきり整理します。"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Shorts、YouTube ミックスリスト、ポッドキャスト、再生リスト、ライブ配信、プロモーション、不要なトピックを非表示にして、YouTube をすっきり整理します。"},
   "supportWork":{"message":"開発を支援"},"general":{"message":"全般"},"customFilters":{"message":"カスタム フィルタ"},
   "hideShorts":{"message":"Shortsを非表示"},"showShortsOptions":{"message":"Shortsのオプションを表示"},"hideShortsOptions":{"message":"Shortsのオプションを閉じる"},
   "home":{"message":"ホーム"},"sidebarButton":{"message":"サイドバー ボタン"},"subscriptions":{"message":"登録チャンネル"},"searchResults":{"message":"検索結果"},
-  "hideGroupedVideos":{"message":"まとめ動画を非表示"},"showGroupedOptions":{"message":"まとめ動画のオプションを表示"},"hideGroupedOptions":{"message":"まとめ動画のオプションを閉じる"},
+  "hideGroupedVideos":{"message":"ミックスリスト、ポッドキャスト、再生リストを非表示"},"showGroupedOptions":{"message":"ミックスリスト、ポッドキャスト、再生リストのオプションを表示"},"hideGroupedOptions":{"message":"ミックスリスト、ポッドキャスト、再生リストのオプションを閉じる"},
   "mixes":{"message":"ミックス"},"podcasts":{"message":"ポッドキャスト"},"playlists":{"message":"再生リスト"},
   "hideLiveUpcoming":{"message":"ライブ配信と公開予定を非表示"},"showLiveUpcomingOptions":{"message":"ライブ配信と公開予定のオプションを表示"},"hideLiveUpcomingOptions":{"message":"ライブ配信と公開予定のオプションを閉じる"},
   "liveStreams":{"message":"ライブ配信"},"upcomingVideosPremieres":{"message":"公開予定の動画とプレミア公開"},"hideMembersOnlyVideos":{"message":"メンバー限定動画を非表示"},
   "hideHomeFeedExtras":{"message":"ホームフィードの追加項目を非表示"},"showFeedExtrasOptions":{"message":"ホームフィードの追加オプションを表示"},"hideFeedExtrasOptions":{"message":"ホームフィードの追加オプションを閉じる"},
   "feedPills":{"message":"フィードのカテゴリ"},"feedPillsDescription":{"message":"ホーム上部のカテゴリ"},"dismissibleSections":{"message":"閉じられるセクション"},"dismissibleSectionsDescription":{"message":"コミュニティ投稿、AIのおすすめなど"},
   "hidePlayables":{"message":"ゲームルームを非表示"},"hidePlayablesDescription":{"message":"ゲームルーム セクションを削除"},"hidePromotions":{"message":"プロモーションを非表示"},"showPromotionOptions":{"message":"プロモーションのオプションを表示"},"hidePromotionOptions":{"message":"プロモーションのオプションを閉じる"},
-  "featuredServiceVideos":{"message":"注目サービスの動画"},"featuredServiceDescription":{"message":"他のサービスの定期購入や無料体験の案内"},"paidPromotionBanners":{"message":"有料プロモーションの表示"},
+  "featuredServiceVideos":{"message":"他サービスの案内動画"},"featuredServiceDescription":{"message":"他のサービスの定期購入やトライアルの案内"},"paidPromotionBanners":{"message":"有料プロモーションの表示"},
   "createNewFilter":{"message":"+ 新しいフィルタを作成"},"reviewPrompt":{"message":"役に立ちましたか？レビューを投稿"},"needSpeedControls":{"message":"再生速度を調整しますか？"},"trySpeedController":{"message":"Simple Video Speed Controllerをお試しください。"},"settingsSaved":{"message":"設定を保存しました。"},
-  "noKeywordsAdded":{"message":"キーワードはありません"},"unnamedFilter":{"message":"名前のないフィルタ"},"enterFilterName":{"message":"フィルタ名を入力"},"edit":{"message":"編集"},"delete":{"message":"削除"},"keywordsInGroup":{"message":"このグループのキーワード:"},
-  "addKeywordExample":{"message":"キーワードを追加（例: $example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"追加"},"save":{"message":"保存"},"removeKeyword":{"message":"$keyword$を削除","placeholders":{"keyword":{"content":"$1"}}},
-  "keywordHintSpoiler":{"message":"ネタバレ"},"keywordHintScore":{"message":"スコア"},"keywordHintResult":{"message":"結果"},"keywordHintEnding":{"message":"結末"},"keywordHintWinner":{"message":"優勝者"},"keywordHintHighlights":{"message":"ハイライト"},"keywordHintFinale":{"message":"最終回"},"keywordHintDefeats":{"message":"敗北"},"keywordHintEliminated":{"message":"脱落"},"keywordHintDrafted":{"message":"指名"},"keywordHintReview":{"message":"レビュー"},"keywordHintReaction":{"message":"リアクション"}
+  "noKeywordsAdded":{"message":"キーワードはありません"},"unnamedFilter":{"message":"名前のないフィルタ"},"enterFilterName":{"message":"フィルタ名を入力"},"edit":{"message":"編集"},"delete":{"message":"削除"},"keywordsInGroup":{"message":"このグループのキーワード："},
+  "addKeywordExample":{"message":"キーワードを追加（例：$example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"追加"},"save":{"message":"保存"},"removeKeyword":{"message":"$keyword$を削除","placeholders":{"keyword":{"content":"$1"}}},
+  "keywordHintSpoiler":{"message":"ネタバレ"},"keywordHintScore":{"message":"スコア"},"keywordHintResult":{"message":"結果"},"keywordHintEnding":{"message":"結末"},"keywordHintWinner":{"message":"優勝者"},"keywordHintHighlights":{"message":"ハイライト"},"keywordHintFinale":{"message":"最終回"},"keywordHintDefeats":{"message":"破る"},"keywordHintEliminated":{"message":"脱落"},"keywordHintDrafted":{"message":"ドラフト指名"},"keywordHintReview":{"message":"レビュー"},"keywordHintReaction":{"message":"リアクション"}
 }

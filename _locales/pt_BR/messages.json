@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "Oculte Shorts, vídeos agrupados, lives, promoções e assuntos indesejados para deixar o YouTube mais limpo." },
+  "extensionDescription": { "message": "Oculte Shorts, Mixes, podcasts, playlists, lives, promoções e assuntos indesejados para deixar o YouTube mais limpo." },
   "supportWork": { "message": "Apoie meu trabalho" },
   "general": { "message": "Geral" },
   "customFilters": { "message": "Filtros personalizados" },
@@ -11,9 +11,9 @@
   "sidebarButton": { "message": "Botão da barra lateral" },
   "subscriptions": { "message": "Inscrições" },
   "searchResults": { "message": "Resultados da pesquisa" },
-  "hideGroupedVideos": { "message": "Ocultar vídeos agrupados" },
-  "showGroupedOptions": { "message": "Mostrar opções de vídeos agrupados" },
-  "hideGroupedOptions": { "message": "Ocultar opções de vídeos agrupados" },
+  "hideGroupedVideos": { "message": "Ocultar Mixes, podcasts e playlists" },
+  "showGroupedOptions": { "message": "Mostrar opções de Mixes, podcasts e playlists" },
+  "hideGroupedOptions": { "message": "Ocultar opções de Mixes, podcasts e playlists" },
   "mixes": { "message": "Mixes" },
   "podcasts": { "message": "Podcasts" },
   "playlists": { "message": "Playlists" },
@@ -35,7 +35,7 @@
   "hidePromotions": { "message": "Ocultar promoções" },
   "showPromotionOptions": { "message": "Mostrar opções de promoções" },
   "hidePromotionOptions": { "message": "Ocultar opções de promoções" },
-  "featuredServiceVideos": { "message": "Vídeos de serviços em destaque" },
+  "featuredServiceVideos": { "message": "Vídeos com ofertas de outros serviços" },
   "featuredServiceDescription": { "message": "Ofertas de assinatura e teste de outros serviços" },
   "paidPromotionBanners": { "message": "Avisos de promoção paga" },
   "createNewFilter": { "message": "+ Criar novo filtro" },
@@ -56,5 +56,5 @@
   "keywordHintSpoiler": { "message": "Spoiler" }, "keywordHintScore": { "message": "Placar" }, "keywordHintResult": { "message": "Resultado" },
   "keywordHintEnding": { "message": "Final" }, "keywordHintWinner": { "message": "Vencedor" }, "keywordHintHighlights": { "message": "Melhores momentos" },
   "keywordHintFinale": { "message": "Final" }, "keywordHintDefeats": { "message": "Derrota" }, "keywordHintEliminated": { "message": "Eliminado" },
-  "keywordHintDrafted": { "message": "Escalado" }, "keywordHintReview": { "message": "Análise" }, "keywordHintReaction": { "message": "Reação" }
+  "keywordHintDrafted": { "message": "Selecionado no draft" }, "keywordHintReview": { "message": "Análise" }, "keywordHintReaction": { "message": "Reação" }
 }

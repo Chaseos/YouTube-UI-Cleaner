@@ -33,15 +33,19 @@
 
     body {
       width: 360px;
-      max-height: 600px;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
       background-color: var(--bg-color);
       color: var(--text-color);
       line-height: 1.5;
+    }
+
+    .popup-root {
+      width: 100%;
+      max-height: 600px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     .container {
@@ -261,6 +265,14 @@
       transform: rotate(90deg);
     }
 
+    .popup-root[dir="rtl"] .group-expander svg {
+      transform: rotate(180deg);
+    }
+
+    .popup-root[dir="rtl"] .option-group.expanded .group-expander svg {
+      transform: rotate(90deg);
+    }
+
     .option-content {
       flex: 1;
       min-width: 0;
@@ -395,12 +407,12 @@
       transform: translateX(100%);
     }
 
-    :root[dir="rtl"] .tab-slider {
+    .popup-root[dir="rtl"] .tab-slider {
       left: auto;
       right: 3px;
     }
 
-    :root[dir="rtl"] .tabs:has(.tab-btn:nth-child(3).active) .tab-slider {
+    .popup-root[dir="rtl"] .tabs:has(.tab-btn:nth-child(3).active) .tab-slider {
       transform: translateX(-100%);
     }
 
@@ -753,6 +765,7 @@
 </head>
 
 <body>
+  <div class="popup-root">
   <div class="header">
     <div class="logo">
       <img src="icon.png" alt="" width="24" height="24">
@@ -823,15 +836,15 @@
           </div>
         </div>
 
-        <!-- Grouped Videos Group -->
+        <!-- Mixes, Podcasts, and Playlists Group -->
         <div class="option-group mt-4" data-group="grouped">
           <div class="option option-group-header">
             <label class="toggle">
-              <input type="checkbox" id="grouped" aria-label="Hide Grouped Videos" data-i18n-aria-label="hideGroupedVideos">
+              <input type="checkbox" id="grouped" aria-label="Hide Mixes, Podcasts &amp; Playlists" data-i18n-aria-label="hideGroupedVideos">
               <span class="toggle-slider"></span>
             </label>
-            <div class="option-content"><div class="option-title" data-i18n="hideGroupedVideos">Hide Grouped Videos</div></div>
-            <button type="button" class="group-expander" aria-label="Show grouped video options" aria-expanded="false" data-i18n-show="showGroupedOptions" data-i18n-hide="hideGroupedOptions">
+            <div class="option-content"><div class="option-title" data-i18n="hideGroupedVideos">Hide Mixes, Podcasts &amp; Playlists</div></div>
+            <button type="button" class="group-expander" aria-label="Show Mixes, Podcasts, and Playlists options" aria-expanded="false" data-i18n-show="showGroupedOptions" data-i18n-hide="hideGroupedOptions">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29 6.71a1 1 0 011.42 0l4.58 4.58a1 1 0 010 1.42l-4.58 4.58a1 1 0 01-1.42-1.42L13.17 12 9.29 8.12a1 1 0 010-1.41z"/></svg>
             </button>
           </div>
@@ -891,16 +904,16 @@
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="feedPills" aria-label="Feed Pills" data-i18n-aria-label="feedPills"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" id="feedPills" aria-label="Home Categories" data-i18n-aria-label="feedPills"><span class="toggle-slider"></span></label>
               <div class="option-content">
-                <div class="option-title" data-i18n="feedPills">Feed Pills</div>
-                <div class="option-description" data-i18n="feedPillsDescription">Top categories on Home</div>
+                <div class="option-title" data-i18n="feedPills">Home Categories</div>
+                <div class="option-description" data-i18n="feedPillsDescription">Topic categories at the top of Home</div>
               </div>
             </div>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="hideSections" aria-label="Dismissible Sections" data-i18n-aria-label="dismissibleSections"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" id="hideSections" aria-label="Extra Home Sections" data-i18n-aria-label="dismissibleSections"><span class="toggle-slider"></span></label>
               <div class="option-content">
-                <div class="option-title" data-i18n="dismissibleSections">Dismissible Sections</div>
+                <div class="option-title" data-i18n="dismissibleSections">Extra Home Sections</div>
                 <div class="option-description" data-i18n="dismissibleSectionsDescription">Community posts, AI recommendations, etc.</div>
               </div>
             </div>
@@ -930,9 +943,9 @@
           </div>
           <div class="option-group-children" aria-hidden="true" inert>
             <div class="option sub-option">
-              <label class="toggle"><input type="checkbox" id="hideFeaturedServices" aria-label="Featured Service Videos" data-i18n-aria-label="featuredServiceVideos"><span class="toggle-slider"></span></label>
+              <label class="toggle"><input type="checkbox" id="hideFeaturedServices" aria-label="Service Offer Videos" data-i18n-aria-label="featuredServiceVideos"><span class="toggle-slider"></span></label>
               <div class="option-content">
-                <div class="option-title" data-i18n="featuredServiceVideos">Featured Service Videos</div>
+                <div class="option-title" data-i18n="featuredServiceVideos">Service Offer Videos</div>
                 <div class="option-description" data-i18n="featuredServiceDescription">Subscription and trial offers from additional services</div>
               </div>
             </div>
@@ -990,6 +1003,7 @@
   </div>
 
   <div class="status" id="statusMessage" data-i18n="settingsSaved">Settings saved successfully!</div>
+  </div>
 
   <script src="popup.js"></script>
 </body>

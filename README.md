@@ -1,6 +1,6 @@
 # YouTube UI Cleaner
 
-YouTube UI Cleaner is a lightweight, open-source browser extension that removes distracting content from YouTube without redesigning the site. Hide Shorts, live and upcoming videos, grouped recommendations, promotions, unwanted topics, and more with controls for each type of content.
+YouTube UI Cleaner is a lightweight, open-source browser extension that removes distracting content from YouTube without redesigning the site. Hide Shorts, Mixes, podcasts, playlists, live and upcoming videos, promotions, unwanted topics, and more with controls for each type of content.
 
 All processing happens locally in your browser. No browsing data or personal information is collected or transmitted.
 
@@ -28,7 +28,7 @@ Use master switches for a whole category or expand a category to control its fil
 | Category | Available controls |
 | --- | --- |
 | Shorts | Hide Shorts on Home, in the sidebar, in Subscriptions, and in Search results |
-| Grouped videos | Hide Mixes, podcasts, and playlists while leaving your Playlists library intact |
+| Mixes, podcasts, and playlists | Hide these recommendations while leaving your Playlists library intact |
 | Live and upcoming | Hide live streams separately from scheduled videos and upcoming premieres |
 | Home feed extras | Hide the category filter chips or dismissible sections such as Community posts, nudges, and recommendation shelves |
 | Promotions | Hide featured subscription or trial offers and paid-promotion overlays |
@@ -55,17 +55,17 @@ Filters are reapplied as YouTube loads new content or moves between pages in its
 
 ## Languages
 
-The extension popup and localized YouTube text detection support 20 locales:
+The extension popup supports 21 locale catalogs across 20 languages. Localized YouTube text detection covers the same languages, with both Spanish markets sharing detection terms:
 
 | | | |
 | --- | --- | --- |
 | Arabic | German | Polish |
 | Chinese (Simplified) | Hindi | Portuguese (Brazil) |
 | Chinese (Hong Kong) | Indonesian | Portuguese (Portugal) |
-| Chinese (Traditional) | Italian | Spanish |
-| English | Japanese | Thai |
-| French | Korean | Turkish |
-| Ukrainian | Vietnamese | |
+| Chinese (Traditional) | Italian | Spanish (Latin America) |
+| English | Japanese | Spanish (Spain) |
+| French | Korean | Thai |
+| Turkish | Ukrainian | Vietnamese |
 
 The popup follows your browser's UI language, while content detection follows the language set on the YouTube page. Unsupported locales fall back to English.
 

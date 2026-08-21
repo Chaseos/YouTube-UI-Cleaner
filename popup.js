@@ -15,7 +15,7 @@ function localizeDocument() {
     const uiLanguage = chrome.i18n?.getUILanguage?.();
     if (uiLanguage) {
         document.documentElement.lang = uiLanguage.replace('_', '-');
-        document.documentElement.dir = /^ar(?:[-_]|$)/i.test(uiLanguage) ? 'rtl' : 'ltr';
+        document.querySelector('.popup-root').dir = /^ar(?:[-_]|$)/i.test(uiLanguage) ? 'rtl' : 'ltr';
     }
 
     document.querySelectorAll('[data-i18n]').forEach(element => {
