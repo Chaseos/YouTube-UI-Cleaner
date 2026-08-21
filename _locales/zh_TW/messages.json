@@ -6,7 +6,7 @@
   "hideGroupedVideos":{"message":"隱藏 YouTube 合輯、Podcast 和播放清單"},"showGroupedOptions":{"message":"顯示 YouTube 合輯、Podcast 和播放清單選項"},"hideGroupedOptions":{"message":"隱藏 YouTube 合輯、Podcast 和播放清單選項"},
   "mixes":{"message":"合輯"},"podcasts":{"message":"Podcast"},"playlists":{"message":"播放清單"},
   "hideLiveUpcoming":{"message":"隱藏直播和即將推出的影片"},"showLiveUpcomingOptions":{"message":"顯示直播和即將推出的影片選項"},"hideLiveUpcomingOptions":{"message":"隱藏直播和即將推出的影片選項"},
-  "liveStreams":{"message":"直播"},"upcomingVideosPremieres":{"message":"即將推出的影片和首播"},"hideMembersOnlyVideos":{"message":"隱藏會員限定影片"},
+  "liveStreams":{"message":"直播"},"upcomingVideosPremieres":{"message":"即將推出的影片和首播"},"hideMembersOnlyVideos":{"message":"隱藏會員專屬影片"},
   "hideHomeFeedExtras":{"message":"隱藏首頁動態額外內容"},"showFeedExtrasOptions":{"message":"顯示首頁動態額外選項"},"hideFeedExtrasOptions":{"message":"隱藏首頁動態額外選項"},
   "feedPills":{"message":"動態類別"},"feedPillsDescription":{"message":"首頁頂端的類別"},"dismissibleSections":{"message":"可關閉的區段"},"dismissibleSectionsDescription":{"message":"社群貼文、AI 推薦內容等"},
   "hidePlayables":{"message":"隱藏遊戲角落"},"hidePlayablesDescription":{"message":"移除遊戲角落專區"},"hidePromotions":{"message":"隱藏宣傳內容"},"showPromotionOptions":{"message":"顯示宣傳內容選項"},"hidePromotionOptions":{"message":"隱藏宣傳內容選項"},

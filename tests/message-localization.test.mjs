@@ -7,6 +7,11 @@ async function readCatalog(locale) {
     return JSON.parse(await readFile(fileUrl, 'utf8'));
 }
 
+const supportedLocales = [
+    'en', 'es', 'es_419', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi',
+    'tr', 'ko', 'ar', 'th', 'it', 'pl', 'uk', 'zh_CN', 'zh_TW', 'zh_HK'
+];
+
 test('keeps Spain and Latin American Spanish culturally distinct', async () => {
     const [spain, latinAmerica] = await Promise.all([
         readCatalog('es'),
@@ -51,4 +56,31 @@ test('preserves functional meaning in previously weak locale strings', async () 
     assert.equal(french.keywordHintDefeats.message, 'Bat');
     assert.equal(vietnamese.liveStreams.message, 'Video phát trực tiếp');
     assert.equal(vietnamese.settingsSaved.message, 'Đã lưu cài đặt!');
+});
+
+test('keeps spoiler keyword suggestions semantically distinct in every locale', async () => {
+    for (const locale of supportedLocales) {
+        const catalog = await readCatalog(locale);
+        const hints = Object.entries(catalog)
+            .filter(([key]) => key.startsWith('keywordHint'))
+            .map(([, entry]) => entry.message.toLocaleLowerCase(locale.replace('_', '-')));
+
+        assert.equal(new Set(hints).size, hints.length, `${locale} has duplicate spoiler keyword suggestions`);
+    }
+});
+
+test('uses verified product terminology in context-sensitive controls', async () => {
+    const [arabic, french, polish, vietnamese, traditionalChinese] = await Promise.all([
+        readCatalog('ar'),
+        readCatalog('fr'),
+        readCatalog('pl'),
+        readCatalog('vi'),
+        readCatalog('zh_TW')
+    ]);
+
+    assert.equal(arabic.mixes.message, 'ميكسات YouTube');
+    assert.equal(french.paidPromotionBanners.message, 'Bannières « Promotion payante »');
+    assert.match(polish.needSpeedControls.message, /prędkości odtwarzania/);
+    assert.equal(vietnamese.feedPills.message, 'Danh mục trên Trang chủ');
+    assert.equal(traditionalChinese.hideMembersOnlyVideos.message, '隱藏會員專屬影片');
 });

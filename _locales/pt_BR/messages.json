@@ -54,7 +54,7 @@
   "save": { "message": "Salvar" },
   "removeKeyword": { "message": "Remover $keyword$", "placeholders": { "keyword": { "content": "$1" } } },
   "keywordHintSpoiler": { "message": "Spoiler" }, "keywordHintScore": { "message": "Placar" }, "keywordHintResult": { "message": "Resultado" },
-  "keywordHintEnding": { "message": "Final" }, "keywordHintWinner": { "message": "Vencedor" }, "keywordHintHighlights": { "message": "Melhores momentos" },
+  "keywordHintEnding": { "message": "Desfecho" }, "keywordHintWinner": { "message": "Vencedor" }, "keywordHintHighlights": { "message": "Melhores momentos" },
   "keywordHintFinale": { "message": "Final" }, "keywordHintDefeats": { "message": "Derrota" }, "keywordHintEliminated": { "message": "Eliminado" },
   "keywordHintDrafted": { "message": "Selecionado no draft" }, "keywordHintReview": { "message": "Análise" }, "keywordHintReaction": { "message": "Reação" }
 }

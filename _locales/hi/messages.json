@@ -1,6 +1,6 @@
 {
   "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"YouTube को साफ़-सुथरा बनाने के लिए Shorts, YouTube मिक्स, पॉडकास्ट, प्लेलिस्ट, लाइव स्ट्रीम, प्रचार और अनचाहे विषय छिपाएँ।"},
-  "supportWork":{"message":"मेरे काम को सहयोग दें"},"general":{"message":"सामान्य"},"customFilters":{"message":"कस्टम फ़िल्टर"},
+  "supportWork":{"message":"मेरे काम में सहयोग करें"},"general":{"message":"सामान्य"},"customFilters":{"message":"कस्टम फ़िल्टर"},
   "hideShorts":{"message":"Shorts छिपाएँ"},"showShortsOptions":{"message":"Shorts के विकल्प दिखाएँ"},"hideShortsOptions":{"message":"Shorts के विकल्प छिपाएँ"},
   "home":{"message":"होम"},"sidebarButton":{"message":"साइडबार बटन"},"subscriptions":{"message":"सदस्यताएँ"},"searchResults":{"message":"खोज के नतीजे"},
   "hideGroupedVideos":{"message":"YouTube मिक्स, पॉडकास्ट और प्लेलिस्ट छिपाएँ"},"showGroupedOptions":{"message":"YouTube मिक्स, पॉडकास्ट और प्लेलिस्ट के विकल्प दिखाएँ"},"hideGroupedOptions":{"message":"YouTube मिक्स, पॉडकास्ट और प्लेलिस्ट के विकल्प छिपाएँ"},

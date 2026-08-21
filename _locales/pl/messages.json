@@ -40,7 +40,7 @@
   "paidPromotionBanners": { "message": "Banery płatnej promocji" },
   "createNewFilter": { "message": "+ Utwórz nowy filtr" },
   "reviewPrompt": { "message": "Przydatne? Dodaj opinię" },
-  "needSpeedControls": { "message": "Potrzebujesz sterowania szybkością?" },
+  "needSpeedControls": { "message": "Potrzebujesz regulacji prędkości odtwarzania?" },
   "trySpeedController": { "message": "Wypróbuj Simple Video Speed Controller." },
   "settingsSaved": { "message": "Ustawienia zostały zapisane!" },
   "noKeywordsAdded": { "message": "Nie dodano słów kluczowych" },

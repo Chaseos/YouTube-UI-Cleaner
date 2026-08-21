@@ -5,7 +5,7 @@
   "home":{"message":"Startseite"},"sidebarButton":{"message":"Seitenleisten-Schaltfläche"},"subscriptions":{"message":"Abos"},"searchResults":{"message":"Suchergebnisse"},
   "hideGroupedVideos":{"message":"YouTube-Mixe, Podcasts und Playlists ausblenden"},"showGroupedOptions":{"message":"Optionen für YouTube-Mixe, Podcasts und Playlists anzeigen"},"hideGroupedOptions":{"message":"Optionen für YouTube-Mixe, Podcasts und Playlists ausblenden"},
   "mixes":{"message":"Mixes"},"podcasts":{"message":"Podcasts"},"playlists":{"message":"Playlists"},
-  "hideLiveUpcoming":{"message":"Live und Demnächst ausblenden"},"showLiveUpcomingOptions":{"message":"Optionen für Live und Demnächst anzeigen"},"hideLiveUpcomingOptions":{"message":"Optionen für Live und Demnächst ausblenden"},
+  "hideLiveUpcoming":{"message":"Livestreams und bevorstehende Videos ausblenden"},"showLiveUpcomingOptions":{"message":"Optionen für Livestreams und bevorstehende Videos anzeigen"},"hideLiveUpcomingOptions":{"message":"Optionen für Livestreams und bevorstehende Videos ausblenden"},
   "liveStreams":{"message":"Livestreams"},"upcomingVideosPremieres":{"message":"Anstehende Videos und Premieren"},"hideMembersOnlyVideos":{"message":"Videos nur für Mitglieder ausblenden"},
   "hideHomeFeedExtras":{"message":"Extras im Startseiten-Feed ausblenden"},"showFeedExtrasOptions":{"message":"Extraoptionen des Startseiten-Feeds anzeigen"},"hideFeedExtrasOptions":{"message":"Extraoptionen des Startseiten-Feeds ausblenden"},
   "feedPills":{"message":"Feed-Kategorien"},"feedPillsDescription":{"message":"Kategorien oben auf der Startseite"},"dismissibleSections":{"message":"Ausblendbare Abschnitte"},"dismissibleSectionsDescription":{"message":"Communitybeiträge, KI-Empfehlungen usw."},
