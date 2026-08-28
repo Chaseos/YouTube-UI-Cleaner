@@ -87,18 +87,10 @@ function tagElements() {
     // Target both ytd-rich-shelf-renderer and grid-shelf-view-model
     const potentialShorts = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-shorts-shelf), grid-shelf-view-model:not(.is-shorts-shelf), ytd-reel-shelf-renderer:not(.is-shorts-shelf)');
     potentialShorts.forEach(el => {
-        // Check exact title or spans
-        const titleText = el.innerText || "";
-        if (titleText.includes("Shorts")) {
-            // Verify it's actually a header title, not just random text?
-            // Usually "Shorts" is in a specific header.
-            // For grid-shelf-view-model, user showed header structure.
-            // Simple check:
-            if (el.querySelector('.yt-shelf-header-layout__title, #title') &&
-                (el.querySelector('.yt-shelf-header-layout__title, #title').textContent.includes("Shorts"))) {
-                el.classList.add('is-shorts-shelf');
-            }
-            // Also check for the Shorts Icon if text matches, or just trust the text for now.
+        const title = el.querySelector('.yt-shelf-header-layout__title, .ytShelfHeaderLayoutTitle, #title');
+        if ((title && title.textContent.includes("Shorts")) ||
+            el.querySelector('ytm-shorts-lockup-view-model-v2')) {
+            el.classList.add('is-shorts-shelf');
         }
     });
 
@@ -383,6 +375,55 @@ function showWatchLaterFeedback(button) {
     setTimeout(() => { svg.innerHTML = originalMarkup; }, 2000);
 }
 
+function guardScrollPosition(duration = 400) {
+    const scrollingElement = document.scrollingElement || document.documentElement;
+    const initialLeft = scrollingElement.scrollLeft;
+    const initialTop = scrollingElement.scrollTop;
+    const initialUrl = window.location.href;
+    const scrollKeys = new Set(['ArrowDown', 'ArrowUp', 'End', 'Home', 'PageDown', 'PageUp', ' ']);
+    let active = true;
+    let animationFrameId = null;
+    let timeoutId = null;
+
+    const release = () => {
+        if (!active) return;
+        active = false;
+        window.removeEventListener('scroll', restore, true);
+        window.removeEventListener('wheel', release, true);
+        window.removeEventListener('touchmove', release, true);
+        window.removeEventListener('keydown', releaseForScrollKey, true);
+        if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
+        if (timeoutId !== null) clearTimeout(timeoutId);
+    };
+
+    const restore = () => {
+        if (!active) return;
+        if (window.location.href !== initialUrl) {
+            release();
+            return;
+        }
+
+        if (scrollingElement.scrollLeft !== initialLeft) scrollingElement.scrollLeft = initialLeft;
+        if (scrollingElement.scrollTop !== initialTop) scrollingElement.scrollTop = initialTop;
+    };
+
+    const releaseForScrollKey = (event) => {
+        if (scrollKeys.has(event.key)) release();
+    };
+
+    const keepPositionBeforePaint = () => {
+        restore();
+        if (active) animationFrameId = requestAnimationFrame(keepPositionBeforePaint);
+    };
+
+    window.addEventListener('scroll', restore, { capture: true, passive: true });
+    window.addEventListener('wheel', release, { capture: true, passive: true });
+    window.addEventListener('touchmove', release, { capture: true, passive: true });
+    window.addEventListener('keydown', releaseForScrollKey, true);
+    animationFrameId = requestAnimationFrame(keepPositionBeforePaint);
+    timeoutId = setTimeout(release, duration);
+}
+
 function performMenuAction(button, containerResolver, action, preview = null) {
     if (menuActionInProgress) return;
     const container = containerResolver();
@@ -391,6 +432,10 @@ function performMenuAction(button, containerResolver, action, preview = null) {
     const menuButton = container.querySelector(menuButtonSelector);
     if (!menuButton) return;
     menuActionInProgress = true;
+
+    if (action === 'watchLater') {
+        guardScrollPosition();
+    }
 
     // Keep the native action behavior and toast, but suppress the transient menu.
     let hideStyle = document.getElementById('temp-hide-yt-dropdown');

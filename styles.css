@@ -30,6 +30,7 @@ html.yt-hide-shorts-subs ytd-browse[page-subtype="subscriptions"] ytd-rich-secti
 
 /* --- SHORTS: SEARCH RESULTS --- */
 /* Target Search Results Shorts Shelf (JS-detected) */
+html.yt-hide-shorts-search ytd-search grid-shelf-view-model:has(ytm-shorts-lockup-view-model-v2),
 html.yt-hide-shorts-search ytd-search .is-shorts-shelf,
 html.yt-hide-shorts-search ytd-search ytd-video-renderer.is-individual-short,
 html.yt-hide-shorts-search ytd-search ytd-video-renderer:has(a#thumbnail[href*="/shorts/"]) {
