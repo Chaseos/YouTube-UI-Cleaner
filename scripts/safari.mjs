@@ -15,6 +15,29 @@ const actionTitles = {
   uk: ['Оцінити цей застосунок', 'Варіанти підтримки'], vi: ['Đánh giá ứng dụng này', 'Tùy chọn hỗ trợ'],
   zh_CN: ['为此 App 评分', '支持选项'], zh_TW: ['為此 App 評分', '支持選項'], zh_HK: ['為此 App 評分', '支援選項']
 };
+const extensionDescriptions = {
+  ar: 'إخفاء Shorts وميكسات YouTube والبودكاست وقوائم التشغيل والبث المباشر والعروض الترويجية والمواضيع غير المرغوبة.',
+  de: 'Blende Shorts, Mixe, Podcasts, Playlists, Livestreams, Werbung und unerwünschte Themen auf YouTube aus.',
+  en: 'Hide Shorts, Mixes, podcasts, playlists, live streams, promotions, and unwanted topics on YouTube.',
+  es: 'Oculta Shorts, mixes, pódcasts, listas, directos, promociones y temas no deseados en YouTube.',
+  es_419: 'Oculta Shorts, mixes, podcasts, listas, transmisiones, promociones y temas no deseados en YouTube.',
+  fr: 'Masquez les Shorts, mix, podcasts, playlists, directs, promotions et sujets indésirables sur YouTube.',
+  hi: 'Shorts, YouTube मिक्स, पॉडकास्ट, प्लेलिस्ट, लाइव स्ट्रीम, प्रचार और अनचाहे विषय छिपाएँ।',
+  id: 'Sembunyikan Shorts, Mix, podcast, playlist, siaran langsung, promosi, dan topik yang tidak diinginkan.',
+  it: 'Nascondi Short, mix, podcast, playlist, dirette, promozioni e argomenti indesiderati su YouTube.',
+  ja: 'Shorts、YouTube ミックスリスト、ポッドキャスト、再生リスト、ライブ配信、プロモーション、不要なトピックを非表示にして、YouTube をすっきり整理します。',
+  ko: 'Shorts, YouTube 믹스, 팟캐스트, 재생목록, 실시간 스트림, 프로모션, 원치 않는 주제를 숨겨 YouTube을 깔끔하게 정리합니다.',
+  pl: 'Ukrywaj Shortsy, miksy, podcasty, playlisty, transmisje, promocje i niechciane tematy na YouTube.',
+  pt_BR: 'Oculte Shorts, Mixes, podcasts, playlists, lives, promoções e assuntos indesejados no YouTube.',
+  pt_PT: 'Oculte Shorts, mixes, podcasts, listas, diretos, promoções e temas indesejados no YouTube.',
+  th: 'ซ่อน Shorts, YouTube มิกซ์, พอดแคสต์, เพลย์ลิสต์, ไลฟ์สด, โปรโมชัน และหัวข้อที่ไม่ต้องการ',
+  tr: "YouTube'da Shorts, Mix, podcast, oynatma listesi, canlı yayın, tanıtım ve istenmeyen konuları gizleyin.",
+  uk: 'Приховуйте Shorts, мікси, подкасти, списки, трансляції, рекламу й небажані теми на YouTube.',
+  vi: 'Ẩn Shorts, Tuyển tập, Podcast, danh sách phát, video trực tiếp, nội dung quảng bá và chủ đề không mong muốn.',
+  zh_CN: '隐藏 Shorts、YouTube 合辑、播客、播放列表、直播、推广内容和不想看到的主题，让 YouTube 更简洁。',
+  zh_HK: '隱藏 Shorts、YouTube 合輯、Podcast、播放清單、直播、推廣內容和不想看到的主題，令 YouTube 更簡潔。',
+  zh_TW: '隱藏 Shorts、YouTube 合輯、Podcast、播放清單、直播、宣傳內容和不想看到的主題，享受更清爽的 YouTube。'
+};
 
 export function replaceRequired(source, before, after, label) {
   if (!source.includes(before)) throw new Error(`Safari transformation missing: ${label}`);
@@ -61,6 +84,7 @@ export async function prepareSafari(root, target, config) {
     const messages = JSON.parse(await readFile(file, 'utf8'));
     for (const key of removedKeys) delete messages[key];
     if (Array.from(messages.extensionName.message).length > 40) messages.extensionName.message = config.name;
+    messages.extensionDescription.message = extensionDescriptions[locale];
     const [rate, support] = actionTitles[locale];
     messages.rateThisApp = { message: rate };
     messages.supportOptions = { message: support };
@@ -68,9 +92,6 @@ export async function prepareSafari(root, target, config) {
     messages.saveFailed = { message: 'Settings could not be saved. Please reopen the popup and try again.' };
     for (const [key, entry] of Object.entries(messages)) {
       entry.description = `Localized message for ${key}.`;
-      for (const [name, placeholder] of Object.entries(entry.placeholders || {})) {
-        placeholder.description = `Value for ${name}.`;
-      }
     }
     await writeFile(file, `${JSON.stringify(messages, null, 2)}\n`);
   }
@@ -84,14 +105,13 @@ export async function validateSafari(directory) {
       const source = await readFile(file, 'utf8');
       if (safariForbidden.test(source)) throw new Error(`Non-Apple content in ${file}`);
       if (entry.name === 'messages.json') {
-        for (const [key, value] of Object.entries(JSON.parse(source))) {
+        const messages = JSON.parse(source);
+        if (typeof messages.extensionDescription?.message !== 'string' || Array.from(messages.extensionDescription.message).length > 112) {
+          throw new Error(`Invalid Safari extension description: ${file}`);
+        }
+        for (const [key, value] of Object.entries(messages)) {
           if (typeof value.description !== 'string' || !value.description || value.description.length > 112) {
             throw new Error(`Invalid Safari message description: ${file} (${key})`);
-          }
-          for (const [name, placeholder] of Object.entries(value.placeholders || {})) {
-            if (typeof placeholder.description !== 'string' || !placeholder.description || placeholder.description.length > 112) {
-              throw new Error(`Invalid Safari placeholder description: ${file} (${key}.${name})`);
-            }
           }
         }
       }
