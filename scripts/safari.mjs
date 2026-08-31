@@ -66,6 +66,9 @@ export async function prepareSafari(root, target, config) {
     messages.supportOptions = { message: support };
     messages.ratingUnavailable = { message: 'Rating is unavailable until this app has an App Store page.' };
     messages.saveFailed = { message: 'Settings could not be saved. Please reopen the popup and try again.' };
+    for (const [key, entry] of Object.entries(messages)) {
+      entry.description = `Localized message for ${key}.`;
+    }
     await writeFile(file, `${JSON.stringify(messages, null, 2)}\n`);
   }
 }
@@ -74,6 +77,16 @@ export async function validateSafari(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const file = path.join(directory, entry.name);
     if (entry.isDirectory()) await validateSafari(file);
-    else if (/\.(js|json|css|html|md|txt|svg)$/.test(entry.name) && safariForbidden.test(await readFile(file, 'utf8'))) throw new Error(`Non-Apple content in ${file}`);
+    else if (/\.(js|json|css|html|md|txt|svg)$/.test(entry.name)) {
+      const source = await readFile(file, 'utf8');
+      if (safariForbidden.test(source)) throw new Error(`Non-Apple content in ${file}`);
+      if (entry.name === 'messages.json') {
+        for (const [key, value] of Object.entries(JSON.parse(source))) {
+          if (typeof value.description !== 'string' || !value.description || value.description.length > 112) {
+            throw new Error(`Invalid Safari message description: ${file} (${key})`);
+          }
+        }
+      }
+    }
   }
 }
