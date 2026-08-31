@@ -1,97 +1,33 @@
-import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { prepareSafari, validateSafari } from './safari.mjs';
 
-const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const distDirectory = path.join(projectRoot, 'dist');
-
-const excludedDirectories = new Set([
-  '.git',
-  '.github',
-  'dist',
-  'node_modules',
-  'scripts',
-  'tests'
-]);
-
-const excludedFiles = new Set([
-  '.DS_Store',
-  'jest.config.js',
-  'package-lock.json',
-  'package.json'
-]);
-
-function shouldCopy(sourcePath) {
-  const relativePath = path.relative(projectRoot, sourcePath);
-  if (!relativePath) return true;
-
-  const pathParts = relativePath.split(path.sep);
-  if (pathParts.some(part => excludedDirectories.has(part))) return false;
-
-  const fileName = path.basename(sourcePath);
-  return !excludedFiles.has(fileName) && path.extname(fileName).toLowerCase() !== '.zip';
-}
-
-const sourceManifest = JSON.parse(
-  await readFile(path.join(projectRoot, 'manifest.json'), 'utf8')
-);
-
-if (!sourceManifest.browser_specific_settings?.gecko) {
-  throw new Error('manifest.json must contain the Firefox browser_specific_settings.gecko configuration.');
-}
-
-const targets = [
-  {
-    name: 'chromium',
-    manifest: (() => {
-      const manifest = structuredClone(sourceManifest);
-      delete manifest.browser_specific_settings;
-      return manifest;
-    })()
-  },
-  {
-    name: 'firefox',
-    manifest: structuredClone(sourceManifest)
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const manifest = JSON.parse(await readFile(path.join(root, 'manifest.json')));
+const config = JSON.parse(await readFile(path.join(root, 'apple/configuration.json')));
+const runtimeFiles = ['_locales', 'content.js', 'youtube-locales.js', 'styles.css', 'popup.html', 'popup.js', 'icon.png', 'PRIVACYPOLICY.md'];
+const browserAssets = ['kofi_symbol.svg', 'simple-video-speed-controller-icon.png'];
+const selected = process.argv.find(arg => arg.startsWith('--target='))?.split('=')[1];
+if (selected && !['chromium', 'firefox', 'safari'].includes(selected)) throw new Error(`Unknown target: ${selected}`);
+for (const target of selected ? [selected] : ['chromium', 'firefox', 'safari']) {
+  const directory = path.join(root, 'dist', target);
+  await rm(directory, { recursive: true, force: true });
+  await mkdir(directory, { recursive: true });
+  for (const file of [...runtimeFiles, ...(target === 'safari' ? [] : browserAssets)]) {
+    await cp(path.join(root, file), path.join(directory, file), { recursive: true, filter: file => path.basename(file) !== '.DS_Store' });
   }
-];
-
-await rm(distDirectory, { recursive: true, force: true });
-await mkdir(distDirectory, { recursive: true });
-
-for (const target of targets) {
-  const targetDirectory = path.join(distDirectory, target.name);
-  await mkdir(targetDirectory, { recursive: true });
-
-  const projectEntries = await readdir(projectRoot);
-  await Promise.all(projectEntries.map(async entryName => {
-    const sourcePath = path.join(projectRoot, entryName);
-    if (!shouldCopy(sourcePath)) return;
-
-    await cp(sourcePath, path.join(targetDirectory, entryName), {
-      recursive: true,
-      filter: shouldCopy
-    });
-  }));
-
-  await writeFile(
-    path.join(targetDirectory, 'manifest.json'),
-    `${JSON.stringify(target.manifest, null, 4)}\n`
-  );
-
-  const archivePath = path.join(distDirectory, `youtube-ui-cleaner-${target.name}.zip`);
-  const zipResult = spawnSync('zip', ['-q', '-r', archivePath, '.'], {
-    cwd: targetDirectory,
-    encoding: 'utf8'
-  });
-
-  if (zipResult.error) {
-    throw new Error(`Unable to start the zip command: ${zipResult.error.message}`);
+  const outputManifest = structuredClone(manifest);
+  if (target !== 'firefox') delete outputManifest.browser_specific_settings;
+  await writeFile(path.join(directory, 'manifest.json'), `${JSON.stringify(outputManifest, null, 4)}\n`);
+  if (target === 'safari') {
+    await prepareSafari(root, directory, config);
+    await validateSafari(directory);
   }
-  if (zipResult.status !== 0) {
-    throw new Error(`Failed to create ${path.basename(archivePath)}: ${zipResult.stderr.trim()}`);
-  }
-
-  console.log(`Built ${path.relative(projectRoot, targetDirectory)}`);
-  console.log(`Built ${path.relative(projectRoot, archivePath)}`);
+  const archive = path.join(root, 'dist', `youtube-ui-cleaner-${target}.zip`);
+  await rm(archive, { force: true });
+  const zipped = spawnSync('zip', ['-q', '-r', archive, '.'], { cwd: directory, encoding: 'utf8' });
+  if (zipped.status !== 0) throw new Error(zipped.stderr || 'zip failed');
+  console.log(`Built dist/${target} and ${path.basename(archive)}`);
 }

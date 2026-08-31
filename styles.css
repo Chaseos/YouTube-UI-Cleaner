@@ -52,6 +52,14 @@ html.yt-hide-promoted ytm-paid-content-overlay-renderer {
     display: none !important;
 }
 
+/* --- SPONSORED VIDEOS --- */
+/* Hide the card as well as its ad contents, without matching video title text.
+   CSS also handles newly inserted ads and reused cards without sticky tags. */
+html.yt-hide-sponsored-videos :is(ytd-rich-item-renderer, ytd-rich-grid-media, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-reel-item-renderer, yt-lockup-view-model):has(ytd-ad-slot-renderer, ytd-in-feed-ad-layout-renderer, ytd-promoted-video-renderer, ytd-display-ad-renderer, ytd-promoted-sparkles-web-renderer, ad-badge-view-model, .badge-style-type-ad),
+html.yt-hide-sponsored-videos :is(ytd-ad-slot-renderer, ytd-in-feed-ad-layout-renderer, ytd-promoted-video-renderer, ytd-display-ad-renderer, ytd-promoted-sparkles-web-renderer) {
+    display: none !important;
+}
+
 /* --- FEATURED SERVICE VIDEOS --- */
 html.yt-hide-featured-services .is-featured-service-item,
 html.yt-hide-featured-services ytd-rich-item-renderer:has(.ytBadgeShapeCommerce):has(.ytBadgeShapePromoted),

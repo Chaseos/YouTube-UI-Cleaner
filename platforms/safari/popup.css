@@ -1,0 +1,29 @@
+/* Preserve the existing Mac control layout and content scrolling. */
+html, body { width: 360px; min-width: 360px; max-width: 360px; }
+.header { flex-wrap: nowrap; }
+.header .logo { flex: 1 1 auto; }
+.header .logo img { flex-shrink: 0; }
+.header .logo span { min-width: 0; }
+.header-actions { margin-inline-start: auto; gap: 4px; }
+.apple-action {
+  display: inline-flex; align-items: center; gap: 5px; min-height: 30px;
+  padding: 4px; border: 1px solid transparent; border-radius: 6px;
+  color: #ffc857; background: transparent; text-decoration: none;
+  opacity: .78; font-size: 11px; font-weight: 600;
+  transition: opacity 180ms, background-color 180ms;
+}
+.apple-action.support { color: #ff777b; }
+.apple-action svg { width: 18px; height: 18px; flex: 0 0 18px; fill: currentColor; }
+.apple-action .action-label {
+  max-width: 0; min-width: 0; opacity: 0; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; pointer-events: none;
+  transition: max-width 180ms ease, opacity 180ms ease;
+}
+.apple-action:hover, .apple-action:focus-visible { opacity: 1; background: #ffffff0d; border-color: currentColor; }
+.apple-action:hover .action-label, .apple-action:focus-visible .action-label { max-width: 96px; opacity: 1; }
+.apple-action:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #8ab4f8; outline-offset: 2px; }
+.apple-notice { padding: 0 16px; font-size: 12px; color: var(--text-color); }
+.apple-notice:empty { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

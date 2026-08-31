@@ -1,0 +1,64 @@
+{
+  "identifier": "EC3456A8-76B4-4AFE-AF74-445472B5F318",
+  "nonRenewingSubscriptions": [],
+  "subscriptionGroups": [],
+  "products": [
+    {
+      "displayPrice": "0.99",
+      "familyShareable": false,
+      "internalID": "7EC85720-6D33-46C1-B271-000000000001",
+      "localizations": [
+        {
+          "description": "Optional small tip. No features unlocked.",
+          "displayName": "Small Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "app.chaseos.YouTubeUICleaner.tip.small",
+      "referenceName": "Small Tip",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "2.99",
+      "familyShareable": false,
+      "internalID": "7EC85720-6D33-46C1-B271-000000000002",
+      "localizations": [
+        {
+          "description": "Optional tip. No features unlocked.",
+          "displayName": "Standard Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "app.chaseos.YouTubeUICleaner.tip.standard",
+      "referenceName": "Standard Tip",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "4.99",
+      "familyShareable": false,
+      "internalID": "7EC85720-6D33-46C1-B271-000000000003",
+      "localizations": [
+        {
+          "description": "Optional generous tip. No features unlocked.",
+          "displayName": "Generous Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "app.chaseos.YouTubeUICleaner.tip.generous",
+      "referenceName": "Generous Tip",
+      "type": "Consumable"
+    }
+  ],
+  "settings": {
+    "_applicationInternalID": "6806902230",
+    "_developerTeamID": "QG4CBM3K89",
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_storeKitErrors": []
+  },
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

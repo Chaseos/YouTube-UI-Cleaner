@@ -31,10 +31,12 @@ Use master switches for a whole category or expand a category to control its fil
 | Mixes, podcasts, and playlists | Hide these recommendations while leaving your Playlists library intact |
 | Live and upcoming | Hide live streams separately from scheduled videos and upcoming premieres |
 | Home feed extras | Hide the category filter chips or dismissible sections such as Community posts, nudges, and recommendation shelves |
-| Promotions | Hide featured subscription or trial offers and paid-promotion overlays |
+| Promotions & Sponsors | Hide sponsored video cards site-wide, featured subscription or trial offers, and paid-promotion overlays together or independently |
 | Other content | Hide members-only videos and YouTube Playables shelves |
 
 Built-in cleanup filters are enabled on first install and can be changed at any time from the extension popup.
+
+The sponsored-video filter works in all browser packages and hides ad cards independently of paid-promotion disclosure overlays. It does not block network requests, skip ads during playback, or remove sponsor segments from videos.
 
 ### Custom keyword filters
 
@@ -76,7 +78,7 @@ The popup follows your browser's UI language, while content detection follows th
 3. Use the **General** tab to configure the built-in cleanup options.
 4. Use the **Custom Filters** tab to create and manage keyword groups.
 
-Settings are saved with browser sync storage and applied automatically.
+Settings are saved with browser storage and applied automatically. Safari keeps these preferences on the current Mac; it does not sync extension storage between devices.
 
 ## Privacy and permissions
 
@@ -96,7 +98,7 @@ Requirements:
 - A current version of Node.js and npm
 - The `zip` command-line utility for release archives
 
-Clone the repository and create both browser builds:
+Clone the repository and create the browser builds:
 
 ```sh
 git clone https://github.com/Chaseos/YouTube-UI-Cleaner.git
@@ -108,11 +110,20 @@ The build validates every locale, runs the JavaScript and localization tests, an
 
 - `dist/chromium/` and `dist/youtube-ui-cleaner-chromium.zip` for Chrome, Edge, Opera, Whale, and other Chromium-based browsers
 - `dist/firefox/` and `dist/youtube-ui-cleaner-firefox.zip` for Firefox, including its Gecko-specific manifest settings
+- `dist/safari/` and `dist/youtube-ui-cleaner-safari.zip` for the macOS Safari extension resources (installation requires the containing Mac app)
 
 To test an unpacked build:
 
 - In a Chromium-based browser, open its extensions page, enable developer mode, choose **Load unpacked**, and select `dist/chromium/`.
 - In Firefox, open `about:debugging#/runtime/this-firefox`, choose **Load Temporary Add-on**, and select `dist/firefox/manifest.json`.
+
+### macOS Safari development
+
+With Xcode installed, run `npm run prepare:apple`, then open `apple/YouTube UI Cleaner/YouTube UI Cleaner.xcodeproj`. Apple identity and tip metadata come from `apple/configuration.json`; contributors must use their own signing team for signed builds.
+
+`npm run build:apple:debug` and `npm run build:apple:release` compile unsigned universal Mac apps into separate directories. Append `-- --signed` for development signing. `npm run test:apple` runs packaging and executable native logic tests. The separate **StoreKit Testing (macOS)** scheme uses simulated consumables; the normal scheme does not. No command archives, uploads, or releases an app.
+
+Safari keeps the existing cleanup controls, replacing external donation/review promotion with compact native-app support and App Store rating handoffs. Tips are optional and unlock nothing. See [Apple release notes](APPLE_RELEASE.md) for verified results and remaining runtime/review gates; this is not yet a release-ready Safari distribution.
 
 ## Support
 

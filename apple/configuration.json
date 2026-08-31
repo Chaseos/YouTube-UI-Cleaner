@@ -1,0 +1,35 @@
+{
+  "name": "YouTube UI Cleaner",
+  "bundleID": "app.chaseos.YouTubeUICleaner",
+  "extensionBundleID": "app.chaseos.YouTubeUICleaner.Extension",
+  "teamID": "QG4CBM3K89",
+  "urlScheme": "youtubeuicleaner",
+  "sku": "YTUC-MAC-001",
+  "version": "2.13",
+  "build": "1",
+  "minimumMacOS": "13.0",
+  "category": "public.app-category.utilities",
+  "appStoreID": "6806902230",
+  "supportURL": "https://github.com/Chaseos/YouTube-UI-Cleaner",
+  "privacyURL": "https://github.com/Chaseos/YouTube-UI-Cleaner/blob/main/PRIVACYPOLICY.md",
+  "tips": [
+    {
+      "id": "app.chaseos.YouTubeUICleaner.tip.small",
+      "name": "Small Tip",
+      "price": "0.99",
+      "description": "Optional small tip. No features unlocked."
+    },
+    {
+      "id": "app.chaseos.YouTubeUICleaner.tip.standard",
+      "name": "Standard Tip",
+      "price": "2.99",
+      "description": "Optional tip. No features unlocked."
+    },
+    {
+      "id": "app.chaseos.YouTubeUICleaner.tip.generous",
+      "name": "Generous Tip",
+      "price": "4.99",
+      "description": "Optional generous tip. No features unlocked."
+    }
+  ]
+}

@@ -45,6 +45,7 @@ const keys = [
     'shortsSidebar',
     'playables',
     'paidPromotion',
+    'hideSponsoredVideos',
     'grouped',
     'groupedMixes',
     'groupedPodcasts',
@@ -62,7 +63,7 @@ const toggleGroups = Object.freeze([
     { masterId: 'grouped', childKeys: ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'], storeMaster: true },
     { masterId: 'liveUpcoming', childKeys: ['hideLive', 'hideUpcoming'], storeMaster: false },
     { masterId: 'feedExtras', childKeys: ['feedPills', 'hideSections'], storeMaster: false },
-    { masterId: 'promotions', childKeys: ['hideFeaturedServices', 'paidPromotion'], storeMaster: false }
+    { masterId: 'promotions', childKeys: ['hideSponsoredVideos', 'hideFeaturedServices', 'paidPromotion'], storeMaster: false }
 ]);
 const KOFI_URL = 'https://ko-fi.com/chaseos';
 const REVIEW_STORE_URLS = Object.freeze({

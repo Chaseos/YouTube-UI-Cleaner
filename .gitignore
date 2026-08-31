@@ -18,3 +18,15 @@ extension.zip
 
 # Generated extension packages
 dist/
+
+# Apple build products, local evidence and private signing material
+build/
+**/xcuserdata/
+*.xcuserstate
+*.xcarchive/
+*.mobileprovision
+*.provisionprofile
+*.p12
+*.p8
+*.cer
+apple/**/Generated/

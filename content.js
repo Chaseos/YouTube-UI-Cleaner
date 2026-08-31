@@ -43,6 +43,9 @@ function updateClasses(settings) {
     if (settings.paidPromotion) html.classList.add('yt-hide-promoted');
     else html.classList.remove('yt-hide-promoted');
 
+    // Sponsored ad cards, separate from creator disclosure overlays.
+    html.classList.toggle('yt-hide-sponsored-videos', Boolean(settings.hideSponsoredVideos));
+
     // Featured videos promoting trials for external content services
     if (settings.hideFeaturedServices) html.classList.add('yt-hide-featured-services');
     else html.classList.remove('yt-hide-featured-services');
@@ -567,7 +570,7 @@ function injectWatchPageHoverButtons() {
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideFeaturedServices', 'hideMembersOnly', 'hideUpcoming', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
+const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideSponsoredVideos', 'hideFeaturedServices', 'hideMembersOnly', 'hideUpcoming', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
 
 // Apply defaults immediately to prevent flash on load
 const defaultSettings = {};

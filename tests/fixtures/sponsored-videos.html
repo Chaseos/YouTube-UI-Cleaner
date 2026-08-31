@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Sponsored video filter regression</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { font: 16px system-ui; max-width: 900px; margin: 24px auto; }
+  ytd-browse, ytd-watch-flexy { display: block; margin: 16px 0; }
+  ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, yt-lockup-view-model { display: block; border: 1px solid #888; padding: 12px; }
+  button, label { margin: 8px; }
+</style>
+<h1>Sponsored video filter regression</h1>
+<label><input id="enabled" type="checkbox" checked> Hide Sponsored Videos</label>
+<button id="insert">Insert another ad</button>
+<button id="reuse">Reuse ad card for an ordinary video</button>
+<button id="navigate">Change Home to Subscriptions</button>
+<p id="result" role="status"></p>
+<ytd-browse page-subtype="home" id="home">
+  <ytd-rich-item-renderer id="ordinary">An ordinary video about sponsored videos</ytd-rich-item-renderer>
+  <ytd-rich-item-renderer id="disclosure"><span class="ytp-paid-content-overlay">Includes paid promotion</span> — ordinary creator video</ytd-rich-item-renderer>
+  <ytd-rich-item-renderer id="slot"><ytd-ad-slot-renderer>Sponsored — ad slot</ytd-ad-slot-renderer></ytd-rich-item-renderer>
+  <ytd-rich-item-renderer id="infeed"><ytd-in-feed-ad-layout-renderer>Sponsored — in-feed layout</ytd-in-feed-ad-layout-renderer></ytd-rich-item-renderer>
+  <ytd-rich-item-renderer id="legacy"><ytd-promoted-video-renderer>Sponsored — legacy video</ytd-promoted-video-renderer></ytd-rich-item-renderer>
+  <ytd-rich-item-renderer id="display"><ytd-display-ad-renderer>Sponsored — display card</ytd-display-ad-renderer></ytd-rich-item-renderer>
+</ytd-browse>
+<ytd-browse page-subtype="subscriptions"><ytd-rich-item-renderer id="subscription"><ytd-ad-slot-renderer>Subscription ad card</ytd-ad-slot-renderer></ytd-rich-item-renderer></ytd-browse>
+<ytd-browse page-subtype="trending"><ytd-grid-video-renderer id="explore"><ytd-promoted-sparkles-web-renderer>Explore ad card</ytd-promoted-sparkles-web-renderer></ytd-grid-video-renderer></ytd-browse>
+<ytd-search>
+  <ytd-video-renderer id="search"><ytd-ad-slot-renderer>Search ad card</ytd-ad-slot-renderer></ytd-video-renderer>
+  <yt-lockup-view-model id="badge"><ad-badge-view-model>広告</ad-badge-view-model> — localized sponsored card</yt-lockup-view-model>
+</ytd-search>
+<ytd-watch-flexy>
+  <div class="ytp-ad-module" id="player">In-player ad stays untouched</div>
+  <div id="secondary">
+    <ytd-compact-video-renderer id="recommendation"><span class="badge-style-type-ad">Sponsored</span> — recommendation ad</ytd-compact-video-renderer>
+    <yt-lockup-view-model id="modern"><ytd-ad-slot-renderer>Modern recommendation ad</ytd-ad-slot-renderer></yt-lockup-view-model>
+    <yt-lockup-view-model id="ordinary-recommendation">An ordinary recommended video with sponsors</yt-lockup-view-model>
+  </div>
+</ytd-watch-flexy>
+<script>
+  const root = document.documentElement;
+  const enabled = document.getElementById('enabled');
+  const home = document.getElementById('home');
+  function report() {
+    const visible = id => getComputedStyle(document.getElementById(id)).display !== 'none';
+    document.getElementById('result').textContent = JSON.stringify(Object.fromEntries(
+      ['ordinary', 'disclosure', 'slot', 'infeed', 'legacy', 'display', 'subscription', 'explore', 'search', 'badge', 'recommendation', 'modern', 'ordinary-recommendation', 'player', 'dynamic']
+        .filter(id => document.getElementById(id)).map(id => [id, visible(id)])
+    ));
+  }
+  function apply() { root.classList.toggle('yt-hide-sponsored-videos', enabled.checked); report(); }
+  enabled.addEventListener('change', apply);
+  document.getElementById('insert').onclick = () => {
+    if (!document.getElementById('dynamic')) {
+      const card = document.createElement('ytd-rich-item-renderer');
+      card.id = 'dynamic';
+      card.innerHTML = '<ytd-ad-slot-renderer>New sponsored card</ytd-ad-slot-renderer>';
+      home.append(card);
+    }
+    report();
+  };
+  document.getElementById('reuse').onclick = () => { document.getElementById('slot').textContent = 'Reused ordinary card'; report(); };
+  document.getElementById('navigate').onclick = () => { home.setAttribute('page-subtype', home.getAttribute('page-subtype') === 'home' ? 'subscriptions' : 'home'); report(); };
+  apply();
+</script>
+</html>

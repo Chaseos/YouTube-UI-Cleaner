@@ -1,0 +1,774 @@
+// !$*UTF8*$!
+{
+	"classes" = {
+	};
+	"objectVersion" = "77";
+	"archiveVersion" = "1";
+	"objects" = {
+		"B95AD98A78AE45089FC14457" = {
+			"path" = "Configurations/Generated/Apple.xcconfig";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.xcconfig";
+			"sourceTree" = "<group>";
+		};
+		"ABECC047304520DD0071DDA1" = {
+			"baseConfigurationReference" = "B95AD98A78AE45089FC14457";
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"CLANG_WARN_UNGUARDED_AVAILABILITY" = "YES_AGGRESSIVE";
+				"CLANG_WARN_SUSPICIOUS_MOVE" = "YES";
+				"CLANG_ENABLE_OBJC_ARC" = "YES";
+				"CLANG_WARN_DIRECT_OBJC_ISA_USAGE" = "YES_ERROR";
+				"CLANG_ENABLE_OBJC_WEAK" = "YES";
+				"CLANG_WARN__DUPLICATE_METHOD_MATCH" = "YES";
+				"SWIFT_COMPILATION_MODE" = "wholemodule";
+				"CLANG_WARN_OBJC_LITERAL_CONVERSION" = "YES";
+				"CLANG_WARN_INFINITE_RECURSION" = "YES";
+				"DEBUG_INFORMATION_FORMAT" = "dwarf-with-dsym";
+				"CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF" = "YES";
+				"CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION" = "YES_AGGRESSIVE";
+				"SDKROOT" = "macosx";
+				"CLANG_CXX_LANGUAGE_STANDARD" = "gnu++20";
+				"LOCALIZATION_PREFERS_STRING_CATALOGS" = "YES";
+				"CLANG_WARN_BOOL_CONVERSION" = "YES";
+				"CLANG_WARN_UNREACHABLE_CODE" = "YES";
+				"ENABLE_STRICT_OBJC_MSGSEND" = "YES";
+				"CLANG_ANALYZER_NONNULL" = "YES";
+				"CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING" = "YES";
+				"CLANG_WARN_STRICT_PROTOTYPES" = "YES";
+				"CLANG_WARN_ENUM_CONVERSION" = "YES";
+				"GCC_WARN_64_TO_32_BIT_CONVERSION" = "YES";
+				"CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER" = "YES";
+				"GCC_WARN_UNINITIALIZED_AUTOS" = "YES_AGGRESSIVE";
+				"ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS" = "YES";
+				"GCC_WARN_ABOUT_RETURN_TYPE" = "YES_ERROR";
+				"CLANG_WARN_EMPTY_BODY" = "YES";
+				"CLANG_WARN_COMMA" = "YES";
+				"GCC_WARN_UNUSED_VARIABLE" = "YES";
+				"GCC_C_LANGUAGE_STANDARD" = "gnu17";
+				"CLANG_WARN_RANGE_LOOP_ANALYSIS" = "YES";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"CLANG_WARN_INT_CONVERSION" = "YES";
+				"ALWAYS_SEARCH_USER_PATHS" = "NO";
+				"CLANG_WARN_OBJC_ROOT_CLASS" = "YES_ERROR";
+				"CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS" = "YES";
+				"COPY_PHASE_STRIP" = "NO";
+				"CLANG_WARN_CONSTANT_CONVERSION" = "YES";
+				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
+				"GCC_NO_COMMON_BLOCKS" = "YES";
+				"MTL_ENABLE_DEBUG_INFO" = "NO";
+				"CLANG_WARN_NON_LITERAL_NULL_CONVERSION" = "YES";
+				"MTL_FAST_MATH" = "YES";
+				"GCC_WARN_UNUSED_FUNCTION" = "YES";
+				"ENABLE_NS_ASSERTIONS" = "NO";
+				"CLANG_WARN_DOCUMENTATION_COMMENTS" = "YES";
+				"GCC_WARN_UNDECLARED_SELECTOR" = "YES";
+			};
+			"name" = "Release";
+		};
+		"ABECC048304520DD0071DDA1" = {
+			"isa" = "XCConfigurationList";
+			"defaultConfigurationIsVisible" = "0";
+			"defaultConfigurationName" = "Release";
+			"buildConfigurations" = (
+				"ABECC049304520DD0071DDA1",
+				"ABECC04A304520DD0071DDA1",
+			);
+		};
+		"2965157618814079934D98A1" = {
+			"path" = "SupportViews.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"ABECC046304520DD0071DDA1" = {
+			"baseConfigurationReference" = "B95AD98A78AE45089FC14457";
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"CLANG_WARN_UNGUARDED_AVAILABILITY" = "YES_AGGRESSIVE";
+				"CLANG_WARN_SUSPICIOUS_MOVE" = "YES";
+				"CLANG_ENABLE_OBJC_ARC" = "YES";
+				"CLANG_WARN_DIRECT_OBJC_ISA_USAGE" = "YES_ERROR";
+				"GCC_WARN_UNDECLARED_SELECTOR" = "YES";
+				"CLANG_WARN__DUPLICATE_METHOD_MATCH" = "YES";
+				"CLANG_ENABLE_OBJC_WEAK" = "YES";
+				"CLANG_WARN_OBJC_LITERAL_CONVERSION" = "YES";
+				"CLANG_WARN_INFINITE_RECURSION" = "YES";
+				"CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION" = "YES_AGGRESSIVE";
+				"SDKROOT" = "macosx";
+				"CLANG_CXX_LANGUAGE_STANDARD" = "gnu++20";
+				"LOCALIZATION_PREFERS_STRING_CATALOGS" = "YES";
+				"CLANG_WARN_BOOL_CONVERSION" = "YES";
+				"ENABLE_TESTABILITY" = "YES";
+				"CLANG_WARN_UNREACHABLE_CODE" = "YES";
+				"ENABLE_STRICT_OBJC_MSGSEND" = "YES";
+				"CLANG_ANALYZER_NONNULL" = "YES";
+				"CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING" = "YES";
+				"CLANG_WARN_STRICT_PROTOTYPES" = "YES";
+				"CLANG_WARN_ENUM_CONVERSION" = "YES";
+				"GCC_WARN_64_TO_32_BIT_CONVERSION" = "YES";
+				"CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER" = "YES";
+				"GCC_PREPROCESSOR_DEFINITIONS" = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				"GCC_WARN_UNINITIALIZED_AUTOS" = "YES_AGGRESSIVE";
+				"ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS" = "YES";
+				"CLANG_WARN_EMPTY_BODY" = "YES";
+				"GCC_WARN_ABOUT_RETURN_TYPE" = "YES_ERROR";
+				"CLANG_WARN_COMMA" = "YES";
+				"GCC_DYNAMIC_NO_PIC" = "NO";
+				"GCC_C_LANGUAGE_STANDARD" = "gnu17";
+				"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+				"CLANG_WARN_RANGE_LOOP_ANALYSIS" = "YES";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"GCC_NO_COMMON_BLOCKS" = "YES";
+				"CLANG_WARN_INT_CONVERSION" = "YES";
+				"MTL_ENABLE_DEBUG_INFO" = "INCLUDE_SOURCE";
+				"ALWAYS_SEARCH_USER_PATHS" = "NO";
+				"COPY_PHASE_STRIP" = "NO";
+				"CLANG_WARN_CONSTANT_CONVERSION" = "YES";
+				"CLANG_WARN_OBJC_ROOT_CLASS" = "YES_ERROR";
+				"CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS" = "YES";
+				"GCC_WARN_UNUSED_VARIABLE" = "YES";
+				"GCC_OPTIMIZATION_LEVEL" = "0";
+				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
+				"CLANG_WARN_NON_LITERAL_NULL_CONVERSION" = "YES";
+				"MTL_FAST_MATH" = "YES";
+				"GCC_WARN_UNUSED_FUNCTION" = "YES";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG $(inherited)";
+				"DEBUG_INFORMATION_FORMAT" = "dwarf";
+				"CLANG_WARN_DOCUMENTATION_COMMENTS" = "YES";
+				"CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF" = "YES";
+			};
+			"name" = "Debug";
+		};
+		"ABECC04E304520DD0071DDA1" = {
+			"baseConfigurationReference" = "B95AD98A78AE45089FC14457";
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"COMBINE_HIDPI_IMAGES" = "YES";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "$(APPLE_APP_ID)";
+				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
+				"ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME" = "AccentColor";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner";
+				"OTHER_LDFLAGS" = (
+					"-framework",
+					"SafariServices",
+					"-framework",
+					"WebKit",
+				);
+				"CODE_SIGN_STYLE" = "Automatic";
+				"ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
+				"LD_RUNPATH_SEARCH_PATHS" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				"SWIFT_VERSION" = "5.0";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"SWIFT_APPROACHABLE_CONCURRENCY" = "YES";
+				"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY" = "YES";
+				"INFOPLIST_KEY_NSHumanReadableCopyright" = "Copyright 2026 Chaseos Apps";
+				"ENABLE_OUTGOING_NETWORK_CONNECTIONS" = "YES";
+				"ENABLE_APP_SANDBOX" = "YES";
+				"ENABLE_HARDENED_RUNTIME" = "YES";
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"INFOPLIST_FILE" = "YouTube UI Cleaner/Info.plist";
+				"INFOPLIST_KEY_NSPrincipalClass" = "NSApplication";
+			};
+			"name" = "Release";
+		};
+		"ABECC04F304520DD0071DDA1" = {
+			"path" = "YouTube UI Cleaner Extension";
+			"isa" = "PBXGroup";
+			"name" = "Resources";
+			"children" = (
+				"ABECC050304520DD0071DDA1",
+				"ABECC051304520DD0071DDA1",
+				"ABECC052304520DD0071DDA1",
+				"ABECC053304520DD0071DDA1",
+				"ABECC054304520DD0071DDA1",
+				"ABECC055304520DD0071DDA1",
+				"ABECC056304520DD0071DDA1",
+				"ABECC057304520DD0071DDA1",
+				"ABECC058304520DD0071DDA1",
+				"ABECC059304520DD0071DDA1",
+				"ABECC05A304520DD0071DDA1",
+			);
+			"sourceTree" = "SOURCE_ROOT";
+		};
+		"ABECC024304520DD0071DDA1" = {
+			"isa" = "PBXGroup";
+			"name" = "Products";
+			"children" = (
+				"ABECC023304520DD0071DDA1",
+				"ABECC03E304520DD0071DDA1",
+			);
+			"sourceTree" = "<group>";
+		};
+		"ABECC025304520DD0071DDA1" = {
+			"path" = "YouTube UI Cleaner";
+			"isa" = "PBXGroup";
+			"children" = (
+				"ABECC026304520DD0071DDA1",
+				"ABECC032304520DD0071DDA1",
+				"ABECC037304520DD0071DDA1",
+				"ABECC039304520DD0071DDA1",
+				"573CBC6D652B43EEBB1495EC",
+				"38D89E140696469481EB4237",
+				"FE9D411BC3A046A0A19E037A",
+				"E30F029E399A45ECA98FF76B",
+				"2965157618814079934D98A1",
+			);
+			"sourceTree" = "<group>";
+		};
+		"ABECC044304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC043304520DD0071DDA1";
+		};
+		"ABECC045304520DD0071DDA1" = {
+			"path" = "Info.plist";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.plist.xml";
+			"sourceTree" = "<group>";
+		};
+		"ABECC04D304520DD0071DDA1" = {
+			"baseConfigurationReference" = "B95AD98A78AE45089FC14457";
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"COMBINE_HIDPI_IMAGES" = "YES";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "$(APPLE_APP_ID)";
+				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
+				"ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME" = "AccentColor";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner";
+				"OTHER_LDFLAGS" = (
+					"-framework",
+					"SafariServices",
+					"-framework",
+					"WebKit",
+				);
+				"CODE_SIGN_STYLE" = "Automatic";
+				"ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
+				"LD_RUNPATH_SEARCH_PATHS" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				"SWIFT_VERSION" = "5.0";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"SWIFT_APPROACHABLE_CONCURRENCY" = "YES";
+				"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY" = "YES";
+				"INFOPLIST_KEY_NSHumanReadableCopyright" = "Copyright 2026 Chaseos Apps";
+				"ENABLE_OUTGOING_NETWORK_CONNECTIONS" = "YES";
+				"ENABLE_APP_SANDBOX" = "YES";
+				"ENABLE_HARDENED_RUNTIME" = "YES";
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"INFOPLIST_FILE" = "YouTube UI Cleaner/Info.plist";
+				"INFOPLIST_KEY_NSPrincipalClass" = "NSApplication";
+			};
+			"name" = "Debug";
+		};
+		"ABECC04C304520DD0071DDA1" = {
+			"isa" = "XCConfigurationList";
+			"defaultConfigurationIsVisible" = "0";
+			"defaultConfigurationName" = "Release";
+			"buildConfigurations" = (
+				"ABECC04D304520DD0071DDA1",
+				"ABECC04E304520DD0071DDA1",
+			);
+		};
+		"ABECC064304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC059304520DD0071DDA1";
+		};
+		"ABECC065304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC05A304520DD0071DDA1";
+		};
+		"ABECC023304520DD0071DDA1" = {
+			"path" = "YouTube UI Cleaner.app";
+			"isa" = "PBXFileReference";
+			"includeInIndex" = "0";
+			"explicitFileType" = "wrapper.application";
+			"sourceTree" = "BUILT_PRODUCTS_DIR";
+		};
+		"ABECC022304520DD0071DDA1" = {
+			"productType" = "com.apple.product-type.application";
+			"productReference" = "ABECC023304520DD0071DDA1";
+			"buildConfigurationList" = "ABECC04C304520DD0071DDA1";
+			"packageProductDependencies" = (
+			);
+			"productName" = "YouTube UI Cleaner";
+			"isa" = "PBXNativeTarget";
+			"buildPhases" = (
+				"ABECC01F304520DD0071DDA1",
+				"ABECC020304520DD0071DDA1",
+				"ABECC021304520DD0071DDA1",
+				"ABECC04B304520DD0071DDA1",
+			);
+			"dependencies" = (
+				"ABECC041304520DD0071DDA1",
+			);
+			"name" = "YouTube UI Cleaner";
+			"buildRules" = (
+			);
+		};
+		"E30F029E399A45ECA98FF76B" = {
+			"path" = "TipStore.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"E7E2A926C2864626A21EFA3E" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "38D89E140696469481EB4237";
+		};
+		"ABECC043304520DD0071DDA1" = {
+			"path" = "SafariWebExtensionHandler.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"ABECC042304520DD0071DDA1" = {
+			"path" = "YouTube UI Cleaner Extension";
+			"isa" = "PBXGroup";
+			"children" = (
+				"ABECC04F304520DD0071DDA1",
+				"ABECC043304520DD0071DDA1",
+				"ABECC045304520DD0071DDA1",
+			);
+			"sourceTree" = "<group>";
+		};
+		"FE9D411BC3A046A0A19E037A" = {
+			"path" = "TipClient.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"ABECC04A304520DD0071DDA1" = {
+			"baseConfigurationReference" = "B95AD98A78AE45089FC14457";
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"LD_RUNPATH_SEARCH_PATHS" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				"INFOPLIST_KEY_NSHumanReadableCopyright" = "Copyright 2026 Chaseos Apps";
+				"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY" = "YES";
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"INFOPLIST_FILE" = "YouTube UI Cleaner Extension/Info.plist";
+				"SKIP_INSTALL" = "YES";
+				"ENABLE_APP_SANDBOX" = "YES";
+				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner Extension";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"OTHER_LDFLAGS" = (
+					"-framework",
+					"SafariServices",
+				);
+				"SWIFT_VERSION" = "5.0";
+				"ENABLE_HARDENED_RUNTIME" = "YES";
+				"SWIFT_APPROACHABLE_CONCURRENCY" = "YES";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "$(APPLE_EXTENSION_ID)";
+			};
+			"name" = "Release";
+		};
+		"ABECC04B304520DD0071DDA1" = {
+			"buildActionMask" = "2147483647";
+			"dstSubfolderSpec" = "13";
+			"isa" = "PBXCopyFilesBuildPhase";
+			"runOnlyForDeploymentPostprocessing" = "0";
+			"dstPath" = "";
+			"name" = "Embed Foundation Extensions";
+			"files" = (
+				"ABECC03F304520DD0071DDA1",
+			);
+		};
+		"ABECC063304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC058304520DD0071DDA1";
+		};
+		"ABECC062304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC057304520DD0071DDA1";
+		};
+		"ABECC039304520DD0071DDA1" = {
+			"path" = "Info.plist";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.plist.xml";
+			"sourceTree" = "<group>";
+		};
+		"ABECC020304520DD0071DDA1" = {
+			"isa" = "PBXFrameworksBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+			);
+			"runOnlyForDeploymentPostprocessing" = "0";
+		};
+		"ABECC021304520DD0071DDA1" = {
+			"isa" = "PBXResourcesBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+				"ABECC038304520DD0071DDA1",
+				"A64A1D6C922E46A1A85831DC",
+			);
+			"runOnlyForDeploymentPostprocessing" = "0";
+		};
+		"ABECC059304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/content.js";
+			"isa" = "PBXFileReference";
+			"name" = "content.js";
+			"lastKnownFileType" = "sourcecode.javascript";
+			"sourceTree" = "<group>";
+		};
+		"ABECC040304520DD0071DDA1" = {
+			"isa" = "PBXContainerItemProxy";
+			"containerPortal" = "ABECC01B304520DD0071DDA1";
+			"remoteGlobalIDString" = "ABECC03D304520DD0071DDA1";
+			"remoteInfo" = "YouTube UI Cleaner Extension";
+			"proxyType" = "1";
+		};
+		"ABECC041304520DD0071DDA1" = {
+			"isa" = "PBXTargetDependency";
+			"target" = "ABECC03D304520DD0071DDA1";
+			"targetProxy" = "ABECC040304520DD0071DDA1";
+		};
+		"ABECC01E304520DD0071DDA1" = {
+			"isa" = "XCConfigurationList";
+			"defaultConfigurationIsVisible" = "0";
+			"defaultConfigurationName" = "Release";
+			"buildConfigurations" = (
+				"ABECC046304520DD0071DDA1",
+				"ABECC047304520DD0071DDA1",
+			);
+		};
+		"ABECC060304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC055304520DD0071DDA1";
+		};
+		"ABECC037304520DD0071DDA1" = {
+			"path" = "Assets.xcassets";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "folder.assetcatalog";
+			"sourceTree" = "<group>";
+		};
+		"ABECC061304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC056304520DD0071DDA1";
+		};
+		"ABECC038304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC037304520DD0071DDA1";
+		};
+		"ABECC01F304520DD0071DDA1" = {
+			"isa" = "PBXSourcesBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+				"ABECC033304520DD0071DDA1",
+				"ABECC027304520DD0071DDA1",
+				"1759022DFF1D4E0B969BA41A",
+				"E7E2A926C2864626A21EFA3E",
+				"7582970683374B5C8191B4E6",
+				"1BB2D8A872084045B036978B",
+				"EE3F7B63CF464CC18A812602",
+			);
+			"runOnlyForDeploymentPostprocessing" = "0";
+		};
+		"ABECC03E304520DD0071DDA1" = {
+			"path" = "YouTube UI Cleaner Extension.appex";
+			"isa" = "PBXFileReference";
+			"includeInIndex" = "0";
+			"explicitFileType" = "wrapper.app-extension";
+			"sourceTree" = "BUILT_PRODUCTS_DIR";
+		};
+		"ABECC03F304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC03E304520DD0071DDA1";
+			"settings" = {
+				"ATTRIBUTES" = (
+					"RemoveHeadersOnCopy",
+				);
+			};
+		};
+		"ABECC057304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/manifest.json";
+			"isa" = "PBXFileReference";
+			"name" = "manifest.json";
+			"lastKnownFileType" = "text.json";
+			"sourceTree" = "<group>";
+		};
+		"EFB529A3318B4B7E92811F30" = {
+			"path" = "../configuration.json";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.json";
+			"sourceTree" = "<group>";
+		};
+		"ABECC058304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/_locales";
+			"isa" = "PBXFileReference";
+			"name" = "_locales";
+			"lastKnownFileType" = "folder";
+			"sourceTree" = "<group>";
+		};
+		"ABECC05E304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC053304520DD0071DDA1";
+		};
+		"7582970683374B5C8191B4E6" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "FE9D411BC3A046A0A19E037A";
+		};
+		"ABECC05F304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC054304520DD0071DDA1";
+		};
+		"ABECC03D304520DD0071DDA1" = {
+			"productType" = "com.apple.product-type.app-extension";
+			"productReference" = "ABECC03E304520DD0071DDA1";
+			"buildConfigurationList" = "ABECC048304520DD0071DDA1";
+			"packageProductDependencies" = (
+			);
+			"productName" = "YouTube UI Cleaner Extension";
+			"isa" = "PBXNativeTarget";
+			"buildPhases" = (
+				"ABECC03A304520DD0071DDA1",
+				"ABECC03B304520DD0071DDA1",
+				"ABECC03C304520DD0071DDA1",
+			);
+			"dependencies" = (
+			);
+			"name" = "YouTube UI Cleaner Extension";
+			"buildRules" = (
+			);
+		};
+		"ABECC03C304520DD0071DDA1" = {
+			"isa" = "PBXResourcesBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+				"ABECC063304520DD0071DDA1",
+				"ABECC05D304520DD0071DDA1",
+				"ABECC061304520DD0071DDA1",
+				"ABECC065304520DD0071DDA1",
+				"ABECC060304520DD0071DDA1",
+				"ABECC064304520DD0071DDA1",
+				"ABECC05B304520DD0071DDA1",
+				"ABECC062304520DD0071DDA1",
+				"ABECC05E304520DD0071DDA1",
+				"ABECC05C304520DD0071DDA1",
+				"ABECC05F304520DD0071DDA1",
+			);
+			"runOnlyForDeploymentPostprocessing" = "0";
+		};
+		"ABECC054304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/youtube-locales.js";
+			"isa" = "PBXFileReference";
+			"name" = "youtube-locales.js";
+			"lastKnownFileType" = "sourcecode.javascript";
+			"sourceTree" = "<group>";
+		};
+		"ABECC055304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/popup.html";
+			"isa" = "PBXFileReference";
+			"name" = "popup.html";
+			"lastKnownFileType" = "text.html";
+			"sourceTree" = "<group>";
+		};
+		"ABECC056304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/safari.css";
+			"isa" = "PBXFileReference";
+			"name" = "safari.css";
+			"lastKnownFileType" = "text.css";
+			"sourceTree" = "<group>";
+		};
+		"573CBC6D652B43EEBB1495EC" = {
+			"path" = "AppleConfiguration.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"ABECC05D304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC052304520DD0071DDA1";
+		};
+		"ABECC05C304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC051304520DD0071DDA1";
+		};
+		"ABECC01A304520DD0071DDA1" = {
+			"isa" = "PBXGroup";
+			"sourceTree" = "<group>";
+			"children" = (
+				"ABECC025304520DD0071DDA1",
+				"ABECC042304520DD0071DDA1",
+				"ABECC024304520DD0071DDA1",
+				"EFB529A3318B4B7E92811F30",
+				"B95AD98A78AE45089FC14457",
+			);
+		};
+		"1BB2D8A872084045B036978B" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "E30F029E399A45ECA98FF76B";
+		};
+		"ABECC033304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC032304520DD0071DDA1";
+		};
+		"ABECC01B304520DD0071DDA1" = {
+			"buildConfigurationList" = "ABECC01E304520DD0071DDA1";
+			"targets" = (
+				"ABECC022304520DD0071DDA1",
+				"ABECC03D304520DD0071DDA1",
+			);
+			"minimizedProjectReferenceProxies" = "1";
+			"developmentRegion" = "en";
+			"knownRegions" = (
+				"en",
+				"Base",
+			);
+			"isa" = "PBXProject";
+			"productRefGroup" = "ABECC024304520DD0071DDA1";
+			"projectDirPath" = "";
+			"attributes" = {
+				"LastSwiftUpdateCheck" = "2660";
+				"BuildIndependentTargetsInParallel" = "1";
+				"LastUpgradeCheck" = "2660";
+				"TargetAttributes" = {
+					"ABECC022304520DD0071DDA1" = {
+						"CreatedOnToolsVersion" = "26.6";
+					};
+					"ABECC03D304520DD0071DDA1" = {
+						"CreatedOnToolsVersion" = "26.6";
+					};
+				};
+			};
+			"hasScannedForEncodings" = "0";
+			"projectRoot" = "";
+			"preferredProjectObjectVersion" = "77";
+			"mainGroup" = "ABECC01A304520DD0071DDA1";
+		};
+		"1759022DFF1D4E0B969BA41A" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "573CBC6D652B43EEBB1495EC";
+		};
+		"ABECC032304520DD0071DDA1" = {
+			"path" = "ViewController.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"38D89E140696469481EB4237" = {
+			"path" = "SupportRouter.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+		"ABECC03A304520DD0071DDA1" = {
+			"isa" = "PBXSourcesBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+				"ABECC044304520DD0071DDA1",
+			);
+			"runOnlyForDeploymentPostprocessing" = "0";
+		};
+		"ABECC03B304520DD0071DDA1" = {
+			"isa" = "PBXFrameworksBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+			);
+			"runOnlyForDeploymentPostprocessing" = "0";
+		};
+		"ABECC053304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/actions.js";
+			"isa" = "PBXFileReference";
+			"name" = "actions.js";
+			"lastKnownFileType" = "sourcecode.javascript";
+			"sourceTree" = "<group>";
+		};
+		"ABECC052304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/styles.css";
+			"isa" = "PBXFileReference";
+			"name" = "styles.css";
+			"lastKnownFileType" = "text.css";
+			"sourceTree" = "<group>";
+		};
+		"ABECC05A304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/PRIVACYPOLICY.md";
+			"isa" = "PBXFileReference";
+			"name" = "PRIVACYPOLICY.md";
+			"lastKnownFileType" = "net.daringfireball.markdown";
+			"sourceTree" = "<group>";
+		};
+		"ABECC05B304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC050304520DD0071DDA1";
+		};
+		"EE3F7B63CF464CC18A812602" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "2965157618814079934D98A1";
+		};
+		"ABECC049304520DD0071DDA1" = {
+			"baseConfigurationReference" = "B95AD98A78AE45089FC14457";
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"LD_RUNPATH_SEARCH_PATHS" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				"INFOPLIST_KEY_NSHumanReadableCopyright" = "Copyright 2026 Chaseos Apps";
+				"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY" = "YES";
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"INFOPLIST_FILE" = "YouTube UI Cleaner Extension/Info.plist";
+				"SKIP_INSTALL" = "YES";
+				"ENABLE_APP_SANDBOX" = "YES";
+				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner Extension";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"OTHER_LDFLAGS" = (
+					"-framework",
+					"SafariServices",
+				);
+				"SWIFT_VERSION" = "5.0";
+				"ENABLE_HARDENED_RUNTIME" = "YES";
+				"SWIFT_APPROACHABLE_CONCURRENCY" = "YES";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "$(APPLE_EXTENSION_ID)";
+			};
+			"name" = "Debug";
+		};
+		"A64A1D6C922E46A1A85831DC" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "EFB529A3318B4B7E92811F30";
+		};
+		"ABECC050304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/icon.png";
+			"isa" = "PBXFileReference";
+			"name" = "icon.png";
+			"lastKnownFileType" = "image.png";
+			"sourceTree" = "<group>";
+		};
+		"ABECC027304520DD0071DDA1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "ABECC026304520DD0071DDA1";
+		};
+		"ABECC051304520DD0071DDA1" = {
+			"path" = "../../../dist/safari/popup.js";
+			"isa" = "PBXFileReference";
+			"name" = "popup.js";
+			"lastKnownFileType" = "sourcecode.javascript";
+			"sourceTree" = "<group>";
+		};
+		"ABECC026304520DD0071DDA1" = {
+			"path" = "AppDelegate.swift";
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"sourceTree" = "<group>";
+		};
+	};
+	"rootObject" = "ABECC01B304520DD0071DDA1";
+}

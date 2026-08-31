@@ -5,6 +5,11 @@
   "scripts": {
     "check:locales": "node scripts/validate-locales.mjs",
     "test": "node --check popup.js && node --check content.js && node --check youtube-locales.js && node --test tests/*.test.mjs",
-    "build": "npm run check:locales && npm test && node scripts/build.mjs"
+    "build": "npm run check:locales && npm test && node scripts/build.mjs",
+    "prepare:apple": "node scripts/prepare-apple.mjs",
+    "build:apple:debug": "node scripts/build-apple.mjs",
+    "build:apple:release": "node scripts/build-apple.mjs --release",
+    "test:apple": "node scripts/prepare-apple.mjs && node --test tests/apple*.test.mjs && swift test --jobs 1 --package-path apple --scratch-path build/swift-tests",
+    "validate:apple:release": "node scripts/validate-apple.mjs --release"
   }
 }
