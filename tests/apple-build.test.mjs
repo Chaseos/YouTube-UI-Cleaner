@@ -42,6 +42,10 @@ test('Safari strips engagement, preserves controls and resolves all markup trans
     for (const [key, entry] of Object.entries(messages)) {
       assert.equal(typeof entry.description, 'string', `${locale}.${key} description`);
       assert.ok(entry.description.length > 0 && entry.description.length <= 112, `${locale}.${key} description length`);
+      for (const [name, placeholder] of Object.entries(entry.placeholders || {})) {
+        assert.equal(typeof placeholder.description, 'string', `${locale}.${key}.${name} description`);
+        assert.ok(placeholder.description.length > 0 && placeholder.description.length <= 112, `${locale}.${key}.${name} description length`);
+      }
     }
     for (const match of html.matchAll(/data-i18n(?:-title|-aria-label|-placeholder|-show|-hide)?="([^"]+)"/g)) assert.ok(messages[match[1]], `${locale}: ${match[1]}`);
   }

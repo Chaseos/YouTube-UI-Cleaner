@@ -68,6 +68,9 @@ export async function prepareSafari(root, target, config) {
     messages.saveFailed = { message: 'Settings could not be saved. Please reopen the popup and try again.' };
     for (const [key, entry] of Object.entries(messages)) {
       entry.description = `Localized message for ${key}.`;
+      for (const [name, placeholder] of Object.entries(entry.placeholders || {})) {
+        placeholder.description = `Value for ${name}.`;
+      }
     }
     await writeFile(file, `${JSON.stringify(messages, null, 2)}\n`);
   }
@@ -84,6 +87,11 @@ export async function validateSafari(directory) {
         for (const [key, value] of Object.entries(JSON.parse(source))) {
           if (typeof value.description !== 'string' || !value.description || value.description.length > 112) {
             throw new Error(`Invalid Safari message description: ${file} (${key})`);
+          }
+          for (const [name, placeholder] of Object.entries(value.placeholders || {})) {
+            if (typeof placeholder.description !== 'string' || !placeholder.description || placeholder.description.length > 112) {
+              throw new Error(`Invalid Safari placeholder description: ${file} (${key}.${name})`);
+            }
           }
         }
       }
