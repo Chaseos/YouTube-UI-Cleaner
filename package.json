@@ -1,6 +1,6 @@
 {
   "name": "youtube-ui-cleaner",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "private": true,
   "scripts": {
     "check:locales": "node scripts/validate-locales.mjs",
