@@ -6,6 +6,7 @@ let currentCustomFilters = [];
 let currentSettings = {};
 const MEMBERS_ONLY_ICON_PATH_PREFIX = 'M6 .5a5.5 5.5 0 100 11';
 const pageLocales = globalThis.YouTubeUICleanerLocales;
+const filterableVideoCardSelector = 'ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, yt-lockup-view-model';
 
 function getPageTerms() {
     return pageLocales.getTerms(pageLocales.resolvePageLocale());
@@ -83,54 +84,64 @@ function updateClasses(settings) {
     else html.classList.remove('yt-hide-feed-pills');
 }
 
+function getYouTubeURL(link) {
+    const href = link?.getAttribute('href');
+    if (!href) return null;
+    try {
+        const url = new URL(href, window.location.origin);
+        return url.origin === window.location.origin ? url : null;
+    } catch {
+        return null;
+    }
+}
+
+function isShortsLink(link) {
+    const path = getYouTubeURL(link)?.pathname;
+    return path === '/shorts' || path?.startsWith('/shorts/');
+}
+
 // Selectors for elements we need to tag based on text content
 function tagElements() {
     const terms = getPageTerms();
     // 1. Tag Shorts Shelves (Grid/Reel)
     // Target both ytd-rich-shelf-renderer and grid-shelf-view-model
-    const potentialShorts = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-shorts-shelf), grid-shelf-view-model:not(.is-shorts-shelf), ytd-reel-shelf-renderer:not(.is-shorts-shelf)');
+    const potentialShorts = document.querySelectorAll('ytd-rich-shelf-renderer, grid-shelf-view-model, ytd-reel-shelf-renderer');
     potentialShorts.forEach(el => {
         const title = el.querySelector('.yt-shelf-header-layout__title, .ytShelfHeaderLayoutTitle, #title');
-        if ((title && title.textContent.includes("Shorts")) ||
-            el.querySelector('ytm-shorts-lockup-view-model-v2')) {
-            el.classList.add('is-shorts-shelf');
-        }
+        const isShorts = el.hasAttribute('is-shorts')
+            || el.tagName.toLowerCase() === 'ytd-reel-shelf-renderer'
+            || el.querySelector('ytm-shorts-lockup-view-model-v2')
+            || pageLocales.matchesAny(title?.textContent, ['Shorts']);
+        el.classList.toggle('is-shorts-shelf', Boolean(isShorts));
     });
 
     // 2. Tag Sidebar Shorts Button
-    const sidebarItems = document.querySelectorAll('ytd-guide-entry-renderer:not(.is-shorts-sidebar-entry) a, ytd-mini-guide-entry-renderer:not(.is-shorts-sidebar-entry) a');
-    sidebarItems.forEach(link => {
-        if (link.title === "Shorts" || link.getAttribute('aria-label') === "Shorts") {
-            // Find the container to look like other renderers
-            const container = link.closest('ytd-guide-entry-renderer') || link.closest('ytd-mini-guide-entry-renderer');
-            if (container) {
-                container.classList.add('is-shorts-sidebar-entry');
-            }
-        }
+    const sidebarItems = document.querySelectorAll('ytd-guide-entry-renderer, ytd-mini-guide-entry-renderer');
+    sidebarItems.forEach(container => {
+        const isShorts = Array.from(container.querySelectorAll('a')).some(link =>
+            isShortsLink(link) || pageLocales.matchesAny(link.title, ['Shorts'])
+                || pageLocales.matchesAny(link.getAttribute('aria-label'), ['Shorts']));
+        container.classList.toggle('is-shorts-sidebar-entry', isShorts);
     });
 
     // 3. Tag Playables
-    const potentialPlayables = document.querySelectorAll('ytd-rich-shelf-renderer:not(.is-playables-shelf), ytd-rich-section-renderer:not(.is-playables-shelf)');
+    const potentialPlayables = document.querySelectorAll('ytd-rich-shelf-renderer, ytd-rich-section-renderer');
     potentialPlayables.forEach(el => {
-        if (pageLocales.matchesAny(el.innerText, terms.playables, 'contains')) {
-            if (el.querySelector('#title') && pageLocales.matchesAny(el.querySelector('#title').textContent, terms.playables, 'contains')) {
-                el.classList.add('is-playables-shelf');
-            }
-        }
+        const title = el.querySelector('#title');
+        el.classList.toggle('is-playables-shelf', pageLocales.matchesAny(title?.textContent, terms.playables, 'contains'));
     });
 
     // 4. Tag Individual Shorts in Search Results
-    const videoRenderers = document.querySelectorAll('ytd-video-renderer:not(.is-individual-short)');
+    const videoRenderers = document.querySelectorAll('ytd-video-renderer');
     videoRenderers.forEach(el => {
         const thumbnail = el.querySelector('a#thumbnail');
-        if (thumbnail && thumbnail.href.includes('/shorts/')) {
-            el.classList.add('is-individual-short');
-        }
+        el.classList.toggle('is-individual-short', Boolean(isShortsLink(thumbnail)));
     });
 
     // 5. Tag Mixes, Podcasts, and Playlists
-    // Optimize: Only select elements that haven't been tagged yet
-    const items = document.querySelectorAll('ytd-rich-item-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-video-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-grid-video-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-compact-video-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-radio-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item), ytd-playlist-renderer:not(.is-mix-item):not(.is-podcast-item):not(.is-playlist-item)');
+    // Re-evaluate reused cards so an old category cannot survive a content change.
+    const filterableVideoCards = document.querySelectorAll(filterableVideoCardSelector);
+    const items = document.querySelectorAll(`${filterableVideoCardSelector}, ytd-radio-renderer, ytd-playlist-renderer`);
     
     items.forEach(el => {
         let isMix = false;
@@ -170,29 +181,24 @@ function tagElements() {
             links.forEach(link => {
                 const text = link.textContent.trim();
                 
-                if (pageLocales.matchesAny(text, terms.podcast)) isPodcast = true;
+                const url = getYouTubeURL(link);
+                if (pageLocales.matchesAny(text, terms.podcast) || url?.pathname.startsWith('/podcast/')) isPodcast = true;
                 
                 if (!isPlaylist) {
                     if (pageLocales.matchesAny(text, terms.viewFullPlaylist) || pageLocales.matchesAny(text, terms.playlist)) isPlaylist = true;
                     // Check href URL for playlist indicator
-                    if (link.href && link.href.includes('/playlist?list=')) isPlaylist = true;
+                    if (url?.pathname === '/playlist' && url.searchParams.has('list')) isPlaylist = true;
                 }
             });
         }
 
-        // Apply distinct classes independently based on what we found
-        if (isMix) {
-            el.classList.add('is-mix-item');
-        } else if (isPodcast) {
-            el.classList.add('is-podcast-item');
-        } else if (isPlaylist) {
-            el.classList.add('is-playlist-item');
-        }
+        el.classList.toggle('is-mix-item', isMix);
+        el.classList.toggle('is-podcast-item', !isMix && isPodcast);
+        el.classList.toggle('is-playlist-item', !isMix && !isPodcast && isPlaylist);
     });
 
     // 6. Tag Featured Service Videos
-    const potentialFeaturedServices = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer');
-    potentialFeaturedServices.forEach(el => {
+    filterableVideoCards.forEach(el => {
         // The commerce + promoted badge pairing is the stable signal in the
         // current lockup. The visible CTA is retained as a fallback for older
         // or experimental markup that does not expose the promoted class.
@@ -207,7 +213,6 @@ function tagElements() {
     });
 
     // 7. Tag Members-only Videos
-    const filterableVideoCards = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer');
     filterableVideoCards.forEach(el => {
         const structuralBadge = el.querySelector('ytd-members-only-badge-renderer, .badge-style-type-members-only, .ytBadgeShapeMembersOnly, .yt-badge-shape--members-only, [overlay-style="MEMBERS_ONLY"]');
         const commerceBadge = el.querySelector('.ytBadgeShapeCommerce, .yt-badge-shape--commerce');
@@ -231,7 +236,8 @@ function tagElements() {
             const visibleText = badge.textContent || '';
             return pageLocales.matchesAny(ariaLabel, terms.upcoming)
                 || pageLocales.matchesAny(visibleText, terms.upcoming)
-                || pageLocales.matchesAny(ariaLabel, terms.premierePrefixes, 'prefix');
+                || pageLocales.matchesAny(ariaLabel, terms.premierePrefixes, 'prefix')
+                || pageLocales.matchesAny(visibleText, terms.premierePrefixes, 'prefix');
         });
         const scheduledMetadata = Array.from(el.querySelectorAll('.ytContentMetadataViewModelMetadataRow, #metadata-line')).some(row => {
             return pageLocales.matchesAny(row.textContent, terms.scheduledPrefixes, 'prefix');
@@ -244,7 +250,7 @@ function tagElements() {
     });
 
     // 9. Tag Live Streams
-    const allContainers = document.querySelectorAll('ytd-rich-item-renderer:not(.is-live-item), ytd-video-renderer:not(.is-live-item), ytd-grid-video-renderer:not(.is-live-item), ytd-compact-video-renderer:not(.is-live-item), ytd-guide-entry-renderer:not(.is-live-item)');
+    const allContainers = document.querySelectorAll(`${filterableVideoCardSelector}, ytd-guide-entry-renderer`);
     allContainers.forEach(el => {
         // 1. Direct Video Overlay (MOST RELIABLE)
         // Check for the specific thumbnail badge from the user's snippet
@@ -266,13 +272,11 @@ function tagElements() {
         // Absolute safety check: if it has a timestamp, it's definitely NOT a live stream
         if (hasTimestamp) isLive = false;
 
-        if (isLive) {
-            el.classList.add('is-live-item');
-        }
+        el.classList.toggle('is-live-item', isLive);
     });
 
     // 10. Tag Downloads Section
-    const potentialDownloads = document.querySelectorAll('ytd-rich-section-renderer:not(.is-downloads-section)');
+    const potentialDownloads = document.querySelectorAll('ytd-rich-section-renderer');
     potentialDownloads.forEach(el => {
         let isDownloads = false;
         
@@ -288,9 +292,7 @@ function tagElements() {
             isDownloads = true;
         }
 
-        if (isDownloads) {
-            el.classList.add('is-downloads-section');
-        }
+        el.classList.toggle('is-downloads-section', isDownloads);
     });
 
     // 11. Tag Custom Keywords
@@ -474,7 +476,9 @@ function performMenuAction(button, containerResolver, action, preview = null) {
         const terms = getPageTerms();
         const actionAliases = action === 'notInterested' ? terms.notInterestedActions : terms.watchLaterActions;
         for (const item of menuItems) {
-            if (!pageLocales.matchesAny(item.textContent, actionAliases, 'contains')) continue;
+            const label = (item.querySelector('.ytListItemViewModelTitle')
+                || item.querySelector('yt-formatted-string'))?.textContent ?? item.textContent;
+            if (!pageLocales.matchesAny(label, actionAliases)) continue;
 
             clearInterval(findAndClickAction);
             const actionTarget = item.querySelector('[role="menuitem"], button, a') || item;
@@ -615,15 +619,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Helper for faster tagging without a heavy flash
 let taggingScheduled = false;
 const observer = new MutationObserver((mutations) => {
-    let hasAddedNodes = false;
-    for (const mutation of mutations) {
-        if (mutation.addedNodes.length > 0) {
-            hasAddedNodes = true;
-            break;
-        }
-    }
-    
-    if (!hasAddedNodes) return;
+    if (!mutations.some(mutation => mutation.type === 'characterData'
+        || mutation.type === 'attributes'
+        || mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0)) return;
 
     if (!taggingScheduled) {
         taggingScheduled = true;
@@ -636,7 +634,11 @@ const observer = new MutationObserver((mutations) => {
     }
 });
 
-observer.observe(document.documentElement, { childList: true, subtree: true });
+// Ignore class/style mutations made by this script to avoid a feedback loop.
+observer.observe(document.documentElement, {
+    childList: true, characterData: true, subtree: true, attributes: true,
+    attributeFilter: ['href', 'title', 'aria-label', 'overlay-style', 'is-shorts', 'hidden']
+});
 
 // Fallback interval to catch elements that might slip past the observer
 setInterval(() => {

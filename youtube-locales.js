@@ -1,6 +1,7 @@
 (function initializeYouTubeLocales(global) {
     'use strict';
 
+    // Source evidence and remaining UI verification limits: docs/localization-audit/README.md.
     const localeTerms = Object.freeze({
         en: {
             playables: ['playables'], mix: ['mix'], podcast: ['podcast'],
@@ -12,8 +13,17 @@
             watchLaterLabel: 'Watch Later', notInterestedLabel: 'Not Interested'
         },
         es: {
-            playables: ['jugables'], mix: ['mix'], podcast: ['podcast'],
+            playables: ['jugables'], mix: ['mix'], podcast: ['podcast', 'pódcast'],
             viewFullPlaylist: ['ver lista de reproducción completa'], playlist: ['lista de reproducción'], tryNow: ['probar ahora'],
+            membersOnly: ['solo para miembros', 'exclusivo para miembros'], upcoming: ['próximamente'],
+            premierePrefixes: ['se estrena ', 'estreno '], scheduledPrefixes: ['programado para '],
+            notifyMe: ['notificarme', 'recibir recordatorio', 'recibir aviso'], downloads: ['descargas'],
+            watchLaterActions: ['ver más tarde', 'guardar en ver más tarde'], notInterestedActions: ['no me interesa'],
+            watchLaterLabel: 'Ver más tarde', notInterestedLabel: 'No me interesa'
+        },
+        es_419: {
+            playables: ['sala de juegos'], mix: ['mix'], podcast: ['podcast'],
+            viewFullPlaylist: ['ver playlist completa', 'ver lista de reproducción completa'], playlist: ['playlist', 'lista de reproducción'], tryNow: ['probar ahora'],
             membersOnly: ['solo para miembros', 'exclusivo para miembros'], upcoming: ['próximamente'],
             premierePrefixes: ['se estrena ', 'estreno '], scheduledPrefixes: ['programado para '],
             notifyMe: ['notificarme', 'recibir recordatorio'], downloads: ['descargas'],
@@ -23,16 +33,16 @@
         pt_PT: {
             playables: ['sala de jogos'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['ver playlist completa', 'ver lista de reprodução completa'], playlist: ['playlist', 'lista de reprodução'], tryNow: ['experimentar agora'],
-            membersOnly: ['apenas para membros', 'exclusivo para membros'], upcoming: ['em breve'],
+            membersOnly: ['apenas para membros', 'exclusivo para membros', 'apenas apoiantes'], upcoming: ['em breve'],
             premierePrefixes: ['estreia ', 'estreia em '], scheduledPrefixes: ['agendado para '],
             notifyMe: ['notificar-me', 'receber lembrete'], downloads: ['transferências'],
-            watchLaterActions: ['ver mais tarde', 'guardar em ver mais tarde'], notInterestedActions: ['não tenho interesse'],
-            watchLaterLabel: 'Ver mais tarde', notInterestedLabel: 'Não tenho interesse'
+            watchLaterActions: ['ver mais tarde', 'guardar em ver mais tarde'], notInterestedActions: ['não me interessa', 'não tenho interesse', 'sem interesse'],
+            watchLaterLabel: 'Ver mais tarde', notInterestedLabel: 'Sem interesse'
         },
         pt_BR: {
             playables: ['sala de jogos'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['ver playlist completa', 'ver lista de reprodução completa'], playlist: ['playlist', 'lista de reprodução'], tryNow: ['teste agora', 'experimentar agora'],
-            membersOnly: ['somente para membros', 'exclusivo para membros'], upcoming: ['em breve'],
+            membersOnly: ['somente para membros', 'exclusivo para membros', 'só para membros'], upcoming: ['em breve'],
             premierePrefixes: ['estreia ', 'estreia em '], scheduledPrefixes: ['programado para '],
             notifyMe: ['receber notificação', 'definir lembrete'], downloads: ['downloads'],
             watchLaterActions: ['assistir mais tarde', 'salvar em assistir mais tarde'], notInterestedActions: ['não tenho interesse'],
@@ -48,20 +58,20 @@
             watchLaterLabel: 'Tonton nanti', notInterestedLabel: 'Tidak tertarik'
         },
         ja: {
-            playables: ['ゲームルーム'], mix: ['ミックス', 'mix'], podcast: ['ポッドキャスト'],
-            viewFullPlaylist: ['再生リストをすべて表示'], playlist: ['再生リスト'], tryNow: ['今すぐ試す'],
+            playables: ['ゲームルーム'], mix: ['ミックス', 'mix', 'ミックスリスト'], podcast: ['ポッドキャスト'],
+            viewFullPlaylist: ['再生リストをすべて表示', '再生リストの全体を見る'], playlist: ['再生リスト'], tryNow: ['今すぐ試す'],
             membersOnly: ['メンバー限定'], upcoming: ['近日公開', '公開予定'],
             premierePrefixes: ['プレミア公開'], scheduledPrefixes: ['公開予定'],
-            notifyMe: ['通知する'], downloads: ['オフライン', 'ダウンロード'],
+            notifyMe: ['通知する', '通知を受け取る'], downloads: ['オフライン', 'ダウンロード', 'スマート一時保存'],
             watchLaterActions: ['後で見る', '「後で見る」に保存'], notInterestedActions: ['興味がない', '興味なし'],
             watchLaterLabel: '後で見る', notInterestedLabel: '興味がない'
         },
         de: {
             playables: ['playables'], mix: ['mix'], podcast: ['podcast'],
-            viewFullPlaylist: ['vollständige playlist ansehen'], playlist: ['playlist'], tryNow: ['jetzt testen'],
+            viewFullPlaylist: ['vollständige playlist ansehen', 'komplette playlist ansehen'], playlist: ['playlist'], tryNow: ['jetzt testen'],
             membersOnly: ['nur für mitglieder'], upcoming: ['demnächst'],
             premierePrefixes: ['premiere '], scheduledPrefixes: ['geplant für '],
-            notifyMe: ['benachrichtigung aktivieren', 'erinnerung einrichten'], downloads: ['downloads'],
+            notifyMe: ['benachrichtigung aktivieren', 'erinnerung einrichten', 'benachrichtigung erhalten'], downloads: ['downloads'],
             watchLaterActions: ['später ansehen', 'auf „später ansehen“ speichern'], notInterestedActions: ['kein interesse'],
             watchLaterLabel: 'Später ansehen', notInterestedLabel: 'Kein Interesse'
         },
@@ -70,14 +80,14 @@
             viewFullPlaylist: ['afficher la playlist complète'], playlist: ['playlist'], tryNow: ['essayer', 'essayer maintenant'],
             membersOnly: ['réservé aux membres', 'réservée aux membres'], upcoming: ['à venir'],
             premierePrefixes: ['première '], scheduledPrefixes: ['prévue pour ', 'prévu pour '],
-            notifyMe: ['définir un rappel', 'me prévenir'], downloads: ['téléchargements'],
+            notifyMe: ['définir un rappel', 'me prévenir', "m'avertir"], downloads: ['téléchargements'],
             watchLaterActions: ['à regarder plus tard', 'enregistrer dans « à regarder plus tard »'], notInterestedActions: ['pas intéressé'],
             watchLaterLabel: 'À regarder plus tard', notInterestedLabel: 'Pas intéressé'
         },
         hi: {
             playables: ['playables'], mix: ['मिक्स'], podcast: ['पॉडकास्ट'],
             viewFullPlaylist: ['पूरी प्लेलिस्ट देखें'], playlist: ['प्लेलिस्ट'], tryNow: ['अभी आज़माएं', 'अभी आज़माएँ'],
-            membersOnly: ['सिर्फ़ सदस्यों के लिए', 'केवल सदस्यों के लिए'], upcoming: ['आगामी'],
+            membersOnly: ['सिर्फ़ सदस्यों के लिए', 'केवल सदस्यों के लिए', 'पैसे चुकाकर बने सदस्यों के लिए उपलब्ध'], upcoming: ['आगामी'],
             premierePrefixes: ['प्रीमियर '], scheduledPrefixes: ['इसके लिए शेड्यूल किया गया '],
             notifyMe: ['मुझे सूचना दें'], downloads: ['डाउनलोड'],
             watchLaterActions: ['बाद में देखें', 'बाद में देखें में सेव करें'], notInterestedActions: ['दिलचस्पी नहीं है'],
@@ -88,16 +98,16 @@
             viewFullPlaylist: ['xem toàn bộ danh sách phát'], playlist: ['danh sách phát'], tryNow: ['dùng thử ngay'],
             membersOnly: ['chỉ dành cho hội viên'], upcoming: ['sắp ra mắt'],
             premierePrefixes: ['công chiếu '], scheduledPrefixes: ['đã lên lịch vào '],
-            notifyMe: ['nhắc tôi'], downloads: ['video đã tải xuống', 'nội dung tải xuống'],
+            notifyMe: ['nhắc tôi', 'thông báo cho tôi'], downloads: ['video đã tải xuống', 'nội dung tải xuống', 'tải xuống thông minh'],
             watchLaterActions: ['xem sau', 'lưu vào danh sách xem sau'], notInterestedActions: ['không quan tâm'],
             watchLaterLabel: 'Xem sau', notInterestedLabel: 'Không quan tâm'
         },
         tr: {
             playables: ['hazır oyunlar'], mix: ['mix'], podcast: ['podcast'],
             viewFullPlaylist: ['oynatma listesinin tamamını görüntüle'], playlist: ['oynatma listesi'], tryNow: ['şimdi dene'],
-            membersOnly: ['yalnızca üyelere özel'], upcoming: ['yakında'],
+            membersOnly: ['yalnızca üyelere özel', 'üyelere özel'], upcoming: ['yakında'],
             premierePrefixes: ['ilk gösterim '], scheduledPrefixes: ['planlanan tarih ', 'şu tarih için planlandı '],
-            notifyMe: ['hatırlatıcı ayarla'], downloads: ['indirilenler'],
+            notifyMe: ['hatırlatıcı ayarla', 'beni bilgilendir'], downloads: ['indirilenler'],
             watchLaterActions: ['daha sonra izle', "daha sonra izle'ye kaydet"], notInterestedActions: ['ilgilenmiyorum'],
             watchLaterLabel: 'Daha sonra izle', notInterestedLabel: 'İlgilenmiyorum'
         },
@@ -106,25 +116,25 @@
             viewFullPlaylist: ['전체 재생목록 보기'], playlist: ['재생목록'], tryNow: ['지금 사용해 보기'],
             membersOnly: ['회원 전용'], upcoming: ['공개 예정'],
             premierePrefixes: ['최초 공개 '], scheduledPrefixes: ['예약 시간 ', '공개 예정 '],
-            notifyMe: ['알림 받기'], downloads: ['오프라인 저장 동영상', '다운로드'],
+            notifyMe: ['알림 받기'], downloads: ['오프라인 저장 동영상', '다운로드', '스마트 오프라인 저장'],
             watchLaterActions: ['나중에 볼 동영상', '나중에 볼 동영상에 저장'], notInterestedActions: ['관심 없음'],
             watchLaterLabel: '나중에 볼 동영상', notInterestedLabel: '관심 없음'
         },
         ar: {
-            playables: ['هيّا نلعب', 'هيا نلعب'], mix: ['مزيج', 'mix'], podcast: ['بودكاست'],
-            viewFullPlaylist: ['عرض قائمة التشغيل كاملة'], playlist: ['قائمة تشغيل', 'قائمة التشغيل'], tryNow: ['جرّب الآن', 'التجربة الآن'],
-            membersOnly: ['مخصّص للأعضاء فقط', 'للأعضاء فقط'], upcoming: ['قريبًا', 'قادم'],
+            playables: ['هيّا نلعب', 'هيا نلعب'], mix: ['مزيج', 'mix', 'ميكس'], podcast: ['بودكاست'],
+            viewFullPlaylist: ['عرض قائمة التشغيل كاملة', 'عرض قائمة التشغيل بالكامل'], playlist: ['قائمة تشغيل', 'قائمة التشغيل'], tryNow: ['جرّب الآن', 'التجربة الآن'],
+            membersOnly: ['مخصّص للأعضاء فقط', 'للأعضاء فقط', 'الأعضاء فقط'], upcoming: ['قريبًا', 'قادم'],
             premierePrefixes: ['عرض أول ', 'العرض الأول '], scheduledPrefixes: ['تم تحديد موعد العرض في ', 'مجدول في '],
-            notifyMe: ['تذكيري', 'إشعاري'], downloads: ['عمليات التنزيل', 'التنزيلات'],
+            notifyMe: ['تذكيري', 'إشعاري', 'إرسال إشعار إليّ'], downloads: ['عمليات التنزيل', 'التنزيلات', 'المحتوى الذي تم تنزيله', 'التنزيل الذكي'],
             watchLaterActions: ['المشاهدة لاحقًا', 'مشاهدة لاحقًا', 'الحفظ في قائمة المشاهدة لاحقًا'], notInterestedActions: ['لا يهمّني', 'لا يهمني', 'محتوى لا يهمّني'],
             watchLaterLabel: 'المشاهدة لاحقًا', notInterestedLabel: 'لا يهمّني'
         },
         th: {
             playables: ['ฟีเจอร์เล่นเกม'], mix: ['มิกซ์', 'mix'], podcast: ['พอดแคสต์'],
-            viewFullPlaylist: ['ดูเพลย์ลิสต์แบบเต็ม'], playlist: ['เพลย์ลิสต์'], tryNow: ['ลองเลย'],
-            membersOnly: ['สำหรับสมาชิกเท่านั้น'], upcoming: ['เร็วๆ นี้', 'กำลังจะเผยแพร่'],
+            viewFullPlaylist: ['ดูเพลย์ลิสต์แบบเต็ม', 'ดูทั้งเพลย์ลิสต์'], playlist: ['เพลย์ลิสต์'], tryNow: ['ลองเลย'],
+            membersOnly: ['สำหรับสมาชิกเท่านั้น', 'สมาชิกเท่านั้น'], upcoming: ['เร็วๆ นี้', 'กำลังจะเผยแพร่'],
             premierePrefixes: ['พรีเมียร์ '], scheduledPrefixes: ['กำหนดเวลาไว้สำหรับ ', 'มีกำหนดการ '],
-            notifyMe: ['แจ้งเตือนฉัน', 'ตั้งการช่วยเตือน'], downloads: ['ดาวน์โหลด', 'วิดีโอที่ดาวน์โหลด'],
+            notifyMe: ['แจ้งเตือนฉัน', 'ตั้งการช่วยเตือน', 'แจ้งเตือนให้ฉันทราบ'], downloads: ['ดาวน์โหลด', 'วิดีโอที่ดาวน์โหลด'],
             watchLaterActions: ['ดูภายหลัง', 'บันทึกไว้ดูภายหลัง', 'บันทึกลงในดูภายหลัง'], notInterestedActions: ['ไม่สนใจ'],
             watchLaterLabel: 'ดูภายหลัง', notInterestedLabel: 'ไม่สนใจ'
         },
@@ -142,7 +152,7 @@
             viewFullPlaylist: ['wyświetl pełną playlistę'], playlist: ['playlista', 'playlistę'], tryNow: ['wypróbuj teraz'],
             membersOnly: ['tylko dla wspierających', 'tylko dla członków'], upcoming: ['wkrótce'],
             premierePrefixes: ['premiera '], scheduledPrefixes: ['zaplanowano na ', 'planowana data '],
-            notifyMe: ['powiadom mnie', 'ustaw przypomnienie'], downloads: ['pobrane'],
+            notifyMe: ['powiadom mnie', 'ustaw przypomnienie'], downloads: ['pobrane', 'inteligentne pobieranie'],
             watchLaterActions: ['do obejrzenia', 'zapisz na liście do obejrzenia'], notInterestedActions: ['nie interesuje mnie to', 'nie interesuje mnie'],
             watchLaterLabel: 'Do obejrzenia', notInterestedLabel: 'Nie interesuje mnie to'
         },
@@ -160,16 +170,16 @@
             viewFullPlaylist: ['查看完整播放列表'], playlist: ['播放列表'], tryNow: ['立即试用', '立即体验'],
             membersOnly: ['会员专享', '仅限会员'], upcoming: ['即将推出', '即将开始', '即将发布'],
             premierePrefixes: ['首播 '], scheduledPrefixes: ['预定发布时间 ', '定于 '],
-            notifyMe: ['通知我', '设置提醒'], downloads: ['下载内容', '已下载的视频'],
+            notifyMe: ['通知我', '设置提醒'], downloads: ['下载内容', '已下载的视频', '智能下载'],
             watchLaterActions: ['稍后观看', '保存到“稍后观看”', '保存至“稍后观看”'], notInterestedActions: ['不感兴趣'],
             watchLaterLabel: '稍后观看', notInterestedLabel: '不感兴趣'
         },
         zh_TW: {
             playables: ['遊戲角落'], mix: ['合輯', 'mix'], podcast: ['podcast', '播客'],
             viewFullPlaylist: ['查看完整播放清單'], playlist: ['播放清單'], tryNow: ['立即試用'],
-            membersOnly: ['會員限定', '僅限會員'], upcoming: ['即將推出', '即將開始'],
+            membersOnly: ['會員限定', '僅限會員', '頻道會員專屬'], upcoming: ['即將推出', '即將開始'],
             premierePrefixes: ['首播 '], scheduledPrefixes: ['預定發布時間 ', '預定於 '],
-            notifyMe: ['通知我', '設定提醒'], downloads: ['下載內容', '已下載的影片'],
+            notifyMe: ['通知我', '設定提醒'], downloads: ['下載內容', '已下載的影片', '智慧下載'],
             watchLaterActions: ['稍後觀看', '儲存至「稍後觀看」'], notInterestedActions: ['不感興趣'],
             watchLaterLabel: '稍後觀看', notInterestedLabel: '不感興趣'
         },
@@ -185,7 +195,8 @@
     });
 
     function normalizeLocale(locale) {
-        const normalized = String(locale || '').replace('_', '-').toLowerCase();
+        const normalized = String(locale || '').replace(/_/g, '-').toLowerCase();
+        if (normalized === 'es-419' || normalized.startsWith('es-419-')) return 'es_419';
         if (normalized === 'pt-br' || normalized.startsWith('pt-br-')) return 'pt_BR';
         if (normalized === 'pt' || normalized === 'pt-pt' || normalized.startsWith('pt-pt-')) return 'pt_PT';
         if (normalized === 'zh-hk' || normalized.startsWith('zh-hk-')
@@ -202,7 +213,10 @@
     }
 
     function normalizeText(value) {
-        return String(value || '').normalize('NFKC').replace(/İ/g, 'i').trim().toLocaleLowerCase().replace(/\s+/g, ' ');
+        return String(value || '').normalize('NFKC')
+            .replace(/[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, '')
+            .replace(/[‘’]/g, "'").replace(/İ/g, 'i')
+            .trim().toLowerCase().replace(/\s+/g, ' ');
     }
 
     function getTerms(locale) {
@@ -214,11 +228,18 @@
         if (!normalizedValue) return false;
         return aliases.some(alias => {
             const normalizedAlias = normalizeText(alias);
-            return mode === 'prefix'
-                ? normalizedValue.startsWith(normalizedAlias)
-                : mode === 'contains'
-                    ? normalizedValue.includes(normalizedAlias)
-                    : normalizedValue === normalizedAlias;
+            if (!normalizedAlias) return false;
+            if (mode === 'prefix') {
+                if (!normalizedValue.startsWith(normalizedAlias)) return false;
+                const suffix = normalizedValue.slice(normalizedAlias.length);
+                // Keep declared word boundaries: "premiere " must not match "premiered".
+                if (/\s$/.test(alias)) return !suffix || suffix.startsWith(' ');
+                // No-space labels may precede a date, but not an arbitrary word suffix.
+                return !suffix || !/^[\p{L}\p{M}]/u.test(suffix);
+            }
+            return mode === 'contains'
+                ? normalizedValue.includes(normalizedAlias)
+                : normalizedValue === normalizedAlias;
         });
     }
 

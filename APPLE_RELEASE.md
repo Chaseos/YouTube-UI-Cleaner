@@ -1,6 +1,6 @@
 # macOS Safari release notes
 
-Status: owner confirms the updated UI and all three tips work; **Apple submission preparation remains incomplete**. Mac only (macOS 13+, arm64 and x86_64). No iPhone/iPad targets. Browser version remains 2.13.
+Status: **Apple version 2.14 (1) and all three optional tips were submitted on September 7, 2026 and are Waiting for Review**. The owner confirms the updated UI and all three tips work. Mac only (macOS 13+, arm64 and x86_64). No iPhone/iPad targets. Browser version remains 2.13.
 
 ## Source and builds
 
@@ -23,6 +23,35 @@ Safari uses a runtime-file allowlist. Build transformations remove Ko-fi, other-
 The owner separately authorized a shared **Hide Sponsored Videos** control on August 31, so this feature intentionally changes the common Chromium/Firefox/Safari runtime. It is an independently adjustable, default-on filter under **Hide Promotions & Sponsors**, alongside service offers and paid-promotion banners. The master controls all three options and reflects mixed child states without migrating saved values. Sponsored filtering covers YouTube feeds, search and recommendations. Labels are translated in all 21 catalogs; the owner requested no description beneath the sponsored toggle. Structural ad containers/badges are used instead of matching titles or creator sponsorship disclosures. This is cosmetic filtering, not network blocking or in-player ad skipping.
 
 The native implementation separates configuration, routing, StoreKit adapter/state, views, and app lifetime. It uses an AppKit sheet container, a weak visible-window purchase anchor, app-owned transaction updates and serialized unfinished-transaction recovery. Verification, expected product IDs, completion deduplication, concurrency guards, retry and terminal-state cleanup are executable-test covered. These tests use a fake client and do not certify real StoreKit delivery.
+
+## Apple-only branding — 2026-09-07
+
+The Apple product name is **UI Cleaner for YouTube**, owned by `apple/configuration.json`. Generated `APPLE_APP_NAME` and `APPLE_EXTENSION_NAME` settings drive bundle display names and product filenames. Native headings, menus, instructions and support UI read the same configuration. Existing Xcode project directories, targets and scheme names remain unchanged; scheme product references use the new app filename.
+
+Safari packaging replaces every locale’s name and description with Apple-specific translations, plus the popup’s English fallback text and the bundled privacy-policy product reference. All 21 locales are covered; names must fit 40 Unicode code points and descriptions 112. English naming must fit the 30-character App Store limit. Shared catalogs, Chromium/Firefox packages, identifiers, settings and version numbers are unchanged by this branding work.
+
+[English App Store name and description](apple/APP_STORE.md) were saved in App Store Connect during the subsequent submission preparation. The chosen name is not an assurance of App Review approval; the linked copy records the branding guideline caveat.
+
+Verification for this branding change: all 24 JavaScript/package tests and the 21-catalog locale check passed. One unsigned universal Release build passed artifact validation, including app/extension filenames, bundle names, unchanged identities and embedded localized branding. Native setup was visually checked at the default 560×620 content size and minimum 440×440 window size; wrapping and scrolling preserved access to controls. The support sheet and Quit menu showed the new name. English, Portuguese (Brazil), German and Arabic popup previews used the generated Safari files with a local browser-API stub; the header stayed 58px high and within 360px width, long names ellipsized, and rating/support links remained keyboard-accessible. Arabic direction was RTL and no preview console errors were observed. This was a layout check, not a fresh live Safari filtering or purchase test. No signing, archive, upload or portal change was performed.
+
+
+## Apple artwork and tip review preparation — 2026-09-07
+
+The owner subsequently supplied a replacement Apple logo. Its exact SVG is retained in `apple/artwork/icon.svg`; the visually checked 1024×1024 PNG export drives Safari's bundled icon and all native Mac icon sizes. Chromium and Firefox keep the original root artwork. Preparation generates native icon sizes from the Apple PNG, and Safari packaging selects that same input. No rendering dependency was added to the project.
+
+After the icon update, all 24 JavaScript/package tests passed, including Apple icon selection and byte preservation for the other browsers. The 21-locale check and one unsigned universal Release build with the existing single-job setting also passed, followed by artifact validation. Logs are in ignored `build/release-check/apple-logo-{tests,release}.log`.
+
+App Store Connect's English subtitle is saved as **Safari cleanup for YouTube UI**. Small Tip, Standard Tip and Generous Tip each now have a saved Review Information screenshot and corrected product-specific reviewer notes; persistence was verified after reloading each product. The screenshots intentionally show the same real Support my work sheet with all three offers, prices and the optional-tip explanation. The notes identify the selected product and its ID, explain that no features are unlocked, and distinguish app accounts from Apple purchase authentication. They replace obsolete purchase-button failure notes without claiming a particular Sandbox test environment.
+
+The three purchases remain **Prepare for Submission**. No Add for Review or submission action was taken. App Store Connect still shows the old app name and the rejected 2.13 (1) binary; the prepared name/description and new icon require the remaining listing/build update. Apple specifically objected to the YouTube brand in the name, icon and subtitle under 4.1(c); comparable listings do not establish permission or guarantee approval of the chosen name. The new binary and all three first-time IAPs must be submitted together when ready. No commit, signing, archive, binary upload or review submission was performed in this work.
+
+## Subsequent submission preparation — 2026-09-07
+
+The owner uploaded build 2.14 (1). App Store Connect reports its binary state as **Validated**, with the new app name, unchanged bundle ID, macOS 13 minimum, Intel and Apple Silicon architectures, and sandbox entitlements. The local 5:26 PM archive passed signed artifact validation; all 31 Safari package files matched the generated resources byte-for-byte, including the new Apple icon. No additional build was needed for listing-only edits.
+
+The listing name, description, version number (2.14), and reviewer notes were updated and saved. Review notes now describe the optional tips, current name, 21 locales, setup steps and the earlier walkthrough recording accurately; the unsupported blanket statement that no authorization documents are required was removed. The app version was added to the existing three-tip draft, producing **Items Ready to Submit (4)**. Screenshot revisions followed; verify the final draft still includes the app and all three products before submitting. No Submit for Review action was taken by the agent.
+
+The owner's final five screenshots from `UI_Cleaner_for_YouTube_Updated_Store_Screenshots` replaced the earlier images. Their 1586×992 sources were exported to 1440×900 JPEGs without alpha, additional padding or cropping; the small aspect correction preserves the supplied layout. Outputs are in ignored `build/release-check/store-screenshots-latest-2026-09-07/`. All five filenames and order (1–5) persisted after reload. The updated app version was then returned to the same three-tip draft; App Store Connect again showed **Items Ready to Submit (4)** and enabled Submit for Review. Nothing was submitted. These are owner-supplied marketing compositions and still depict Chrome-style browser controls; acceptance as Safari screenshots and the chosen third-party-brand wording remains subject to App Review.
 
 ## Identity and portal drafts
 
@@ -87,3 +116,12 @@ Proposed export answer: no custom or non-exempt encryption; only operating-syste
 The Safari popup's requested rating/support handoff remains an App Review §4.4 risk even though purchases occur in the containing app. Disclose the flow accurately. If Apple objects, request a product decision about a neutral Open App/help action rather than silently redesigning it.
 
 Official references checked during implementation: [App Review Guidelines §4.4](https://developer.apple.com/app-store/review/guidelines/#extensions), [StoreKit purchase API](https://developer.apple.com/documentation/storekit/product/purchase(confirmin:options:)-8eai6), [local StoreKit testing](https://developer.apple.com/documentation/storekit/testing-in-app-purchases-in-xcode), [IAP information and review screenshots](https://developer.apple.com/help/app-store-connect/reference/in-app-purchases-and-subscriptions/in-app-purchase-information/), [screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/).
+
+
+## Submission completed — 2026-09-07
+
+App Store Connect confirmed “4 Items Submitted”: macOS app 2.14, build 2.14 (1), Small Tip, Standard Tip, and Generous Tip. The submission page then showed Waiting for Review for all four items. Submission ID: `3c94d8e5-a831-4b21-881e-656a0c48937d`; portal submission time: September 7, 2026 at 7:08 PM.
+
+[View submission](https://appstoreconnect.apple.com/apps/6806902230/distribution/reviewsubmissions/details/3c94d8e5-a831-4b21-881e-656a0c48937d).
+
+The five latest listing screenshots remain saved individually in order, each tip retains its own review screenshot, and the existing walkthrough video remains attached to the app review information. No screenshot ZIP was needed or uploaded. The existing automatic release after approval setting was retained. This submitted status supersedes earlier preparation notes; approval remains pending.

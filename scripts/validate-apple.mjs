@@ -5,7 +5,7 @@ import { validateSafari } from './safari.mjs';
 const config = JSON.parse(await readFile('apple/configuration.json'));
 const release = process.argv.includes('--release');
 const argument = process.argv.find(arg => arg.startsWith('--app='));
-const app = argument?.slice(6) ?? `build/apple-${release ? 'release' : 'debug'}-signed/Build/Products/${release ? 'Release' : 'Debug'}/YouTube UI Cleaner.app`;
+const app = argument?.slice(6) ?? `build/apple-${release ? 'release' : 'debug'}-signed/Build/Products/${release ? 'Release' : 'Debug'}/${config.name}.app`;
 function command(name, args) {
   const result = spawnSync(name,args,{encoding:'utf8'});
   if (result.status !== 0) throw new Error(`${name}: ${result.stderr}`);
@@ -19,8 +19,11 @@ if (release) {
   for (const key of ['supportURL','privacyURL']) check(/^https:\/\//.test(config[key]),`${key} is unresolved`);
 }
 await validateSafari('dist/safari');
-for (const [bundle,id] of [[app,config.bundleID],[path.join(app,'Contents/PlugIns/YouTube UI Cleaner Extension.appex'),config.extensionBundleID]]) {
+for (const [bundle,id] of [[app,config.bundleID],[path.join(app,`Contents/PlugIns/${config.name} Extension.appex`),config.extensionBundleID]]) {
   const info=plist(path.join(bundle,'Contents/Info.plist'));
+  const expectedName = id === config.bundleID ? config.name : `${config.name} Extension`;
+  check(path.basename(bundle) === `${expectedName}.${id === config.bundleID ? 'app' : 'appex'}`, `Incorrect product filename: ${id}`);
+  check(info.CFBundleDisplayName === expectedName && info.CFBundleName === expectedName, `Incorrect bundle name: ${id}`);
   check(info.CFBundleIdentifier===id,`Incorrect bundle ID: ${id}`);
   check(info.CFBundleShortVersionString===config.version && info.CFBundleVersion===config.build,`Version/build mismatch: ${id}`);
   check(info.LSMinimumSystemVersion===config.minimumMacOS,`Deployment mismatch: ${id}`);
@@ -44,7 +47,8 @@ for (const [bundle,id] of [[app,config.bundleID],[path.join(app,'Contents/PlugIn
     for(const file of [...Object.values(manifest.icons),manifest.action.default_popup,...manifest.content_scripts.flatMap(script=>[...script.js,...script.css])]) await access(path.join(resources,file));
     for(const locale of await readdir(path.join(resources,'_locales'))) {
       const messages=JSON.parse(await readFile(path.join(resources,'_locales',locale,'messages.json')));
-      check(Array.from(messages.extensionName.message).length<=40,`Safari name too long: ${locale}`);
+      const expected=JSON.parse(await readFile(path.join('dist/safari/_locales',locale,'messages.json')));
+      check(messages.extensionName.message===expected.extensionName.message && messages.extensionDescription.message===expected.extensionDescription.message,`Stale Safari branding: ${locale}`);
     }
     await validateSafari(resources);
   }

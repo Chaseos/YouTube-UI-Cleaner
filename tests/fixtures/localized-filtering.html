@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Localized filtering regression checks</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>body { font: 16px system-ui; margin: 24px; } .pass { color: green; } .fail { color: crimson; }</style>
+<h1>Localized filtering regression checks</h1>
+<p>Serve the repository root and open this page. It runs the production content scripts against synthetic DOM fixtures; no YouTube account actions occur.</p>
+<ol id="results"></ol>
+<div id="sandbox"></div>
+<script>
+    // Only the extension host and recurring timer are replaced. DOM selectors and tagging are real.
+    globalThis.chrome = {
+        storage: { sync: { get(keys, callback) { callback({}); } } },
+        runtime: { onMessage: { addListener() {} } }
+    };
+    globalThis.setInterval = () => 0;
+</script>
+<script src="../../youtube-locales.js"></script>
+<script src="../../content.js"></script>
+<script>
+    const sandbox = document.querySelector('#sandbox');
+    let failures = 0;
+    function fixture(lang, html) {
+        document.documentElement.lang = lang;
+        sandbox.innerHTML = html;
+        return sandbox.firstElementChild;
+    }
+    function assert(condition, message) { if (!condition) throw new Error(message); }
+    function tagged(element, name) { return element.classList.contains(name); }
+    function check(name, run) {
+        const result = document.createElement('li');
+        try { run(); result.className = 'pass'; result.textContent = 'PASS: ' + name; }
+        catch (error) { failures++; result.className = 'fail'; result.textContent = 'FAIL: ' + name + ': ' + error.message; }
+        document.querySelector('#results').append(result);
+    }
+    updateClasses({});
+    check('Latin American Playables and stale shelf cleanup', () => {
+        const shelf = fixture('es-419', '<ytd-rich-shelf-renderer><span id="title">Sala de juegos</span></ytd-rich-shelf-renderer>');
+        tagElements(); assert(tagged(shelf, 'is-playables-shelf'), 'Spanish shelf missed');
+        document.documentElement.lang = 'en'; shelf.querySelector('#title').textContent = 'Ordinary videos';
+        tagElements(); assert(!tagged(shelf, 'is-playables-shelf'), 'stale Playables tag');
+    });
+    check('Shorts sidebar uses destination despite a localized label, then clears', () => {
+        const item = fixture('ja', '<ytd-guide-entry-renderer><a href="/shorts/123" aria-label="ショート">ショート</a><a href="/feed/history">Other link</a></ytd-guide-entry-renderer>');
+        tagElements(); assert(tagged(item, 'is-shorts-sidebar-entry'), 'localized sidebar missed');
+        item.querySelector('a').href = '/feed/history';
+        tagElements(); assert(!tagged(item, 'is-shorts-sidebar-entry'), 'stale sidebar tag');
+    });
+    check('Shorts shelf and individual video structural tags clear after reuse', () => {
+        const shelf = fixture('ar', '<ytd-rich-shelf-renderer is-shorts><span id="title">مقاطع قصيرة</span></ytd-rich-shelf-renderer>');
+        tagElements(); assert(tagged(shelf, 'is-shorts-shelf'), 'structural shelf missed');
+        shelf.removeAttribute('is-shorts'); tagElements(); assert(!tagged(shelf, 'is-shorts-shelf'), 'stale shelf tag');
+        const card = fixture('ja', '<ytd-video-renderer><a id="thumbnail" href="/shorts/123"></a></ytd-video-renderer>');
+        tagElements(); assert(tagged(card, 'is-individual-short'), 'Short missed');
+        card.querySelector('a').href = '/watch?v=123'; tagElements(); assert(!tagged(card, 'is-individual-short'), 'stale video tag');
+    });
+    check('Mix → Podcast → Playlist → ordinary card preserves priority and clears old classes', () => {
+        const card = fixture('ar', '<yt-lockup-view-model><badge-shape><span class="yt-badge-shape__text">ميكس</span></badge-shape><a href="/playlist?feature=share&list=PL123">Content</a></yt-lockup-view-model>');
+        tagElements(); assert(tagged(card, 'is-mix-item') && !tagged(card, 'is-playlist-item'), 'Mix priority');
+        card.querySelector('badge-shape').remove(); card.querySelector('a').href = '/podcast/123';
+        tagElements(); assert(tagged(card, 'is-podcast-item') && !tagged(card, 'is-mix-item'), 'podcast URL/class reuse');
+        card.querySelector('a').href = '/playlist?feature=share&list=PL123';
+        tagElements(); assert(tagged(card, 'is-playlist-item') && !tagged(card, 'is-podcast-item'), 'playlist URL/class reuse');
+        card.querySelector('a').href = '/watch?v=123';
+        tagElements(); assert(!tagged(card, 'is-playlist-item'), 'stale playlist tag');
+    });
+    check('Japanese and Spanish sourced playlist labels match without URL hints', () => {
+        for (const [lang, label] of [['ja', '再生リストの全体を見る'], ['es-419', 'Ver playlist completa']]) {
+            const card = fixture(lang, '<ytd-video-renderer><a></a></ytd-video-renderer>');
+            card.querySelector('a').textContent = label;
+            tagElements(); assert(tagged(card, 'is-playlist-item'), lang);
+        }
+    });
+    check('Documented membership aliases and structural-only badges', () => {
+        for (const [lang, label] of [['pt-PT', 'Apenas apoiantes'], ['pt-BR', 'Só para membros'], ['hi', 'पैसे चुकाकर बने सदस्यों के लिए उपलब्ध'], ['tr', 'Üyelere özel'], ['ar', 'الأعضاء فقط'], ['th', 'สมาชิกเท่านั้น'], ['zh-TW', '頻道會員專屬']]) {
+            const card = fixture(lang, '<yt-lockup-view-model><badge-shape></badge-shape></yt-lockup-view-model>');
+            card.querySelector('badge-shape').textContent = label;
+            tagElements(); assert(tagged(card, 'is-members-only-item'), lang);
+        }
+        const card = fixture('ja', '<ytd-video-renderer><span overlay-style="MEMBERS_ONLY"></span></ytd-video-renderer>');
+        tagElements(); assert(tagged(card, 'is-members-only-item'), 'structural-only membership');
+        card.firstElementChild.remove(); tagElements(); assert(!tagged(card, 'is-members-only-item'), 'stale membership');
+    });
+    check('Sourced reminder buttons recognize upcoming cards', () => {
+        for (const [lang, label] of [['es', 'Recibir aviso'], ['ja', '通知を受け取る'], ['de', 'Benachrichtigung erhalten'], ['fr', 'M’avertir'], ['vi', 'Thông báo cho tôi'], ['tr', 'Beni bilgilendir'], ['ar', '\u2067إرسال إشعار إليّ\u2069'], ['th', 'แจ้งเตือนให้ฉันทราบ']]) {
+            const card = fixture(lang, '<yt-lockup-view-model><lockup-attachments-view-model><button></button></lockup-attachments-view-model></yt-lockup-view-model>');
+            card.querySelector('button').textContent = label;
+            tagElements(); assert(tagged(card, 'is-upcoming-item'), lang);
+            card.querySelector('button').textContent = 'Share'; tagElements(); assert(!tagged(card, 'is-upcoming-item'), 'stale reminder');
+        }
+    });
+    check('Visible-only upcoming prefix accepts future and rejects completed text', () => {
+        const card = fixture('en', '<ytd-video-renderer><badge-shape>Premieres tomorrow</badge-shape></ytd-video-renderer>');
+        tagElements(); assert(tagged(card, 'is-upcoming-item'), 'visible future missed');
+        card.firstElementChild.textContent = 'Premiered yesterday';
+        tagElements(); assert(!tagged(card, 'is-upcoming-item'), 'completed premiere hidden');
+    });
+    check('No-space Japanese date is accepted; completed word suffix is rejected', () => {
+        const card = fixture('ja', '<ytd-video-renderer><badge-shape aria-label="プレミア公開2026/09/10"></badge-shape></ytd-video-renderer>');
+        tagElements(); assert(tagged(card, 'is-upcoming-item'), 'date prefix missed');
+        card.firstElementChild.setAttribute('aria-label', 'プレミア公開済み');
+        tagElements(); assert(!tagged(card, 'is-upcoming-item'), 'completed suffix accepted');
+    });
+    check('Date-first metadata is covered by structural UPCOMING without guessed grammar', () => {
+        const card = fixture('ja', '<ytd-video-renderer><span overlay-style="UPCOMING"></span><div id="metadata-line">2026/09/10 公開予定</div></ytd-video-renderer>');
+        tagElements(); assert(tagged(card, 'is-upcoming-item'), 'structure missed');
+        card.innerHTML = ''; tagElements(); assert(!tagged(card, 'is-upcoming-item'), 'stale upcoming');
+    });
+    check('Live and promoted structural signals clear after reuse', () => {
+        const card = fixture('fr', '<ytd-video-renderer><span class="ytBadgeShapeThumbnailLive"></span><span class="ytBadgeShapeCommerce"></span><span class="ytBadgeShapePromoted"></span></ytd-video-renderer>');
+        tagElements(); assert(tagged(card, 'is-live-item'), 'live'); assert(tagged(card, 'is-featured-service-item'), 'featured');
+        card.innerHTML = ''; tagElements(); assert(!tagged(card, 'is-live-item') && !tagged(card, 'is-featured-service-item'), 'stale structural tags');
+    });
+    check('Localized downloads brands remain visible under hideSections, then clear', () => {
+        updateClasses({ hideSections: true });
+        for (const [lang, title] of [['ar', 'المحتوى الذي تم تنزيله'], ['ja', 'スマート一時保存'], ['vi', 'Tải xuống thông minh'], ['ko', '스마트 오프라인 저장'], ['ar', 'التنزيل الذكي'], ['pl', 'Inteligentne pobieranie'], ['zh-CN', '智能下载'], ['zh-TW', '智慧下載']]) {
+            const shelf = fixture(lang, '<ytd-rich-section-renderer><span id="title"></span></ytd-rich-section-renderer>');
+            shelf.firstElementChild.textContent = title;
+            tagElements(); assert(tagged(shelf, 'is-downloads-section'), lang);
+            assert(getComputedStyle(shelf).display !== 'none', 'downloads hidden');
+            shelf.firstElementChild.textContent = 'Ordinary section'; tagElements();
+            assert(!tagged(shelf, 'is-downloads-section') && getComputedStyle(shelf).display === 'none', 'stale downloads exemption');
+        }
+        updateClasses({});
+    });
+    check('Playlist library exemption survives localized classification', () => {
+        const original = location.pathname;
+        history.replaceState(null, '', '/feed/playlists');
+        updateClasses({ groupedPlaylists: true });
+        assert(!document.documentElement.classList.contains('yt-hide-playlists'), 'library hidden');
+        history.replaceState(null, '', original);
+        updateClasses({});
+    });
+    check('Custom keywords stay literal across page languages', () => {
+        const card = fixture('es', '<ytd-video-renderer>spoiler</ytd-video-renderer>');
+        currentCustomFilters = [{ enabled: true, keywords: ['spoiler'] }];
+        tagElements(); assert(tagged(card, 'is-custom-hidden'), 'literal match lost');
+        card.textContent = 'revelación'; tagElements(); assert(!tagged(card, 'is-custom-hidden'), 'keyword was translated');
+        currentCustomFilters = [];
+    });
+    sandbox.replaceChildren();
+    document.title = failures ? `${failures} FAILED — localized filtering` : 'PASS — localized filtering';
+    const summary = document.createElement('p');
+    summary.textContent = `${document.querySelectorAll('#results li').length} checks, ${failures} failures`;
+    document.querySelector('#results').after(summary);
+</script>
+</html>

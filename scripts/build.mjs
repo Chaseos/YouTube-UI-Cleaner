@@ -16,7 +16,8 @@ for (const target of selected ? [selected] : ['chromium', 'firefox', 'safari']) 
   await rm(directory, { recursive: true, force: true });
   await mkdir(directory, { recursive: true });
   for (const file of [...runtimeFiles, ...(target === 'safari' ? [] : browserAssets)]) {
-    await cp(path.join(root, file), path.join(directory, file), { recursive: true, filter: file => path.basename(file) !== '.DS_Store' });
+    const source = target === 'safari' && file === 'icon.png' ? 'apple/artwork/icon.png' : file;
+    await cp(path.join(root, source), path.join(directory, file), { recursive: true, filter: file => path.basename(file) !== '.DS_Store' });
   }
   const outputManifest = structuredClone(manifest);
   if (target !== 'firefox') delete outputManifest.browser_specific_settings;

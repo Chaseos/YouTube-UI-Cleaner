@@ -13,11 +13,14 @@ for (const key of ['bundleID', 'extensionBundleID', 'teamID', 'urlScheme', 'vers
 }
 if (!config.extensionBundleID.startsWith(`${config.bundleID}.`)) throw new Error('Extension ID must belong to the app');
 if (config.tips.length !== new Set(config.tips.map(tip => tip.id)).size || config.tips.some(tip => !tip.id.startsWith(`${config.bundleID}.tip.`))) throw new Error('Invalid tip identifiers');
-run(process.execPath, ['scripts/build.mjs', '--target=safari']);
 const appleRoot = path.join(root, 'apple/YouTube UI Cleaner');
+const icons = path.join(appleRoot, 'YouTube UI Cleaner/Assets.xcassets/AppIcon.appiconset');
+run('swift', ['scripts/generate-apple-icons.swift', 'apple/artwork/icon.png', icons]);
+run(process.execPath, ['scripts/build.mjs', '--target=safari']);
 const generated = path.join(appleRoot, 'Configurations/Generated');
 await mkdir(generated, { recursive: true });
 const settings = {
+  APPLE_APP_NAME: config.name, APPLE_EXTENSION_NAME: `${config.name} Extension`,
   APPLE_APP_ID: config.bundleID, APPLE_EXTENSION_ID: config.extensionBundleID, APPLE_URL_SCHEME: config.urlScheme,
   DEVELOPMENT_TEAM: config.teamID, MARKETING_VERSION: config.version, CURRENT_PROJECT_VERSION: config.build,
   MACOSX_DEPLOYMENT_TARGET: config.minimumMacOS, INFOPLIST_KEY_LSApplicationCategoryType: config.category,
@@ -40,5 +43,4 @@ let existing;
 try { existing = JSON.parse(await readFile(storekitPath)); } catch (error) { if (error.code !== 'ENOENT') throw error; }
 if (existing) storekit.settings = { ...existing.settings, _applicationInternalID: config.appStoreID, _developerTeamID: config.teamID };
 await writeFile(storekitPath, `${JSON.stringify(storekit, null, 2)}\n`);
-run('swift', ['scripts/generate-apple-icons.swift', 'icon.png', path.join(appleRoot, 'YouTube UI Cleaner/Assets.xcassets/AppIcon.appiconset')]);
 console.log('Prepared Mac Safari resources, identity, local products and icons.');

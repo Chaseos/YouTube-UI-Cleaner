@@ -152,7 +152,7 @@
 				"PRODUCT_BUNDLE_IDENTIFIER" = "$(APPLE_APP_ID)";
 				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
 				"ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME" = "AccentColor";
-				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "$(APPLE_APP_NAME)";
 				"OTHER_LDFLAGS" = (
 					"-framework",
 					"SafariServices",
@@ -166,7 +166,7 @@
 					"@executable_path/../Frameworks",
 				);
 				"SWIFT_VERSION" = "5.0";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"PRODUCT_NAME" = "$(APPLE_APP_NAME)";
 				"SWIFT_APPROACHABLE_CONCURRENCY" = "YES";
 				"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY" = "YES";
 				"INFOPLIST_KEY_NSHumanReadableCopyright" = "Copyright 2026 Chaseos Apps";
@@ -242,7 +242,7 @@
 				"PRODUCT_BUNDLE_IDENTIFIER" = "$(APPLE_APP_ID)";
 				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
 				"ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME" = "AccentColor";
-				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "$(APPLE_APP_NAME)";
 				"OTHER_LDFLAGS" = (
 					"-framework",
 					"SafariServices",
@@ -256,7 +256,7 @@
 					"@executable_path/../Frameworks",
 				);
 				"SWIFT_VERSION" = "5.0";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"PRODUCT_NAME" = "$(APPLE_APP_NAME)";
 				"SWIFT_APPROACHABLE_CONCURRENCY" = "YES";
 				"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY" = "YES";
 				"INFOPLIST_KEY_NSHumanReadableCopyright" = "Copyright 2026 Chaseos Apps";
@@ -287,7 +287,7 @@
 			"fileRef" = "ABECC05A304520DD0071DDA1";
 		};
 		"ABECC023304520DD0071DDA1" = {
-			"path" = "YouTube UI Cleaner.app";
+			"path" = "UI Cleaner for YouTube.app";
 			"isa" = "PBXFileReference";
 			"includeInIndex" = "0";
 			"explicitFileType" = "wrapper.application";
@@ -299,7 +299,7 @@
 			"buildConfigurationList" = "ABECC04C304520DD0071DDA1";
 			"packageProductDependencies" = (
 			);
-			"productName" = "YouTube UI Cleaner";
+			"productName" = "$(APPLE_APP_NAME)";
 			"isa" = "PBXNativeTarget";
 			"buildPhases" = (
 				"ABECC01F304520DD0071DDA1",
@@ -363,9 +363,9 @@
 				"ENABLE_APP_SANDBOX" = "YES";
 				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
 				"GENERATE_INFOPLIST_FILE" = "YES";
-				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner Extension";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "$(APPLE_EXTENSION_NAME)";
 				"CODE_SIGN_STYLE" = "Automatic";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"PRODUCT_NAME" = "$(APPLE_EXTENSION_NAME)";
 				"OTHER_LDFLAGS" = (
 					"-framework",
 					"SafariServices",
@@ -479,7 +479,7 @@
 			"runOnlyForDeploymentPostprocessing" = "0";
 		};
 		"ABECC03E304520DD0071DDA1" = {
-			"path" = "YouTube UI Cleaner Extension.appex";
+			"path" = "UI Cleaner for YouTube Extension.appex";
 			"isa" = "PBXFileReference";
 			"includeInIndex" = "0";
 			"explicitFileType" = "wrapper.app-extension";
@@ -532,7 +532,7 @@
 			"buildConfigurationList" = "ABECC048304520DD0071DDA1";
 			"packageProductDependencies" = (
 			);
-			"productName" = "YouTube UI Cleaner Extension";
+			"productName" = "$(APPLE_EXTENSION_NAME)";
 			"isa" = "PBXNativeTarget";
 			"buildPhases" = (
 				"ABECC03A304520DD0071DDA1",
@@ -727,9 +727,9 @@
 				"ENABLE_APP_SANDBOX" = "YES";
 				"STRING_CATALOG_GENERATE_SYMBOLS" = "YES";
 				"GENERATE_INFOPLIST_FILE" = "YES";
-				"INFOPLIST_KEY_CFBundleDisplayName" = "YouTube UI Cleaner Extension";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "$(APPLE_EXTENSION_NAME)";
 				"CODE_SIGN_STYLE" = "Automatic";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"PRODUCT_NAME" = "$(APPLE_EXTENSION_NAME)";
 				"OTHER_LDFLAGS" = (
 					"-framework",
 					"SafariServices",

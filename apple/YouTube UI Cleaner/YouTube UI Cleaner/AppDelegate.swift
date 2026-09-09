@@ -12,7 +12,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let item = NSMenuItem()
         menu.addItem(item)
         let applicationMenu = NSMenu()
-        applicationMenu.addItem(withTitle: "Quit YouTube UI Cleaner", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        applicationMenu.addItem(withTitle: "Quit \(AppleConfiguration.current.name)", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         item.submenu = applicationMenu
         NSApp.mainMenu = menu
         store.start()

@@ -5,7 +5,7 @@ await import('../youtube-locales.js');
 const locales = globalThis.YouTubeUICleanerLocales;
 
 test('normalizes supported locale aliases and falls back safely', () => {
-    assert.equal(locales.normalizeLocale('es-419'), 'es');
+    assert.equal(locales.normalizeLocale('es-419'), 'es_419');
     assert.equal(locales.normalizeLocale('pt-BR'), 'pt_BR');
     assert.equal(locales.normalizeLocale('pt-PT'), 'pt_PT');
     assert.equal(locales.normalizeLocale('pt'), 'pt_PT');
@@ -29,10 +29,11 @@ test('keeps Portuguese variants distinct', () => {
     assert.equal(locales.getTerms('pt-PT').watchLaterLabel, 'Ver mais tarde');
 });
 
-test('uses the current YouTube product name for Playables in every locale', () => {
+test('preserves Playables names and separates the documented Spanish variants', () => {
     const officialNames = new Map([
         ['en', 'playables'],
         ['es', 'jugables'],
+        ['es-419', 'sala de juegos'],
         ['pt-PT', 'sala de jogos'],
         ['pt-BR', 'sala de jogos'],
         ['id', 'ruang game'],
@@ -102,7 +103,7 @@ test('supports prefix and contains matching explicitly', () => {
 });
 
 test('every supported page locale has complete and distinct terminology', () => {
-    const expectedLocales = ['en', 'es', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'ar', 'th', 'it', 'pl', 'uk', 'zh_CN', 'zh_TW', 'zh_HK'];
+    const expectedLocales = ['en', 'es', 'es_419', 'pt_PT', 'pt_BR', 'id', 'ja', 'de', 'fr', 'hi', 'vi', 'tr', 'ko', 'ar', 'th', 'it', 'pl', 'uk', 'zh_CN', 'zh_TW', 'zh_HK'];
     const arrayKeys = [
         'playables', 'mix', 'podcast', 'viewFullPlaylist', 'playlist', 'tryNow', 'membersOnly',
         'upcoming', 'premierePrefixes', 'scheduledPrefixes', 'notifyMe', 'downloads',
@@ -120,5 +121,65 @@ test('every supported page locale has complete and distinct terminology', () => 
         assert.ok(terms.notInterestedLabel, `${locale}.notInterestedLabel must be present`);
         assert.equal(locales.matchesAny('share this video', terms.watchLaterActions, 'contains'), false);
         assert.equal(locales.matchesAny('share this video', terms.notInterestedActions, 'contains'), false);
+    }
+});
+
+
+test('uses independent audit evidence for documented terms in each supported locale', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const audit = JSON.parse(await readFile(new URL('../docs/localization-audit/terminology-matrix.json', import.meta.url), 'utf8'));
+    for (const row of audit.rows) {
+        if (!['documented-label', 'documented-term'].includes(row.evidence_status)) continue;
+        const terms = locales.getTerms(row.locale);
+        const aliases = terms[row.group];
+        assert.equal(locales.matchesAny(row.evidence_term, Array.isArray(aliases) ? aliases : [aliases],
+            row.matching_mode === 'display' ? 'exact' : row.matching_mode), true, `${row.locale}.${row.group}: ${row.evidence_term}`);
+    }
+});
+
+test('keeps regional page dictionaries distinct and uses the page language', () => {
+    assert.equal(locales.normalizeLocale('es_419'), 'es_419');
+    assert.equal(locales.normalizeLocale('es-419-u-nu-latn'), 'es_419');
+    assert.equal(locales.normalizeLocale('es-ES'), 'es');
+    assert.notEqual(locales.getTerms('es'), locales.getTerms('es-419'));
+    assert.equal(locales.getTerms('pt-PT').notInterestedLabel, 'Sem interesse');
+    assert.equal(locales.getTerms('pt-BR').notInterestedLabel, 'Não tenho interesse');
+    const page = { lang: 'ja' };
+    assert.equal(locales.resolvePageLocale(page), 'ja');
+    page.lang = 'es-419';
+    assert.equal(locales.resolvePageLocale(page), 'es_419');
+    page.lang = '';
+    assert.equal(locales.resolvePageLocale(page), 'en');
+});
+
+test('preserves prefix boundaries and permits no-space dates without word suffixes', () => {
+    const terms = locales.getTerms('en');
+    assert.equal(locales.matchesAny('Premieres tomorrow', terms.premierePrefixes, 'prefix'), true);
+    assert.equal(locales.matchesAny('Premiere tomorrow', terms.premierePrefixes, 'prefix'), true);
+    assert.equal(locales.matchesAny('Premiered yesterday', terms.premierePrefixes, 'prefix'), false);
+    assert.equal(locales.matchesAny('Premieresque', terms.premierePrefixes, 'prefix'), false);
+    assert.equal(locales.matchesAny('Scheduled for tomorrow', terms.scheduledPrefixes, 'prefix'), true);
+    assert.equal(locales.matchesAny('プレミア公開2026/09/10', locales.getTerms('ja').premierePrefixes, 'prefix'), true);
+    assert.equal(locales.matchesAny('プレミア公開済み', locales.getTerms('ja').premierePrefixes, 'prefix'), false);
+    assert.equal(locales.matchesAny('anything', [''], 'prefix'), false);
+});
+
+test('normalizes observed typography and bidi controls without losing accents', () => {
+    assert.equal(locales.matchesAny('M’avertir', locales.getTerms('fr').notifyMe), true);
+    assert.equal(locales.matchesAny('\u2067إرسال إشعار إليّ\u2069', locales.getTerms('ar').notifyMe), true);
+    assert.equal(locales.matchesAny('  ＭＩＸ  ', locales.getTerms('en').mix), true);
+    assert.equal(locales.matchesAny('Premieres\u00a0tomorrow', locales.getTerms('en').premierePrefixes, 'prefix'), true);
+    assert.notEqual(locales.normalizeText('pódcast'), locales.normalizeText('podcast'));
+    assert.equal(locales.matchesAny('スマート一時保存', locales.getTerms('ja').downloads, 'contains'), true);
+});
+
+
+test('recognizes Smart Downloads brands that do not contain the destination name', () => {
+    // Localized YouTube Help article 12002587, retrieved during the audit.
+    for (const [locale, label] of [
+        ['ja', 'スマート一時保存'], ['vi', 'Tải xuống thông minh'], ['ko', '스마트 오프라인 저장'],
+        ['ar', 'التنزيل الذكي'], ['pl', 'Inteligentne pobieranie'], ['zh-CN', '智能下载'], ['zh-TW', '智慧下載']
+    ]) {
+        assert.equal(locales.matchesAny(label, locales.getTerms(locale).downloads, 'contains'), true, locale);
     }
 });

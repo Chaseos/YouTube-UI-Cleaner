@@ -28,7 +28,7 @@ struct SetupView: View {
                 Image(nsImage: NSApp.applicationIconImage).resizable().frame(width: 96, height: 96)
                 Text(AppleConfiguration.current.name).font(.largeTitle.bold()).multilineTextAlignment(.center)
                 Text(model.extensionStatus).font(.headline).multilineTextAlignment(.center)
-                Text("1. Enable YouTube UI Cleaner in Safari Settings → Extensions.\n2. Allow access to youtube.com in Safari’s website permissions.\n3. Reload open YouTube pages, then use the toolbar popup to choose what to hide.")
+                Text("1. Enable \(AppleConfiguration.current.name) in Safari Settings → Extensions.\n2. Allow access to youtube.com in Safari’s website permissions.\n3. Reload open YouTube pages, then use the toolbar popup to choose what to hide.")
                     .fixedSize(horizontal: false, vertical: true).lineSpacing(7)
                 Text("Extension enablement does not confirm website permission. Preferences stay on this Mac; Safari does not sync them between devices.")
                     .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
@@ -66,7 +66,7 @@ final class ViewController: NSViewController {
         guard sheet == nil, view.window?.isVisible == true else { return }
         let controller = NSViewController()
         controller.view = NSView()
-        controller.title = "Support YouTube UI Cleaner"
+        controller.title = "Support \(AppleConfiguration.current.name)"
         let host = NSHostingController(rootView: TipSheet(store: store) { [weak self] in self?.dismissSupport() })
         // StoreKit must insert remote views into an AppKit-owned root.
         embed(host, into: controller)
@@ -84,7 +84,7 @@ final class ViewController: NSViewController {
     private func openSettings() {
         SFSafariApplication.showPreferencesForExtension(withIdentifier: AppleConfiguration.current.extensionBundleID) { [weak self] error in
             Task { @MainActor in
-                if error != nil { self?.model.message = "Open Safari → Settings → Extensions to enable YouTube UI Cleaner." }
+                if error != nil { self?.model.message = "Open Safari → Settings → Extensions to enable \(AppleConfiguration.current.name)." }
             }
         }
     }

@@ -15,28 +15,40 @@ const actionTitles = {
   uk: ['Оцінити цей застосунок', 'Варіанти підтримки'], vi: ['Đánh giá ứng dụng này', 'Tùy chọn hỗ trợ'],
   zh_CN: ['为此 App 评分', '支持选项'], zh_TW: ['為此 App 評分', '支持選項'], zh_HK: ['為此 App 評分', '支援選項']
 };
+const extensionNames = {
+  ar: 'منظف واجهة YouTube', de: 'UI-Reiniger für YouTube',
+  es: 'Limpiador de interfaz para YouTube', es_419: 'Limpiador de interfaz para YouTube',
+  fr: 'Nettoyeur d’interface pour YouTube', hi: 'YouTube के लिए UI क्लीनर',
+  id: 'Pembersih UI untuk YouTube', it: 'Pulizia interfaccia per YouTube',
+  ja: 'YouTube 用 UI クリーナー', ko: 'YouTube용 UI 클리너',
+  pl: 'Czyściciel interfejsu dla YouTube', pt_BR: 'Limpador de interface para YouTube',
+  pt_PT: 'Limpeza da interface para YouTube', th: 'ตัวล้าง UI สำหรับ YouTube',
+  tr: 'YouTube için Arayüz Temizleyici', uk: 'Очищувач інтерфейсу для YouTube',
+  vi: 'Dọn giao diện cho YouTube', zh_CN: 'YouTube 界面清理工具',
+  zh_HK: 'YouTube 介面清理工具', zh_TW: 'YouTube 介面清理工具'
+};
 const extensionDescriptions = {
-  ar: 'إخفاء Shorts وميكسات YouTube والبودكاست وقوائم التشغيل والبث المباشر والعروض الترويجية والمواضيع غير المرغوبة.',
-  de: 'Blende Shorts, Mixe, Podcasts, Playlists, Livestreams, Werbung und unerwünschte Themen auf YouTube aus.',
-  en: 'Hide Shorts, Mixes, podcasts, playlists, live streams, promotions, and unwanted topics on YouTube.',
-  es: 'Oculta Shorts, mixes, pódcasts, listas, directos, promociones y temas no deseados en YouTube.',
-  es_419: 'Oculta Shorts, mixes, podcasts, listas, transmisiones, promociones y temas no deseados en YouTube.',
-  fr: 'Masquez les Shorts, mix, podcasts, playlists, directs, promotions et sujets indésirables sur YouTube.',
-  hi: 'Shorts, YouTube मिक्स, पॉडकास्ट, प्लेलिस्ट, लाइव स्ट्रीम, प्रचार और अनचाहे विषय छिपाएँ।',
-  id: 'Sembunyikan Shorts, Mix, podcast, playlist, siaran langsung, promosi, dan topik yang tidak diinginkan.',
-  it: 'Nascondi Short, mix, podcast, playlist, dirette, promozioni e argomenti indesiderati su YouTube.',
-  ja: 'Shorts、YouTube ミックスリスト、ポッドキャスト、再生リスト、ライブ配信、プロモーション、不要なトピックを非表示にして、YouTube をすっきり整理します。',
-  ko: 'Shorts, YouTube 믹스, 팟캐스트, 재생목록, 실시간 스트림, 프로모션, 원치 않는 주제를 숨겨 YouTube을 깔끔하게 정리합니다.',
-  pl: 'Ukrywaj Shortsy, miksy, podcasty, playlisty, transmisje, promocje i niechciane tematy na YouTube.',
-  pt_BR: 'Oculte Shorts, Mixes, podcasts, playlists, lives, promoções e assuntos indesejados no YouTube.',
-  pt_PT: 'Oculte Shorts, mixes, podcasts, listas, diretos, promoções e temas indesejados no YouTube.',
-  th: 'ซ่อน Shorts, YouTube มิกซ์, พอดแคสต์, เพลย์ลิสต์, ไลฟ์สด, โปรโมชัน และหัวข้อที่ไม่ต้องการ',
-  tr: "YouTube'da Shorts, Mix, podcast, oynatma listesi, canlı yayın, tanıtım ve istenmeyen konuları gizleyin.",
-  uk: 'Приховуйте Shorts, мікси, подкасти, списки, трансляції, рекламу й небажані теми на YouTube.',
-  vi: 'Ẩn Shorts, Tuyển tập, Podcast, danh sách phát, video trực tiếp, nội dung quảng bá và chủ đề không mong muốn.',
-  zh_CN: '隐藏 Shorts、YouTube 合辑、播客、播放列表、直播、推广内容和不想看到的主题，让 YouTube 更简洁。',
-  zh_HK: '隱藏 Shorts、YouTube 合輯、Podcast、播放清單、直播、推廣內容和不想看到的主題，令 YouTube 更簡潔。',
-  zh_TW: '隱藏 Shorts、YouTube 合輯、Podcast、播放清單、直播、宣傳內容和不想看到的主題，享受更清爽的 YouTube。'
+  ar: 'إضافة مستقلة لإخفاء Shorts والعروض والعناصر غير المرغوبة على YouTube.',
+  de: 'Unabhängige Erweiterung: Shorts, Werbung und störende Elemente auf YouTube ausblenden.',
+  en: 'Independent extension to hide Shorts, promotions, and unwanted clutter on YouTube.',
+  es: 'Extensión independiente para ocultar Shorts, promociones y elementos no deseados en YouTube.',
+  es_419: 'Extensión independiente para ocultar Shorts, promociones y elementos no deseados en YouTube.',
+  fr: 'Extension indépendante pour masquer Shorts, promotions et éléments indésirables sur YouTube.',
+  hi: 'YouTube पर Shorts, प्रचार और अनचाहे तत्व छिपाने के लिए स्वतंत्र एक्सटेंशन।',
+  id: 'Ekstensi independen untuk menyembunyikan Shorts, promosi, dan elemen tak diinginkan di YouTube.',
+  it: 'Estensione indipendente per nascondere Short, promozioni ed elementi indesiderati su YouTube.',
+  ja: 'YouTube の Shorts、プロモーション、不要な表示を非表示にする独立した 拡張機能。',
+  ko: 'YouTube에서 Shorts, 프로모션, 불필요한 요소를 숨기는 독립 확장 프로그램입니다.',
+  pl: 'Niezależne rozszerzenie do ukrywania Shortsów, promocji i zbędnych elementów na YouTube.',
+  pt_BR: 'Extensão independente para ocultar Shorts, promoções e elementos indesejados no YouTube.',
+  pt_PT: 'Extensão independente para ocultar Shorts, promoções e elementos indesejados no YouTube.',
+  th: 'ส่วนขยาย อิสระสำหรับซ่อน Shorts โปรโมชัน และสิ่งรบกวนที่ไม่ต้องการบน YouTube',
+  tr: "YouTube'da Shorts, tanıtımlar ve gereksiz öğeleri gizleyen bağımsız uzantısı.",
+  uk: 'Незалежне розширення для приховування Shorts, реклами й зайвих елементів на YouTube.',
+  vi: 'Tiện ích độc lập để ẩn Shorts, quảng bá và các thành phần không mong muốn trên YouTube.',
+  zh_CN: '独立的 扩展，可隐藏 YouTube 上的 Shorts、推广内容和不需要的界面元素。',
+  zh_HK: '獨立 延伸功能，可隱藏 YouTube 上的 Shorts、推廣內容及不需要的介面元素。',
+  zh_TW: '獨立的 延伸功能，可隱藏 YouTube 上的 Shorts、宣傳內容和不需要的介面元素。'
 };
 
 export function replaceRequired(source, before, after, label) {
@@ -50,7 +62,13 @@ export function removeRange(source, start, end) {
 }
 
 export async function prepareSafari(root, target, config) {
+  if (!/^[A-Za-z0-9][A-Za-z0-9 -]*$/.test(config.name ?? '') || config.name.length > 30) {
+    throw new Error('Invalid Apple app name: use at most 30 letters, digits, spaces or hyphens.');
+  }
   let html = await readFile(path.join(root, 'popup.html'), 'utf8');
+  html = replaceRequired(html, '<title data-i18n="extensionName">YouTube UI Cleaner</title>', `<title data-i18n="extensionName">${config.name}</title>`, 'popup title');
+  html = replaceRequired(html, '<span data-i18n="extensionName">YouTube UI Cleaner</span>', `<span data-i18n="extensionName">${config.name}</span>`, 'popup heading');
+  const privacy = replaceRequired(await readFile(path.join(root, 'PRIVACYPOLICY.md'), 'utf8'), '**YouTube UI Cleaner**', `**${config.name}**`, 'privacy product name');
   html = removeRange(html, '    .kofi-link {', '    .section {');
   html = removeRange(html, '    .review-card,', '  </style>');
   const reviewURL = /^\d+$/.test(config.appStoreID) ? `https://apps.apple.com/app/id${config.appStoreID}?action=write-review` : '#';
@@ -74,6 +92,7 @@ export async function prepareSafari(root, target, config) {
   let content = await readFile(path.join(root, 'content.js'), 'utf8');
   content += `\n// Safari preferences are local; refresh every open YouTube tab on change.\nchrome.storage.onChanged.addListener((changes, area) => {\n    if ((area === 'sync' || area === 'local') && keys.some(key => Object.hasOwn(changes, key))) {\n        loadSettingsAndApply();\n    }\n});\n`;
   await Promise.all([
+    writeFile(path.join(target, 'PRIVACYPOLICY.md'), privacy),
     writeFile(path.join(target, 'popup.html'), html), writeFile(path.join(target, 'popup.js'), script),
     writeFile(path.join(target, 'content.js'), content),
     writeFile(path.join(target, 'safari.css'), await readFile(path.join(root, 'platforms/safari/popup.css'))),
@@ -83,7 +102,11 @@ export async function prepareSafari(root, target, config) {
     const file = path.join(target, '_locales', locale, 'messages.json');
     const messages = JSON.parse(await readFile(file, 'utf8'));
     for (const key of removedKeys) delete messages[key];
-    if (Array.from(messages.extensionName.message).length > 40) messages.extensionName.message = config.name;
+    const name = locale === 'en' ? config.name : extensionNames[locale];
+    if (!name || !extensionDescriptions[locale] || !actionTitles[locale]) {
+      throw new Error(`Missing Apple localization: ${locale}`);
+    }
+    messages.extensionName.message = name;
     messages.extensionDescription.message = extensionDescriptions[locale];
     const [rate, support] = actionTitles[locale];
     messages.rateThisApp = { message: rate };
@@ -106,7 +129,10 @@ export async function validateSafari(directory) {
       if (safariForbidden.test(source)) throw new Error(`Non-Apple content in ${file}`);
       if (entry.name === 'messages.json') {
         const messages = JSON.parse(source);
-        if (typeof messages.extensionDescription?.message !== 'string' || Array.from(messages.extensionDescription.message).length > 112) {
+        if (typeof messages.extensionName?.message !== 'string' || !messages.extensionName.message.trim() || Array.from(messages.extensionName.message).length > 40) {
+          throw new Error(`Invalid Safari extension name: ${file}`);
+        }
+        if (typeof messages.extensionDescription?.message !== 'string' || !messages.extensionDescription.message.trim() || Array.from(messages.extensionDescription.message).length > 112) {
           throw new Error(`Invalid Safari extension description: ${file}`);
         }
         for (const [key, value] of Object.entries(messages)) {
