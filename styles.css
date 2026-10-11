@@ -111,11 +111,9 @@ html.yt-hide-playlists ytd-playlist-renderer {
 }
 
 /* --- LIVE STREAMS --- */
+/* Channel avatars show a LIVE badge on all of a streaming channel's videos, so ignore badges inside them. */
 html.yt-hide-live .is-live-item,
-html.yt-hide-live ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge),
-html.yt-hide-live ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge),
-html.yt-hide-live ytd-compact-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge),
-html.yt-hide-live ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge) {
+html.yt-hide-live :is(ytd-rich-item-renderer, ytd-video-renderer, ytd-compact-video-renderer, ytd-grid-video-renderer):has(:is(ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive, .yt-badge-shape--live, .ytBadgeShapeLive):not(:is(yt-avatar-shape, yt-decorated-avatar-view-model, #channel-thumbnail, #avatar) *)) {
     display: none !important;
 }
 

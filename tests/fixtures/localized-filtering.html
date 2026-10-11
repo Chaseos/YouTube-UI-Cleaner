@@ -112,6 +112,28 @@
         tagElements(); assert(tagged(card, 'is-live-item'), 'live'); assert(tagged(card, 'is-featured-service-item'), 'featured');
         card.innerHTML = ''; tagElements(); assert(!tagged(card, 'is-live-item') && !tagged(card, 'is-featured-service-item'), 'stale structural tags');
     });
+    check('Channel avatar LIVE badge does not hide that channel\'s recorded videos', () => {
+        updateClasses({ hideLive: true });
+        const avatar = '<yt-decorated-avatar-view-model><yt-avatar-shape><div class="ytSpecAvatarShapeLiveBadge"><span class="ytBadgeShapeLive yt-badge-shape--live">LIVE</span></div></yt-avatar-shape></yt-decorated-avatar-view-model>';
+        const item = fixture('en', `<ytd-rich-item-renderer><yt-lockup-view-model><yt-thumbnail-badge-view-model><badge-shape class="ytBadgeShapeThumbnailDefault">12:34</badge-shape></yt-thumbnail-badge-view-model>${avatar}</yt-lockup-view-model></ytd-rich-item-renderer>`);
+        tagElements();
+        assert(!tagged(item, 'is-live-item') && !tagged(item.firstElementChild, 'is-live-item'), 'recorded video tagged live');
+        assert(getComputedStyle(item).display !== 'none', 'recorded video hidden');
+        item.querySelector('badge-shape').className = 'ytBadgeShapeThumbnailLive';
+        tagElements(); assert(tagged(item.firstElementChild, 'is-live-item'), 'live stream missed');
+        assert(getComputedStyle(item).display === 'none', 'live stream visible');
+        updateClasses({});
+    });
+    check('Search result LIVE badge hides only the live stream', () => {
+        updateClasses({ hideLive: true });
+        const result = fixture('en', '<ytd-video-renderer><a id="channel-thumbnail"><span class="ytBadgeShapeLive">LIVE</span></a><ytd-badge-supported-renderer id="badges"></ytd-badge-supported-renderer></ytd-video-renderer>');
+        tagElements(); assert(!tagged(result, 'is-live-item') && getComputedStyle(result).display !== 'none', 'avatar badge hid video');
+        result.querySelector('#badges').innerHTML = '<badge-shape class="ytBadgeShapeLive">LIVE</badge-shape>';
+        tagElements(); assert(tagged(result, 'is-live-item'), 'live badge missed');
+        result.classList.remove('is-live-item');
+        assert(getComputedStyle(result).display === 'none', 'CSS fallback missed live badge');
+        updateClasses({});
+    });
     check('Localized downloads brands remain visible under hideSections, then clear', () => {
         updateClasses({ hideSections: true });
         for (const [lang, title] of [['ar', 'المحتوى الذي تم تنزيله'], ['ja', 'スマート一時保存'], ['vi', 'Tải xuống thông minh'], ['ko', '스마트 오프라인 저장'], ['ar', 'التنزيل الذكي'], ['pl', 'Inteligentne pobieranie'], ['zh-CN', '智能下载'], ['zh-TW', '智慧下載']]) {

@@ -7,6 +7,9 @@ let currentSettings = {};
 const MEMBERS_ONLY_ICON_PATH_PREFIX = 'M6 .5a5.5 5.5 0 100 11';
 const pageLocales = globalThis.YouTubeUICleanerLocales;
 const filterableVideoCardSelector = 'ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, yt-lockup-view-model';
+// A channel avatar shows a LIVE badge on every video while that channel is streaming,
+// so badges inside it describe the channel rather than the video they decorate.
+const channelAvatarSelector = 'yt-avatar-shape, yt-decorated-avatar-view-model, #channel-thumbnail, #avatar';
 
 function getPageTerms() {
     return pageLocales.getTerms(pageLocales.resolvePageLocale());
@@ -98,6 +101,10 @@ function getYouTubeURL(link) {
 function isShortsLink(link) {
     const path = getYouTubeURL(link)?.pathname;
     return path === '/shorts' || path?.startsWith('/shorts/');
+}
+
+function hasMatchOutsideChannelAvatar(el, selector) {
+    return Array.from(el.querySelectorAll(selector)).some(match => !match.closest(channelAvatarSelector));
 }
 
 // Selectors for elements we need to tag based on text content
@@ -254,14 +261,14 @@ function tagElements() {
     allContainers.forEach(el => {
         // 1. Direct Video Overlay (MOST RELIABLE)
         // Check for the specific thumbnail badge from the user's snippet
-        const thumbBadge = el.querySelector('ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive');
-        
+        const thumbBadge = hasMatchOutsideChannelAvatar(el, 'ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"], .yt-badge-shape--thumbnail-live, .ytBadgeShapeThumbnailLive');
+
         // 2. Metadata Badge (Red "LIVE" text in video info)
-        const metadataBadge = el.querySelector('#metadata-line .yt-badge-shape--live, .ytSpecAvatarShapeLiveBadge');
+        const metadataBadge = hasMatchOutsideChannelAvatar(el, '#metadata-line .yt-badge-shape--live, .ytBadgeShapeLive');
 
         // 3. Sidebar/Guide Indicators (Pulse icons)
-        const sidebarLivePulse = el.querySelector('ytd-live-status-indicator-renderer');
-        const broadcastPath = el.querySelector('path[d="M4.222 4.223a11 11 0 000 15.555 1 1 0 101.414-1.414 9 9 0 010-12.727 1 1 0 10-1.414-1.414Zm13.79.353a1 1 0 000 1.414 8.5 8.5 0 010 12.022 1 1 0 001.413 1.414 10.501 10.501 0 000-14.85 1 1 0 00-1.413 0Zm-2.83 2.827a1 1 0 000 1.414 4.501 4.501 0 010 6.365 1.001 1.001 0 001.414 1.414 6.5 6.5 0 000-9.193 1 1 0 00-1.415 0Zm-7.78 0a6.5 6.5 0 000 9.194 1 1 0 001.415-1.415 4.5 4.5 0 010-6.364 1.001 1.001 0 00-1.415-1.415ZM12 10a2 2 0 100 4 2 2 0 000-4Z"]');
+        const sidebarLivePulse = hasMatchOutsideChannelAvatar(el, 'ytd-live-status-indicator-renderer');
+        const broadcastPath = hasMatchOutsideChannelAvatar(el, 'path[d="M4.222 4.223a11 11 0 000 15.555 1 1 0 101.414-1.414 9 9 0 010-12.727 1 1 0 10-1.414-1.414Zm13.79.353a1 1 0 000 1.414 8.5 8.5 0 010 12.022 1 1 0 001.413 1.414 10.501 10.501 0 000-14.85 1 1 0 00-1.413 0Zm-2.83 2.827a1 1 0 000 1.414 4.501 4.501 0 010 6.365 1.001 1.001 0 001.414 1.414 6.5 6.5 0 000-9.193 1 1 0 00-1.415 0Zm-7.78 0a6.5 6.5 0 000 9.194 1 1 0 001.415-1.415 4.5 4.5 0 010-6.364 1.001 1.001 0 00-1.415-1.415ZM12 10a2 2 0 100 4 2 2 0 000-4Z"]');
         
         // 4. Timestamp Check (If it has a time like "10:30", it's NOT a current live stream)
         const hasTimestamp = el.querySelector('ytd-thumbnail-overlay-time-status-renderer:not([overlay-style="LIVE"])');
