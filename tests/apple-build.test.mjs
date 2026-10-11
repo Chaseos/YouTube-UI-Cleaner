@@ -133,6 +133,20 @@ test('Safari propagates settings changes to other open tabs but ignores unrelate
   listener({unrelated:{}},'sync');listener({shortsHome:{}},'session');assert.equal(loads,0);
   listener({customFilters:{}},'sync');listener({shortsHome:{}},'local');assert.equal(loads,2);
 });
+test('Safari build refreshes Xcode version settings and Xcode rejects stale ones', async () => {
+  const settings = await read('apple/YouTube UI Cleaner/Configurations/Generated/Apple.xcconfig');
+  assert.ok(settings.includes(`\nMARKETING_VERSION = ${config.version}\n`), 'stale marketing version');
+  assert.ok(settings.includes(`\nCURRENT_PROJECT_VERSION = ${config.build}\n`), 'stale build number');
+  const project = await read('apple/YouTube UI Cleaner/YouTube UI Cleaner.xcodeproj/project.pbxproj');
+  const appPhases = project.slice(project.indexOf('"productType" = "com.apple.product-type.application"')).match(/"buildPhases" = \(\s*"([0-9A-F]+)"/)[1];
+  assert.match(project, new RegExp(`"${appPhases}" = \\{[^}]*check-apple-version\\.sh[^}]*\\.\\./configuration\\.json`), 'app target must check its version first');
+  const check = (version, build) => spawnSync('/bin/sh', ['scripts/check-apple-version.sh', 'apple/configuration.json'],
+    { encoding: 'utf8', env: { ...process.env, MARKETING_VERSION: version, CURRENT_PROJECT_VERSION: build } });
+  assert.equal(check(config.version, config.build).status, 0);
+  const stale = check(config.version, String(Number(config.build) - 1));
+  assert.equal(stale.status, 1);
+  assert.match(stale.stdout, /^error: .*npm run build/);
+});
 test('normal scheme has no local billing configuration and local scheme cannot archive', async () => {
   const base='apple/YouTube UI Cleaner/YouTube UI Cleaner.xcodeproj/xcshareddata/xcschemes/';
   const normal=await read(base+'YouTube UI Cleaner.xcscheme');

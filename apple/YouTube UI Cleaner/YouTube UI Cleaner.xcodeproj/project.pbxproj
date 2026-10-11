@@ -293,6 +293,27 @@
 			"explicitFileType" = "wrapper.application";
 			"sourceTree" = "BUILT_PRODUCTS_DIR";
 		};
+		"ABECC070304520DD0071DDA1" = {
+			"isa" = "PBXShellScriptBuildPhase";
+			"buildActionMask" = "2147483647";
+			"files" = (
+			);
+			"inputFileListPaths" = (
+			);
+			"inputPaths" = (
+				"$(SRCROOT)/../../scripts/check-apple-version.sh",
+				"$(SRCROOT)/../configuration.json",
+			);
+			"name" = "Check Version Matches Configuration";
+			"outputFileListPaths" = (
+			);
+			"outputPaths" = (
+			);
+			"alwaysOutOfDate" = "1";
+			"runOnlyForDeploymentPostprocessing" = "0";
+			"shellPath" = "/bin/sh";
+			"shellScript" = "/bin/sh \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_INPUT_FILE_1\"\n";
+		};
 		"ABECC022304520DD0071DDA1" = {
 			"productType" = "com.apple.product-type.application";
 			"productReference" = "ABECC023304520DD0071DDA1";
@@ -302,6 +323,7 @@
 			"productName" = "$(APPLE_APP_NAME)";
 			"isa" = "PBXNativeTarget";
 			"buildPhases" = (
+				"ABECC070304520DD0071DDA1",
 				"ABECC01F304520DD0071DDA1",
 				"ABECC020304520DD0071DDA1",
 				"ABECC021304520DD0071DDA1",

@@ -2,7 +2,7 @@ import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { prepareSafari, validateSafari } from './safari.mjs';
+import { prepareSafari, validateSafari, writeAppleSettings } from './safari.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(await readFile(path.join(root, 'manifest.json')));
@@ -25,6 +25,7 @@ for (const target of selected ? [selected] : ['chromium', 'firefox', 'safari']) 
   if (target === 'safari') {
     await prepareSafari(root, directory, config);
     await validateSafari(directory);
+    await writeAppleSettings(root, config);
   }
   const archive = path.join(root, 'dist', `youtube-ui-cleaner-${target}.zip`);
   await rm(archive, { force: true });

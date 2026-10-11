@@ -1,4 +1,4 @@
-import { readFile, writeFile, readdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 export const safariForbidden = /ko-fi|kofi|chromewebstore|microsoftedge\.microsoft\.com\/addons|addons\.mozilla|addons\.opera|store\.whale|reviewClicked|hasInteractedWithApp|checkReviewPrompt|simpleVideoSpeedController|Simple Video Speed Controller|simple-video-speed-controller/i;
@@ -143,4 +143,22 @@ export async function validateSafari(directory) {
       }
     }
   }
+}
+
+// Xcode takes the app version and build number from this file, so it is rewritten with every
+// Safari package; a stale copy would upload a build number App Store Connect has already seen.
+export async function writeAppleSettings(root, config) {
+  for (const key of ['bundleID', 'extensionBundleID', 'teamID', 'urlScheme', 'version', 'build', 'minimumMacOS', 'category']) {
+    if (!/^[A-Za-z0-9.-]+$/.test(config[key] ?? '')) throw new Error(`Invalid Apple ${key}`);
+  }
+  const generated = path.join(root, 'apple/YouTube UI Cleaner/Configurations/Generated');
+  await mkdir(generated, { recursive: true });
+  const settings = {
+    APPLE_APP_NAME: config.name, APPLE_EXTENSION_NAME: `${config.name} Extension`,
+    APPLE_APP_ID: config.bundleID, APPLE_EXTENSION_ID: config.extensionBundleID, APPLE_URL_SCHEME: config.urlScheme,
+    DEVELOPMENT_TEAM: config.teamID, MARKETING_VERSION: config.version, CURRENT_PROJECT_VERSION: config.build,
+    MACOSX_DEPLOYMENT_TARGET: config.minimumMacOS, INFOPLIST_KEY_LSApplicationCategoryType: config.category,
+    ARCHS: 'arm64 x86_64', ONLY_ACTIVE_ARCH: 'NO'
+  };
+  await writeFile(path.join(generated, 'Apple.xcconfig'), '// Generated from apple/configuration.json; do not edit.\n' + Object.entries(settings).map(([key, value]) => `${key} = ${value}`).join('\n') + '\n');
 }

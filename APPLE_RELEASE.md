@@ -8,7 +8,7 @@ Status: **Apple version 2.14 (1) and all three optional tips were submitted on S
 
 | Command | Effect |
 | --- | --- |
-| `npm run build` | Validate locales, run JavaScript tests, package Chromium/Firefox/Safari |
+| `npm run build` | Validate locales, run JavaScript tests, package Chromium/Firefox/Safari, and refresh the Xcode version/build settings; the Mac app build fails if those settings no longer match `apple/configuration.json` |
 | `npm run prepare:apple` | Generate Safari resources, xcconfig, local product metadata, and icon sizes from existing artwork |
 | `npm run build:apple:debug` | Unsigned universal Debug compilation |
 | `npm run build:apple:release` | Unsigned universal Release compilation |

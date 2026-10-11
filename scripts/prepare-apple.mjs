@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,25 +8,13 @@ export function run(command, args) {
   const result = spawnSync(command, args, { cwd: root, stdio: 'inherit' });
   if (result.status !== 0) throw new Error(`${command} failed (${result.status})`);
 }
-for (const key of ['bundleID', 'extensionBundleID', 'teamID', 'urlScheme', 'version', 'build', 'minimumMacOS', 'category']) {
-  if (!/^[A-Za-z0-9.-]+$/.test(config[key] ?? '')) throw new Error(`Invalid Apple ${key}`);
-}
 if (!config.extensionBundleID.startsWith(`${config.bundleID}.`)) throw new Error('Extension ID must belong to the app');
 if (config.tips.length !== new Set(config.tips.map(tip => tip.id)).size || config.tips.some(tip => !tip.id.startsWith(`${config.bundleID}.tip.`))) throw new Error('Invalid tip identifiers');
 const appleRoot = path.join(root, 'apple/YouTube UI Cleaner');
 const icons = path.join(appleRoot, 'YouTube UI Cleaner/Assets.xcassets/AppIcon.appiconset');
 run('swift', ['scripts/generate-apple-icons.swift', 'apple/artwork/icon.png', icons]);
+// The Safari build also writes the generated Xcode settings from apple/configuration.json.
 run(process.execPath, ['scripts/build.mjs', '--target=safari']);
-const generated = path.join(appleRoot, 'Configurations/Generated');
-await mkdir(generated, { recursive: true });
-const settings = {
-  APPLE_APP_NAME: config.name, APPLE_EXTENSION_NAME: `${config.name} Extension`,
-  APPLE_APP_ID: config.bundleID, APPLE_EXTENSION_ID: config.extensionBundleID, APPLE_URL_SCHEME: config.urlScheme,
-  DEVELOPMENT_TEAM: config.teamID, MARKETING_VERSION: config.version, CURRENT_PROJECT_VERSION: config.build,
-  MACOSX_DEPLOYMENT_TARGET: config.minimumMacOS, INFOPLIST_KEY_LSApplicationCategoryType: config.category,
-  ARCHS: 'arm64 x86_64', ONLY_ACTIVE_ARCH: 'NO'
-};
-await writeFile(path.join(generated, 'Apple.xcconfig'), '// Generated from apple/configuration.json; do not edit.\n' + Object.entries(settings).map(([key, value]) => `${key} = ${value}`).join('\n') + '\n');
 const storekit = {
   identifier: 'EC3456A8-76B4-4AFE-AF74-445472B5F318', nonRenewingSubscriptions: [], subscriptionGroups: [],
   products: config.tips.map((tip, index) => ({ displayPrice: tip.price, familyShareable: false,
