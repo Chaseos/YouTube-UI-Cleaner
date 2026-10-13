@@ -28,7 +28,11 @@ function loadPage(lang = 'en') {
         },
         querySelector: () => null,
         getElementById: id => styles.get(id),
-        createElement: () => ({}),
+        createElement: () => ({
+            dataset: {}, children: [], listeners: {},
+            appendChild(child) { this.children.push(child); },
+            addEventListener(type, listener) { this.listeners[type] = listener; }
+        }),
         head: { appendChild: element => styles.set(element.id, element) }
     };
     const context = vm.createContext({
@@ -110,6 +114,41 @@ test('legacy localized menu labels are matched exactly using the page locale', (
     runMenu(page, 'notInterested', [other, action]);
     assert.equal(other.clicks, 0);
     assert.equal(action.clicks, 1);
+});
+
+test('preview Not Interested finds the feed card through the class-based preview link', () => {
+    const page = loadPage();
+    const menuButton = { clicks: 0, click() { this.clicks++; } };
+    const card = { getBoundingClientRect: () => ({ left: 0 }), querySelector: () => menuButton };
+    const cardLink = { href: 'https://www.youtube.com/watch?v=abc123', closest: selector => selector === 'ytd-video-preview' ? null : card };
+    const previewLink = { getAttribute: () => '/watch?v=abc123&pp=preview' };
+    const preview = {
+        style: {}, getBoundingClientRect: () => ({ left: 0 }),
+        querySelector: selector => selector.includes('a.ytdVideoPreviewMediaContainerLink') ? previewLink : null
+    };
+    const topLeft = { querySelector: () => null, appendChild(child) { this.child = child; } };
+    const controls = {
+        classList: { add() {} }, closest: () => preview,
+        querySelector: selector => selector === '.ytInlinePlayerControlsTopLeftControls' ? topLeft : null
+    };
+    const findAll = page.document.querySelectorAll;
+    page.document.querySelectorAll = selector => {
+        if (selector.startsWith('yt-inline-player-controls')) return [controls];
+        if (selector === 'a[href*="/watch?v="]') return [cardLink];
+        return findAll(selector);
+    };
+
+    page.context.injectHoverButtons();
+    const notInterested = topLeft.child.children.find(wrapper => wrapper.dataset.action === 'notInterested');
+    const event = { preventDefault() {}, stopPropagation() {}, stopImmediatePropagation() {} };
+    notInterested.listeners.click(event);
+    assert.equal(menuButton.clicks, 1);
+
+    const action = menuItem('Not interested');
+    page.dropdown.querySelectorAll = () => [menuItem('Share'), action];
+    [...page.intervals.values()].find(timer => timer.delay === 50).callback();
+    assert.equal(action.clicks, 1);
+    assert.equal(preview.style.display, 'none');
 });
 
 test('language changes refresh injected labels and observe content reuse without class feedback loops', () => {

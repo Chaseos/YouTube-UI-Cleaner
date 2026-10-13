@@ -545,7 +545,8 @@ function injectHoverButtons() {
         if (!preview) return;
 
         const resolveContainer = () => {
-            const href = preview.querySelector('a#media-container-link')?.getAttribute('href');
+            // Newer previews drop the #media-container-link id in favor of a class.
+            const href = preview.querySelector('a#media-container-link, a.ytdVideoPreviewMediaContainerLink')?.getAttribute('href');
             const videoId = href && new URL(href, window.location.origin).searchParams.get('v');
             const previewLeft = preview.getBoundingClientRect().left;
             return Array.from(document.querySelectorAll('a[href*="/watch?v="]'))
