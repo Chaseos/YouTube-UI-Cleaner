@@ -11,7 +11,7 @@ const build = spawnSync(process.execPath, ['scripts/build.mjs'], { encoding: 'ut
 assert.equal(build.status, 0, build.stderr);
 const read = file => readFile(new URL(`../${file}`, import.meta.url), 'utf8');
 const config = JSON.parse(await read('apple/configuration.json'));
-const runtime = ['content.js','youtube-locales.js','styles.css','popup.html','popup.js','icon.png','PRIVACYPOLICY.md','kofi_symbol.svg','simple-video-speed-controller-icon.png'];
+const runtime = ['content.js','youtube-locales.js','styles.css','popup.html','popup.js','icon.png','chaseos_symbol.png','PRIVACYPOLICY.md','kofi_symbol.svg','simple-video-speed-controller-icon.png'];
 
 test('browser packages preserve the shared runtime and locale values', async () => {
   for (const target of ['chromium','firefox']) {
@@ -107,6 +107,30 @@ test('Safari rejects missing or overlong branding and unsafe English build names
 test('required transformations fail closed instead of producing incomplete packages', () => {
   assert.throws(() => removeRange('source', 'missing', 'end'));
   assert.throws(() => replaceRequired('source', 'missing', '', 'fixture'));
+  assert.throws(() => replaceRequired('a b a', 'a', '', 'fixture'), /ambiguous/);
+  assert.throws(() => replaceRequired('<i></i><i></i>', /<i><\/i>/, '', 'fixture'), /ambiguous/);
+  assert.throws(() => removeRange('start x start end', 'start', 'end'), /ambiguous/);
+});
+test('browser popups put the Chaseos Apps link beside the Ko-fi link with its shared styles', async () => {
+  const html = await read('popup.html');
+  const header = html.slice(html.indexOf('<div class="creator-links">'), html.indexOf('<div class="tabs">'));
+  assert.deepEqual([...header.matchAll(/<a id="([^"]+)"/g)].map(match => match[1]), ['site-link', 'kofi-link']);
+  const site = html.match(/<a id="site-link"[\s\S]*?<\/a>/)[0];
+  for (const attribute of ['href="https://chaseos.app"', 'target="_blank"', 'rel="noopener noreferrer"', 'class="kofi-link site-link"', 'title="Chaseos Apps"', 'aria-label="Chaseos Apps"']) assert.ok(site.includes(attribute), attribute);
+  assert.match(site, /<span class="kofi-message site-wordmark" dir="ltr">Chaseos Apps<span aria-hidden="true">°<\/span><\/span>\s*<img src="chaseos_symbol\.png" alt="" class="kofi-icon">/);
+  assert.doesNotMatch(site, /data-i18n/);
+});
+test('Safari keeps the Chaseos Apps link as a third app action without browser support markup', async () => {
+  assert.deepEqual(await readFile('dist/safari/chaseos_symbol.png'), await readFile('chaseos_symbol.png'));
+  const html = await read('dist/safari/popup.html');
+  const actions = html.slice(html.indexOf('<div class="header-actions">'), html.indexOf('<div class="tabs">'));
+  assert.deepEqual([...actions.matchAll(/<a id="([^"]+)" class="apple-action/g)].map(match => match[1]), ['apple-rate', 'apple-support', 'apple-site']);
+  const site = actions.match(/<a id="apple-site".*?<\/a>/)[0];
+  for (const attribute of ['class="apple-action site"', 'href="https://chaseos.app"', 'target="_blank"', 'rel="noopener noreferrer"', 'aria-label="Chaseos Apps"', '<img src="chaseos_symbol.png" alt="">', '<span class="action-label site-wordmark" dir="ltr">Chaseos Apps<span aria-hidden="true">°</span></span>']) assert.ok(site.includes(attribute), attribute);
+  assert.doesNotMatch(html, /creator-links|site-link|kofi/i);
+  // The shared wordmark style sits outside the stripped support styles.
+  assert.match(html, /\.site-wordmark \{[\s\S]*?font-weight: 800;/);
+  assert.match(await read('dist/safari/safari.css'), /\.apple-action\.site:hover/);
 });
 test('Safari settings persist only preferences and handle messaging failure', async () => {
   const script = await read('dist/safari/popup.js');

@@ -7,7 +7,7 @@ import { prepareSafari, validateSafari, writeAppleSettings } from './safari.mjs'
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(await readFile(path.join(root, 'manifest.json')));
 const config = JSON.parse(await readFile(path.join(root, 'apple/configuration.json')));
-const runtimeFiles = ['_locales', 'content.js', 'youtube-locales.js', 'styles.css', 'popup.html', 'popup.js', 'icon.png', 'PRIVACYPOLICY.md'];
+const runtimeFiles = ['_locales', 'content.js', 'youtube-locales.js', 'styles.css', 'popup.html', 'popup.js', 'icon.png', 'chaseos_symbol.png', 'PRIVACYPOLICY.md'];
 const browserAssets = ['kofi_symbol.svg', 'simple-video-speed-controller-icon.png'];
 const selected = process.argv.find(arg => arg.startsWith('--target='))?.split('=')[1];
 if (selected && !['chromium', 'firefox', 'safari'].includes(selected)) throw new Error(`Unknown target: ${selected}`);

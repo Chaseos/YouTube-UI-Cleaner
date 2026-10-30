@@ -21,6 +21,10 @@ html, body { width: 360px; min-width: 360px; max-width: 360px; }
 }
 .apple-action:hover, .apple-action:focus-visible { opacity: 1; background: #ffffff0d; border-color: currentColor; }
 .apple-action:hover .action-label, .apple-action:focus-visible .action-label { max-width: 96px; opacity: 1; }
+.apple-action.site { color: #ecc9ad; }
+.apple-action img { display: block; width: 18px; height: 18px; flex: 0 0 18px; }
+.apple-action.site .action-label { font-size: 9.5px; }
+.apple-action.site:hover, .apple-action.site:focus-visible { background: rgba(189, 125, 89, 0.12); border-color: rgba(214, 150, 108, 0.55); }
 .apple-action:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #8ab4f8; outline-offset: 2px; }
 .apple-notice { padding: 0 16px; font-size: 12px; color: var(--text-color); }
 .apple-notice:empty { display: none; }

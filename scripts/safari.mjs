@@ -51,13 +51,17 @@ const extensionDescriptions = {
   zh_TW: '獨立的 延伸功能，可隱藏 YouTube 上的 Shorts、宣傳內容和不需要的介面元素。'
 };
 
+// Each marker must match exactly once, so an edited source fails the build instead of
+// silently transforming the wrong place or leaving browser-only content behind.
 export function replaceRequired(source, before, after, label) {
-  if (!source.includes(before)) throw new Error(`Safari transformation missing: ${label}`);
+  const count = typeof before === 'string' ? source.split(before).length - 1 : (source.match(new RegExp(before.source, 'g')) ?? []).length;
+  if (count !== 1) throw new Error(`Safari transformation ${count ? 'ambiguous' : 'missing'}: ${label}`);
   return source.replace(before, after);
 }
 export function removeRange(source, start, end) {
   const a = source.indexOf(start), b = source.indexOf(end, a + start.length);
   if (a < 0 || b < 0) throw new Error(`Safari transformation boundaries missing: ${start}`);
+  if (source.indexOf(start, a + 1) >= 0) throw new Error(`Safari transformation boundaries ambiguous: ${start}`);
   return source.slice(0, a) + source.slice(b);
 }
 
@@ -75,13 +79,12 @@ export async function prepareSafari(root, target, config) {
   const star = 'M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z';
   const heart = 'M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12z';
   const action = (id, href, key, title, svg, cls = '') => `<a id="${id}" class="apple-action ${cls}" href="${href}" aria-label="${title}" data-i18n-aria-label="${key}" title="${title}" data-i18n-title="${key}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${svg}"/></svg><span class="action-label" data-i18n="${key}">${title}</span></a>`;
-  const oldAction = html.match(/<a id="kofi-link"[\s\S]*?<\/a>/)?.[0];
-  if (!oldAction) throw new Error('Safari support markup missing');
-  html = html.replace(oldAction, action('apple-rate', reviewURL, 'rateThisApp', 'Rate this app', star) + action('apple-support', `${config.urlScheme}://support`, 'supportOptions', 'Support options', heart, 'support'));
+  const site = '<a id="apple-site" class="apple-action site" href="https://chaseos.app" target="_blank" rel="noopener noreferrer" aria-label="Chaseos Apps" title="Chaseos Apps"><img src="chaseos_symbol.png" alt=""><span class="action-label site-wordmark" dir="ltr">Chaseos Apps<span aria-hidden="true">°</span></span></a>';
+  html = replaceRequired(html, /<div class="creator-links">[\s\S]*?\n      <\/div>/, action('apple-rate', reviewURL, 'rateThisApp', 'Rate this app', star) + action('apple-support', `${config.urlScheme}://support`, 'supportOptions', 'Support options', heart, 'support') + site, 'support markup');
   html = removeRange(html, '    <div id="review-card"', '  <div class="status"');
-  html = html.replace('  <div class="status"', '  </div>\n  <p class="apple-notice" id="apple-notice" role="status" aria-live="polite"></p>\n  <div class="status"');
-  html = html.replace('</head>', '<link rel="stylesheet" href="safari.css">\n</head>');
-  html = html.replace('<script src="popup.js"></script>', '<script src="popup.js"></script>\n  <script src="actions.js"></script>');
+  html = replaceRequired(html, '  <div class="status"', '  </div>\n  <p class="apple-notice" id="apple-notice" role="status" aria-live="polite"></p>\n  <div class="status"', 'notice');
+  html = replaceRequired(html, '</head>', '<link rel="stylesheet" href="safari.css">\n</head>', 'stylesheet');
+  html = replaceRequired(html, '<script src="popup.js"></script>', '<script src="popup.js"></script>\n  <script src="actions.js"></script>', 'actions script');
   let script = await readFile(path.join(root, 'popup.js'), 'utf8');
   script = removeRange(script, "const KOFI_URL =", '// Helper to get element');
   script = removeRange(script, '    const shouldMarkInteraction =', '    chrome.storage.sync.set(payload, () => {');
