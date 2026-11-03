@@ -169,6 +169,26 @@
         assert(getComputedStyle(home.firstElementChild).display !== 'none', 'bar hidden away from Home');
         updateClasses({});
     });
+    check('Watch-page Shorts hide only on watch pages', () => {
+        updateClasses({ shortsWatch: true });
+        const page = fixture('en', '<div><ytd-watch-flexy><ytd-reel-shelf-renderer></ytd-reel-shelf-renderer><yt-lockup-view-model><a href="/shorts/abc">Short</a></yt-lockup-view-model><yt-lockup-view-model><a href="/watch?v=abc">Video</a></yt-lockup-view-model></ytd-watch-flexy><ytd-reel-shelf-renderer id="elsewhere"></ytd-reel-shelf-renderer></div>');
+        const [shelf, short, video] = page.querySelector('ytd-watch-flexy').children;
+        assert(getComputedStyle(shelf).display === 'none', 'shelf visible');
+        assert(getComputedStyle(short).display === 'none', 'short card visible');
+        assert(getComputedStyle(video).display !== 'none', 'regular video hidden');
+        assert(getComputedStyle(page.querySelector('#elsewhere')).display !== 'none', 'shelf hidden elsewhere');
+        updateClasses({});
+    });
+    check('Pausing reveals keyword matches without losing the filter', () => {
+        const card = fixture('en', '<yt-lockup-view-model>spoiler</yt-lockup-view-model>');
+        currentCustomFilters = [{ enabled: true, keywords: ['spoiler'] }];
+        tagElements(); assert(tagged(card, 'is-custom-hidden'), 'keyword missed');
+        currentSettings = { ...currentSettings, paused: true };
+        tagElements(); assert(!tagged(card, 'is-custom-hidden'), 'still hidden while paused');
+        currentSettings = { ...currentSettings, paused: false };
+        tagElements(); assert(tagged(card, 'is-custom-hidden'), 'not restored');
+        currentCustomFilters = [];
+    });
     check('hideSections leaves sections outside Home visible', () => {
         updateClasses({ hideSections: true });
         const shelf = fixture('en', '<ytd-rich-section-renderer><span id="title">Featured shows</span></ytd-rich-section-renderer>');

@@ -42,6 +42,7 @@ const keys = [
     'shortsHome',
     'shortsSubs',
     'shortsSearch',
+    'shortsWatch',
     'shortsSidebar',
     'playables',
     'paidPromotion',
@@ -59,7 +60,7 @@ const keys = [
 ];
 
 const toggleGroups = Object.freeze([
-    { masterId: 'shorts', childKeys: ['shortsHome', 'shortsSidebar', 'shortsSubs', 'shortsSearch'], storeMaster: true },
+    { masterId: 'shorts', childKeys: ['shortsHome', 'shortsSidebar', 'shortsSubs', 'shortsSearch', 'shortsWatch'], storeMaster: true },
     { masterId: 'grouped', childKeys: ['groupedMixes', 'groupedPodcasts', 'groupedPlaylists'], storeMaster: true },
     { masterId: 'liveUpcoming', childKeys: ['hideLive', 'hideUpcoming'], storeMaster: false },
     { masterId: 'feedExtras', childKeys: ['feedPills', 'hideSections'], storeMaster: false },
@@ -106,26 +107,43 @@ const SAVE_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="current
 
 let customFilters = []; // Array of { id, keyword, enabled }
 
+// Settings added after release follow Shorts on Home until the user changes them.
+const SHORTS_HOME_FOLLOWERS = ['shortsSidebar', 'shortsWatch'];
+
+let filtersPaused = false;
+
+function setPausedAppearance(paused) {
+    filtersPaused = paused;
+    document.querySelector('.popup-root').classList.toggle('filters-paused', paused);
+    const label = paused
+        ? getMessage('resumeAllFilters', undefined, 'Resume All Filters')
+        : getMessage('pauseAllFilters', undefined, 'Pause All Filters');
+    const button = getEl('pauseToggle');
+    button.title = label;
+    button.setAttribute('aria-label', label);
+}
+
 // Load saved settings
-chrome.storage.sync.get([...keys, 'customFilters'], (result) => {
+chrome.storage.sync.get([...keys, 'customFilters', 'paused'], (result) => {
     // Default to true if not set (first run), except maybe sub-options should track master if undefined?
     // Let's default all to true for "cleaner" experience out of box.
     const settings = {};
     keys.forEach(key => {
-        // When the sidebar setting was previously removed, it followed the
-        // Home setting. Preserve that behavior until the user changes it.
-        settings[key] = key === 'shortsSidebar' && result[key] === undefined
+        settings[key] = SHORTS_HOME_FOLLOWERS.includes(key) && result[key] === undefined
             ? (result.shortsHome !== undefined ? result.shortsHome : true)
             : (result[key] !== undefined ? result[key] : true);
         const el = getEl(key);
         if (el) el.checked = settings[key];
     });
 
-    // Persist the inferred value once so Home and Sidebar are independent
+    // Persist inferred values once so these stay independent of Home
     // after this migration, even if only the Home option changes later.
-    if (result.shortsSidebar === undefined) {
-        chrome.storage.sync.set({ shortsSidebar: settings.shortsSidebar });
+    const inferred = SHORTS_HOME_FOLLOWERS.filter(key => result[key] === undefined);
+    if (inferred.length > 0) {
+        chrome.storage.sync.set(Object.fromEntries(inferred.map(key => [key, settings[key]])));
     }
+
+    setPausedAppearance(result.paused === true);
 
     // Handle custom filters list
     customFilters = result['customFilters'] || [];
@@ -564,6 +582,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const messageKey = isExpanded ? button.dataset.i18nHide : button.dataset.i18nShow;
             button.setAttribute('aria-label', getMessage(messageKey, undefined, button.getAttribute('aria-label')));
         });
+    });
+
+    getEl('pauseToggle').addEventListener('click', () => {
+        setPausedAppearance(!filtersPaused);
+        saveSetting('paused', filtersPaused);
     });
 
     // Other separate toggles

@@ -24,6 +24,8 @@ function isRecommendationPage() {
 
 // Function to update classes on the HTML element
 function updateClasses(settings) {
+    // Pausing leaves every saved toggle alone and simply applies none of them.
+    if (settings.paused) settings = {};
     const html = document.documentElement;
     const onRecommendationPage = isRecommendationPage();
 
@@ -38,6 +40,9 @@ function updateClasses(settings) {
     // Shorts: Search
     if (settings.shortsSearch) html.classList.add('yt-hide-shorts-search');
     else html.classList.remove('yt-hide-shorts-search');
+
+    // Shorts: Watch Page
+    html.classList.toggle('yt-hide-shorts-watch', Boolean(settings.shortsWatch));
 
     // Shorts: Sidebar
     if (settings.shortsSidebar) html.classList.add('yt-hide-shorts-sidebar');
@@ -307,7 +312,7 @@ function tagElements() {
 
     // 11. Tag Custom Keywords
     const activeFilters = [];
-    if (currentCustomFilters && currentCustomFilters.length > 0) {
+    if (!currentSettings.paused && currentCustomFilters && currentCustomFilters.length > 0) {
         currentCustomFilters.filter(f => f.enabled).forEach(f => {
             if (f.keywords && f.keywords.length > 0) {
                 activeFilters.push(...f.keywords.map(k => k.toLowerCase()));
@@ -585,12 +590,15 @@ function injectWatchPageHoverButtons() {
 }
 
 // Keys to retrieve
-const keys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideSponsoredVideos', 'hideFeaturedServices', 'hideMembersOnly', 'hideUpcoming', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections', 'customFilters'];
+const toggleKeys = ['shortsHome', 'shortsSubs', 'shortsSearch', 'shortsWatch', 'shortsSidebar', 'playables', 'paidPromotion', 'hideSponsoredVideos', 'hideFeaturedServices', 'hideMembersOnly', 'hideUpcoming', 'groupedMixes', 'groupedPodcasts', 'groupedPlaylists', 'hideLive', 'feedPills', 'hideSections'];
+const keys = [...toggleKeys, 'paused', 'customFilters'];
+// Settings added after release follow Shorts on Home until the user changes them.
+const followsShortsHome = ['shortsSidebar', 'shortsWatch'];
 
 // Apply defaults immediately to prevent flash on load
 const defaultSettings = {};
-keys.forEach(key => {
-    if (key !== 'customFilters') defaultSettings[key] = true;
+toggleKeys.forEach(key => {
+    defaultSettings[key] = true;
 });
 currentSettings = defaultSettings;
 updateClasses(currentSettings);
@@ -599,13 +607,12 @@ function loadSettingsAndApply() {
     chrome.storage.sync.get(keys, (result) => {
         // Default to true if undefined
         const settings = {};
-        keys.forEach(key => {
-            if (key !== 'customFilters') {
-                settings[key] = key === 'shortsSidebar' && result[key] === undefined
-                    ? (result.shortsHome !== undefined ? result.shortsHome : true)
-                    : (result[key] !== undefined ? result[key] : true);
-            }
+        toggleKeys.forEach(key => {
+            settings[key] = followsShortsHome.includes(key) && result[key] === undefined
+                ? (result.shortsHome !== undefined ? result.shortsHome : true)
+                : (result[key] !== undefined ? result[key] : true);
         });
+        settings.paused = result.paused === true;
         currentCustomFilters = result['customFilters'] || [];
         currentSettings = settings;
         updateClasses(currentSettings);

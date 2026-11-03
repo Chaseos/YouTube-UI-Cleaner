@@ -38,6 +38,13 @@ html.yt-hide-shorts-search ytd-search ytd-video-renderer:has(a#thumbnail[href*="
 }
 
 
+/* --- SHORTS: WATCH PAGE --- */
+html.yt-hide-shorts-watch ytd-watch-flexy :is(ytd-reel-shelf-renderer, .is-shorts-shelf, grid-shelf-view-model:has(ytm-shorts-lockup-view-model-v2)),
+html.yt-hide-shorts-watch ytd-watch-flexy :is(yt-lockup-view-model, ytd-compact-video-renderer):has(a[href^="/shorts/"]) {
+    display: none !important;
+}
+
+
 /* --- PLAYABLES --- */
 /* Target Playables Shelf (Section or Grid Shelf) */
 html.yt-hide-playables ytd-rich-section-renderer:has(.is-playables-shelf),

@@ -102,7 +102,55 @@
     .header-actions {
       display: flex;
       align-items: center;
+      gap: 6px;
       flex-shrink: 0;
+    }
+
+    .pause-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border: none;
+      border-radius: 50%;
+      background-color: var(--toggle-bg-off);
+      color: var(--white);
+      cursor: pointer;
+      transition: background-color 0.18s ease;
+    }
+
+    .pause-toggle:hover {
+      background-color: #555555;
+    }
+
+    .pause-toggle:focus-visible {
+      outline: 2px solid #8ab4f8;
+      outline-offset: 2px;
+    }
+
+    .pause-toggle svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .pause-toggle .play-icon,
+    .filters-paused .pause-toggle .pause-icon {
+      display: none;
+    }
+
+    .filters-paused .pause-toggle {
+      background-color: var(--primary-color);
+    }
+
+    .filters-paused .pause-toggle:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .filters-paused .pause-toggle .play-icon {
+      display: block;
     }
 
     /* Mirrors the Chaseos Apps site wordmark; the Safari popup uses it too. */
@@ -196,15 +244,23 @@
       }
     }
 
+    /* Reserves the floating site link's room, so its hover truncates the title
+       just as the in-flow Ko-fi link's does. */
     .creator-links {
       position: relative;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
+      min-width: 84px;
+      transition: min-width 0.18s ease;
     }
 
-    /* An in-flow link would truncate the title, so this one takes no layout
-       space: its icon rests in the free header space beside the Ko-fi link and
-       opens over that link. Each link steps aside while the other is open. */
+    .creator-links:has(.site-link:is(:hover, :focus-visible)) {
+      min-width: 122px;
+    }
+
+    /* The icon rests beside the Ko-fi link and opens over it. Each link steps
+       aside while the other is open. */
     .site-link {
       position: absolute;
       inset-inline-end: 43px;
@@ -248,6 +304,10 @@
     }
 
     /* Option styling */
+    .filters-paused .container {
+      opacity: 0.5;
+    }
+
     .option {
       display: flex;
       align-items: center;
@@ -839,6 +899,10 @@
           <img src="kofi_symbol.svg" alt="" class="kofi-icon">
         </a>
       </div>
+      <button type="button" id="pauseToggle" class="pause-toggle" title="Pause All Filters" aria-label="Pause All Filters">
+        <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
     </div>
   </div>
 
@@ -894,6 +958,13 @@
                 <span class="toggle-slider"></span>
               </label>
               <div class="option-content"><div class="option-title" data-i18n="searchResults">Search Results</div></div>
+            </div>
+            <div class="option sub-option">
+              <label class="toggle">
+                <input type="checkbox" id="shortsWatch" aria-label="Video Page" data-i18n-aria-label="videoPage">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="option-content"><div class="option-title" data-i18n="videoPage">Video Page</div></div>
             </div>
           </div>
         </div>

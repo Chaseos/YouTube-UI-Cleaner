@@ -14,6 +14,9 @@
   "featuredServiceVideos":{"message":"Video berisi penawaran layanan lain"},"featuredServiceDescription":{"message":"Penawaran langganan dan uji coba dari layanan lain"},"paidPromotionBanners":{"message":"Banner promosi berbayar"},
   "createNewFilter":{"message":"+ Buat filter baru"},"reviewPrompt":{"message":"Bermanfaat? Tulis ulasan"},"needSpeedControls":{"message":"Perlu kontrol kecepatan?"},"trySpeedController":{"message":"Coba Simple Video Speed Controller."},"settingsSaved":{"message":"Setelan berhasil disimpan!"},
   "saveFailed":{"message":"Perubahan tidak disimpan. Daftar kata kunci Anda mungkin terlalu panjang."},
+  "videoPage":{"message":"Halaman video"},
+  "pauseAllFilters":{"message":"Jeda semua filter"},
+  "resumeAllFilters":{"message":"Lanjutkan semua filter"},
   "noKeywordsAdded":{"message":"Belum ada kata kunci"},"unnamedFilter":{"message":"Filter tanpa nama"},"enterFilterName":{"message":"Masukkan nama filter"},"edit":{"message":"Edit"},"delete":{"message":"Hapus"},"keywordsInGroup":{"message":"Kata kunci dalam grup ini:"},
   "addKeywordExample":{"message":"Tambahkan kata kunci (mis., $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Tambahkan"},"save":{"message":"Simpan"},"removeKeyword":{"message":"Hapus $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"Bocoran"},"keywordHintScore":{"message":"Skor"},"keywordHintResult":{"message":"Hasil"},"keywordHintEnding":{"message":"Akhir"},"keywordHintWinner":{"message":"Pemenang"},"keywordHintHighlights":{"message":"Sorotan"},"keywordHintFinale":{"message":"Final"},"keywordHintDefeats":{"message":"Mengalahkan"},"keywordHintEliminated":{"message":"Tersingkir"},"keywordHintDrafted":{"message":"Dipilih dalam draft"},"keywordHintReview":{"message":"Ulasan"},"keywordHintReaction":{"message":"Reaksi"}

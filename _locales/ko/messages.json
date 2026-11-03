@@ -14,6 +14,9 @@
   "featuredServiceVideos":{"message":"다른 서비스의 혜택 동영상"},"featuredServiceDescription":{"message":"다른 서비스의 구독 및 체험 혜택"},"paidPromotionBanners":{"message":"유료 프로모션 배너"},
   "createNewFilter":{"message":"+ 새 필터 만들기"},"reviewPrompt":{"message":"유용한가요? 리뷰를 남겨 주세요"},"needSpeedControls":{"message":"재생 속도 조절이 필요한가요?"},"trySpeedController":{"message":"Simple Video Speed Controller를 사용해 보세요."},"settingsSaved":{"message":"설정을 저장했습니다!"},
   "saveFailed":{"message":"변경사항을 저장하지 못했습니다. 키워드 목록이 너무 길 수 있습니다."},
+  "videoPage":{"message":"동영상 페이지"},
+  "pauseAllFilters":{"message":"모든 필터 일시중지"},
+  "resumeAllFilters":{"message":"모든 필터 다시 시작"},
   "noKeywordsAdded":{"message":"추가된 키워드 없음"},"unnamedFilter":{"message":"이름 없는 필터"},"enterFilterName":{"message":"필터 이름 입력"},"edit":{"message":"수정"},"delete":{"message":"삭제"},"keywordsInGroup":{"message":"이 그룹의 키워드:"},
   "addKeywordExample":{"message":"키워드 추가(예: $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"추가"},"save":{"message":"저장"},"removeKeyword":{"message":"$keyword$ 삭제","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"스포일러"},"keywordHintScore":{"message":"점수"},"keywordHintResult":{"message":"결과"},"keywordHintEnding":{"message":"결말"},"keywordHintWinner":{"message":"우승자"},"keywordHintHighlights":{"message":"하이라이트"},"keywordHintFinale":{"message":"최종회"},"keywordHintDefeats":{"message":"격파"},"keywordHintEliminated":{"message":"탈락"},"keywordHintDrafted":{"message":"드래프트 지명"},"keywordHintReview":{"message":"리뷰"},"keywordHintReaction":{"message":"반응"}

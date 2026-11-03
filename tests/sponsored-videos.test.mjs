@@ -75,3 +75,20 @@ test('content-type filters apply only where YouTube recommends videos', () => {
         assert.ok(page.classes.has('yt-hide-sponsored-videos'), `ads shown on ${pathname}`);
     }
 });
+
+test('pausing applies no toggles and resuming restores saved settings', () => {
+    const saved = { paused: true, hideSponsoredVideos: true };
+    const page = loadContent(saved);
+    assert.deepEqual([...page.classes].filter(name => name.startsWith('yt-hide-')), []);
+    saved.paused = false;
+    page.reload({ paused: {} });
+    assert.ok(page.classes.has('yt-hide-sponsored-videos'));
+    assert.ok(page.classes.has('yt-hide-shorts-home'));
+});
+
+test('watch-page Shorts follow the saved Home choice until set on their own', () => {
+    assert.ok(loadContent({}).classes.has('yt-hide-shorts-watch'));
+    assert.ok(loadContent({ shortsHome: true }).classes.has('yt-hide-shorts-watch'));
+    assert.equal(loadContent({ shortsHome: false }).classes.has('yt-hide-shorts-watch'), false);
+    assert.ok(loadContent({ shortsHome: false, shortsWatch: true }).classes.has('yt-hide-shorts-watch'));
+});

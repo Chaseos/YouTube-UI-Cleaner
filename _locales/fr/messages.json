@@ -14,6 +14,9 @@
   "featuredServiceVideos":{"message":"Vidéos présentant des offres d'autres services"},"featuredServiceDescription":{"message":"Offres d'abonnement et d'essai d'autres services"},"paidPromotionBanners":{"message":"Bannières « Promotion payante »"},
   "createNewFilter":{"message":"+ Créer un filtre"},"reviewPrompt":{"message":"Utile ? Laissez un avis"},"needSpeedControls":{"message":"Besoin de régler la vitesse ?"},"trySpeedController":{"message":"Essayez Simple Video Speed Controller."},"settingsSaved":{"message":"Paramètres enregistrés !"},
   "saveFailed":{"message":"Les modifications n'ont pas été enregistrées. Vos listes de mots-clés sont peut-être trop longues."},
+  "videoPage":{"message":"Page de la vidéo"},
+  "pauseAllFilters":{"message":"Mettre tous les filtres en pause"},
+  "resumeAllFilters":{"message":"Reprendre tous les filtres"},
   "noKeywordsAdded":{"message":"Aucun mot-clé ajouté"},"unnamedFilter":{"message":"Filtre sans nom"},"enterFilterName":{"message":"Saisissez le nom du filtre"},"edit":{"message":"Modifier"},"delete":{"message":"Supprimer"},"keywordsInGroup":{"message":"Mots-clés de ce groupe :"},
   "addKeywordExample":{"message":"Ajouter un mot-clé (ex. : $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Ajouter"},"save":{"message":"Enregistrer"},"removeKeyword":{"message":"Supprimer $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"Spoiler"},"keywordHintScore":{"message":"Score"},"keywordHintResult":{"message":"Résultat"},"keywordHintEnding":{"message":"Fin"},"keywordHintWinner":{"message":"Gagnant"},"keywordHintHighlights":{"message":"Temps forts"},"keywordHintFinale":{"message":"Finale"},"keywordHintDefeats":{"message":"Bat"},"keywordHintEliminated":{"message":"Éliminé"},"keywordHintDrafted":{"message":"Sélectionné à la draft"},"keywordHintReview":{"message":"Avis"},"keywordHintReaction":{"message":"Réaction"}

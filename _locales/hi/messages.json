@@ -14,6 +14,9 @@
   "featuredServiceVideos":{"message":"अन्य सेवाओं के ऑफ़र वाले वीडियो"},"featuredServiceDescription":{"message":"अन्य सेवाओं की सदस्यता और आज़माइश के ऑफ़र"},"paidPromotionBanners":{"message":"पैसे देकर किए गए प्रचार के बैनर"},
   "createNewFilter":{"message":"+ नया फ़िल्टर बनाएँ"},"reviewPrompt":{"message":"काम का लगा? समीक्षा दें"},"needSpeedControls":{"message":"स्पीड कंट्रोल चाहिए?"},"trySpeedController":{"message":"Simple Video Speed Controller आज़माएँ।"},"settingsSaved":{"message":"सेटिंग सेव हो गईं!"},
   "saveFailed":{"message":"बदलाव सेव नहीं हुए। हो सकता है कि आपकी कीवर्ड सूचियाँ बहुत लंबी हों।"},
+  "videoPage":{"message":"वीडियो पेज"},
+  "pauseAllFilters":{"message":"सभी फ़िल्टर रोकें"},
+  "resumeAllFilters":{"message":"सभी फ़िल्टर फिर से चालू करें"},
   "noKeywordsAdded":{"message":"कोई कीवर्ड नहीं जोड़ा गया"},"unnamedFilter":{"message":"बिना नाम का फ़िल्टर"},"enterFilterName":{"message":"फ़िल्टर का नाम डालें"},"edit":{"message":"संपादित करें"},"delete":{"message":"मिटाएँ"},"keywordsInGroup":{"message":"इस समूह के कीवर्ड:"},
   "addKeywordExample":{"message":"कीवर्ड जोड़ें (जैसे, $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"जोड़ें"},"save":{"message":"सेव करें"},"removeKeyword":{"message":"$keyword$ हटाएँ","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"स्पॉइलर"},"keywordHintScore":{"message":"स्कोर"},"keywordHintResult":{"message":"नतीजा"},"keywordHintEnding":{"message":"अंत"},"keywordHintWinner":{"message":"विजेता"},"keywordHintHighlights":{"message":"हाइलाइट"},"keywordHintFinale":{"message":"फ़िनाले"},"keywordHintDefeats":{"message":"हराया"},"keywordHintEliminated":{"message":"बाहर"},"keywordHintDrafted":{"message":"ड्राफ़्ट में चुना गया"},"keywordHintReview":{"message":"समीक्षा"},"keywordHintReaction":{"message":"प्रतिक्रिया"}

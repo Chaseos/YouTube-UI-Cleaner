@@ -27,7 +27,7 @@ Use master switches for a whole category or expand a category to control its fil
 
 | Category | Available controls |
 | --- | --- |
-| Shorts | Hide Shorts on Home, in the sidebar, in Subscriptions, and in Search results |
+| Shorts | Hide Shorts on Home, in the sidebar, in Subscriptions, in Search results, and on video pages |
 | Mixes, podcasts, and playlists | Hide these recommendations while leaving your Playlists library intact |
 | Live and upcoming | Hide live streams separately from scheduled videos and upcoming premieres |
 | Home feed extras | Hide the category filter chips or dismissible sections such as Community posts, nudges, and recommendation shelves |
@@ -37,6 +37,8 @@ Use master switches for a whole category or expand a category to control its fil
 Built-in cleanup filters are enabled on first install and can be changed at any time from the extension popup. Filters for mixes, podcasts, playlists, live, upcoming, and members-only videos apply to Home, Subscriptions, Search, and watch-page recommendations, so channel pages and destinations such as Podcasts stay complete.
 
 The sponsored-video filter works in all browser packages and hides ad cards independently of paid-promotion disclosure overlays. It does not block network requests, skip ads during playback, or remove sponsor segments from videos.
+
+Use the round pause button in the popup header to see YouTube unfiltered for a moment, then press play to resume. It applies to every open YouTube tab and keeps all of your settings, so turning it off restores them exactly. The quick video actions stay available while paused.
 
 ### Custom keyword filters
 
