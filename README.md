@@ -34,7 +34,7 @@ Use master switches for a whole category or expand a category to control its fil
 | Promotions & Sponsors | Hide sponsored video cards site-wide, featured subscription or trial offers, and paid-promotion overlays together or independently |
 | Other content | Hide members-only videos and YouTube Playables shelves |
 
-Built-in cleanup filters are enabled on first install and can be changed at any time from the extension popup.
+Built-in cleanup filters are enabled on first install and can be changed at any time from the extension popup. Filters for mixes, podcasts, playlists, live, upcoming, and members-only videos apply to Home, Subscriptions, Search, and watch-page recommendations, so channel pages and destinations such as Podcasts stay complete.
 
 The sponsored-video filter works in all browser packages and hides ad cards independently of paid-promotion disclosure overlays. It does not block network requests, skip ads during playback, or remove sponsor segments from videos.
 
@@ -87,7 +87,7 @@ YouTube UI Cleaner operates locally and does not collect, store, or transmit per
 The extension requests only the permissions needed for its core functionality:
 
 - `storage` saves toggles and custom keyword groups using browser sync storage.
-- `*://*.youtube.com/*` lets the extension apply cleanup rules on YouTube only.
+- `*://www.youtube.com/*` and `*://m.youtube.com/*` let the extension apply cleanup rules on YouTube's main site only, not on YouTube Music or YouTube Studio.
 
 The Firefox manifest explicitly declares that no data collection is required.
 

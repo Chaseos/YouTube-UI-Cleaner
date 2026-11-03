@@ -88,16 +88,13 @@ export async function prepareSafari(root, target, config) {
   let script = await readFile(path.join(root, 'popup.js'), 'utf8');
   script = removeRange(script, "const KOFI_URL =", '// Helper to get element');
   script = removeRange(script, '    const shouldMarkInteraction =', '    chrome.storage.sync.set(payload, () => {');
-  script = replaceRequired(script, '    chrome.storage.sync.set(payload, () => {\n        if (shouldMarkInteraction) {\n            checkReviewPrompt();\n        }', '    chrome.storage.sync.set(updates, () => {\n        if (chrome.runtime.lastError) {\n            document.getElementById("apple-notice").textContent = getMessage("saveFailed");\n            return;\n        }', 'settings persistence');
+  script = replaceRequired(script, 'chrome.storage.sync.set(payload, () => {', 'chrome.storage.sync.set(updates, () => {', 'settings persistence');
+  script = replaceRequired(script, "\n        if (shouldMarkInteraction) {\n            checkReviewPrompt();\n        }\n", '', 'review prompt check');
   script = removeRange(script, 'function checkReviewPrompt()', '// Add event listeners');
   script = removeRange(script, "    const kofiLink =", '    // Tab Switching');
-  script = replaceRequired(script, "chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });", "chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' }, () => { void chrome.runtime.lastError; });", 'message error handling');
-  let content = await readFile(path.join(root, 'content.js'), 'utf8');
-  content += `\n// Safari preferences are local; refresh every open YouTube tab on change.\nchrome.storage.onChanged.addListener((changes, area) => {\n    if ((area === 'sync' || area === 'local') && keys.some(key => Object.hasOwn(changes, key))) {\n        loadSettingsAndApply();\n    }\n});\n`;
   await Promise.all([
     writeFile(path.join(target, 'PRIVACYPOLICY.md'), privacy),
     writeFile(path.join(target, 'popup.html'), html), writeFile(path.join(target, 'popup.js'), script),
-    writeFile(path.join(target, 'content.js'), content),
     writeFile(path.join(target, 'safari.css'), await readFile(path.join(root, 'platforms/safari/popup.css'))),
     writeFile(path.join(target, 'actions.js'), await readFile(path.join(root, 'platforms/safari/actions.js')))
   ]);
@@ -115,7 +112,6 @@ export async function prepareSafari(root, target, config) {
     messages.rateThisApp = { message: rate };
     messages.supportOptions = { message: support };
     messages.ratingUnavailable = { message: 'Rating is unavailable until this app has an App Store page.' };
-    messages.saveFailed = { message: 'Settings could not be saved. Please reopen the popup and try again.' };
     for (const [key, entry] of Object.entries(messages)) {
       entry.description = `Localized message for ${key}.`;
     }

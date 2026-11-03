@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <title data-i18n="extensionName">YouTube UI Cleaner</title>
 
   <style>
@@ -405,8 +406,9 @@
     .status {
       position: fixed;
       top: 16px;
+      inset-inline-start: 16px;
       inset-inline-end: 16px;
-      background-color: #2e7d32;
+      background-color: #b3261e;
       color: white;
       padding: 10px 16px;
       border-radius: var(--border-radius);
@@ -1066,7 +1068,7 @@
     </div>
   </div>
 
-  <div class="status" id="statusMessage" data-i18n="settingsSaved">Settings saved successfully!</div>
+  <div class="status" id="statusMessage" role="alert"></div>
   </div>
 
   <script src="popup.js"></script>

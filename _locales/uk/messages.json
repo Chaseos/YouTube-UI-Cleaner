@@ -44,6 +44,7 @@
   "needSpeedControls": { "message": "Потрібне керування швидкістю?" },
   "trySpeedController": { "message": "Спробуйте Simple Video Speed Controller." },
   "settingsSaved": { "message": "Налаштування збережено!" },
+  "saveFailed": { "message": "Зміни не збережено. Можливо, ваші списки ключових слів задовгі." },
   "noKeywordsAdded": { "message": "Ключові слова не додано" },
   "unnamedFilter": { "message": "Фільтр без назви" },
   "enterFilterName": { "message": "Введіть назву фільтра" },

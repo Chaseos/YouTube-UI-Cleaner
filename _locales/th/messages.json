@@ -44,6 +44,7 @@
   "needSpeedControls": { "message": "ต้องการควบคุมความเร็วไหม" },
   "trySpeedController": { "message": "ลองใช้ Simple Video Speed Controller" },
   "settingsSaved": { "message": "บันทึกการตั้งค่าเรียบร้อยแล้ว!" },
+  "saveFailed": { "message": "บันทึกการเปลี่ยนแปลงไม่สำเร็จ รายการคีย์เวิร์ดของคุณอาจยาวเกินไป" },
   "noKeywordsAdded": { "message": "ยังไม่ได้เพิ่มคีย์เวิร์ด" },
   "unnamedFilter": { "message": "ตัวกรองไม่มีชื่อ" },
   "enterFilterName": { "message": "ป้อนชื่อตัวกรอง" },

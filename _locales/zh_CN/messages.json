@@ -13,6 +13,7 @@
   "hidePromotions":{"message":"隐藏推广与赞助内容"},"showPromotionOptions":{"message":"显示推广与赞助内容选项"},"hidePromotionOptions":{"message":"隐藏推广与赞助内容选项"},
   "featuredServiceVideos":{"message":"其他服务的优惠视频"},"featuredServiceDescription":{"message":"其他服务的订阅和试用优惠"},"paidPromotionBanners":{"message":"付费宣传横幅"},
   "createNewFilter":{"message":"+ 新建过滤器"},"reviewPrompt":{"message":"觉得有用吗？欢迎留下评价"},"needSpeedControls":{"message":"需要播放速度控制吗？"},"trySpeedController":{"message":"试用 Simple Video Speed Controller。"},"settingsSaved":{"message":"设置已成功保存！"},
+  "saveFailed":{"message":"更改未保存。您的关键词列表可能过长。"},
   "noKeywordsAdded":{"message":"尚未添加关键词"},"unnamedFilter":{"message":"未命名的过滤器"},"enterFilterName":{"message":"输入过滤器名称"},"edit":{"message":"编辑"},"delete":{"message":"删除"},"keywordsInGroup":{"message":"该组中的关键词："},
   "addKeywordExample":{"message":"添加关键词（例如：$example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"添加"},"save":{"message":"保存"},"removeKeyword":{"message":"移除 $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"剧透"},"keywordHintScore":{"message":"比分"},"keywordHintResult":{"message":"结果"},"keywordHintEnding":{"message":"结局"},"keywordHintWinner":{"message":"获胜者"},"keywordHintHighlights":{"message":"精彩片段"},"keywordHintFinale":{"message":"大结局"},"keywordHintDefeats":{"message":"击败"},"keywordHintEliminated":{"message":"淘汰"},"keywordHintDrafted":{"message":"选秀"},"keywordHintReview":{"message":"评价"},"keywordHintReaction":{"message":"反应"}

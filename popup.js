@@ -96,6 +96,9 @@ const SIMPLE_VIDEO_SPEED_CONTROLLER_AD = Object.freeze({
 // Helper to get element
 const getEl = (id) => document.getElementById(id);
 
+// Latin, full-width, ideographic, Arabic, and small commas all separate keywords.
+const parseKeywords = (value) => value.split(/[,，、،﹐､]/).map(k => k.trim()).filter(k => k.length > 0);
+
 // Icons
 const EDIT_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>`;
 const DELETE_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
@@ -219,10 +222,9 @@ function renderFilters(focusId = null) {
         // Done/Collapse Listener
         item.querySelector('.done-btn').addEventListener('click', () => {
             const val = titleInput.value.trim();
-            if (val && val !== filter.title) {
-                filter.title = val;
-                saveSetting('customFilters', customFilters);
-            }
+            if (val) filter.title = val;
+            addPendingKeywords();
+            saveSetting('customFilters', customFilters);
             item.classList.remove('editing');
             renderFilters();
         });
@@ -247,16 +249,8 @@ function renderFilters(focusId = null) {
         const addKwBtn = item.querySelector('.add-group-keyword-btn');
         const kwInput = item.querySelector('.group-keyword-input');
         
-        const addKeyword = () => {
-            const rawVal = kwInput.value;
-            const kws = rawVal.split(',').map(k => k.trim()).filter(k => k.length > 0);
-            
-            // Ensure title is saved before re-rendering
-            const currentTitle = titleInput.value.trim();
-            if (currentTitle !== filter.title) {
-                filter.title = currentTitle;
-            }
-            
+        const addPendingKeywords = () => {
+            const kws = parseKeywords(kwInput.value);
             let addedAny = false;
             kws.forEach(kw => {
                 if (!filter.keywords.includes(kw)) {
@@ -264,12 +258,23 @@ function renderFilters(focusId = null) {
                     addedAny = true;
                 }
             });
+            return { entered: kws.length > 0, addedAny };
+        };
+
+        const addKeyword = () => {
+            // Ensure title is saved before re-rendering
+            const currentTitle = titleInput.value.trim();
+            if (currentTitle !== filter.title) {
+                filter.title = currentTitle;
+            }
+            
+            const { entered, addedAny } = addPendingKeywords();
             
             if (addedAny || currentTitle !== filter.title) {
                 saveSetting('customFilters', customFilters);
             }
             
-            if (kws.length > 0 || currentTitle !== filter.title) {
+            if (entered || currentTitle !== filter.title) {
                 renderFilters(filter.id + '_kw');
             }
         };
@@ -326,32 +331,30 @@ function updateMasterToggleState() {
 
 // Save specific key
 function saveSetting(key, val) {
-    saveSettingsAndNotify({ [key]: val });
+    saveSettings({ [key]: val });
 }
 
-function saveSettingsAndNotify(updates, options = {}) {
+function saveSettings(updates, options = {}) {
     const shouldMarkInteraction = options.markInteraction !== false;
     const payload = shouldMarkInteraction
         ? { ...updates, hasInteractedWithApp: true }
         : updates;
 
     chrome.storage.sync.set(payload, () => {
+        const status = getEl('statusMessage');
+        if (chrome.runtime.lastError) {
+            status.textContent = getMessage('saveFailed');
+            status.classList.add('show');
+            return;
+        }
+        status.classList.remove('show');
+
         if (shouldMarkInteraction) {
             checkReviewPrompt();
         }
 
-        notifyContentScript();
-
         if (typeof options.onComplete === 'function') {
             options.onComplete();
-        }
-    });
-}
-
-function notifyContentScript() {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs[0]) {
-            chrome.tabs.sendMessage(tabs[0].id, { type: 'UPDATE_SETTINGS' });
         }
     });
 }
@@ -536,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (storeMaster) updates[masterId] = isChecked;
 
-            saveSettingsAndNotify(updates);
+            saveSettings(updates);
         });
 
         childKeys.forEach(key => {
@@ -544,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateMasterToggleState();
                 const updates = { [key]: e.target.checked };
                 if (storeMaster) updates[masterId] = getEl(masterId).checked;
-                saveSettingsAndNotify(updates);
+                saveSettings(updates);
             });
         });
     });

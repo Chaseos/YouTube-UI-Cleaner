@@ -13,6 +13,7 @@
   "hidePromotions":{"message":"隱藏宣傳與贊助內容"},"showPromotionOptions":{"message":"顯示宣傳與贊助內容選項"},"hidePromotionOptions":{"message":"隱藏宣傳與贊助內容選項"},
   "featuredServiceVideos":{"message":"其他服務的優惠影片"},"featuredServiceDescription":{"message":"其他服務的訂閱和試用優惠"},"paidPromotionBanners":{"message":"付費宣傳橫幅"},
   "createNewFilter":{"message":"+ 建立新篩選器"},"reviewPrompt":{"message":"覺得實用嗎？歡迎留下評論"},"needSpeedControls":{"message":"需要播放速度控制嗎？"},"trySpeedController":{"message":"試用 Simple Video Speed Controller。"},"settingsSaved":{"message":"設定已成功儲存！"},
+  "saveFailed":{"message":"變更未儲存。你的關鍵字清單可能過長。"},
   "noKeywordsAdded":{"message":"尚未新增關鍵字"},"unnamedFilter":{"message":"未命名的篩選器"},"enterFilterName":{"message":"輸入篩選器名稱"},"edit":{"message":"編輯"},"delete":{"message":"刪除"},"keywordsInGroup":{"message":"這個群組中的關鍵字："},
   "addKeywordExample":{"message":"新增關鍵字（例如：$example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"新增"},"save":{"message":"儲存"},"removeKeyword":{"message":"移除 $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"劇透"},"keywordHintScore":{"message":"比數"},"keywordHintResult":{"message":"結果"},"keywordHintEnding":{"message":"結局"},"keywordHintWinner":{"message":"獲勝者"},"keywordHintHighlights":{"message":"精彩片段"},"keywordHintFinale":{"message":"大結局"},"keywordHintDefeats":{"message":"擊敗"},"keywordHintEliminated":{"message":"淘汰"},"keywordHintDrafted":{"message":"選秀"},"keywordHintReview":{"message":"評論"},"keywordHintReaction":{"message":"反應"}

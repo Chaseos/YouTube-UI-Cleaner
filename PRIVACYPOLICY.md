@@ -1,15 +1,19 @@
 # Privacy Policy
 
-**Effective Date:** December 17, 2025
+**Effective Date:** November 3, 2026
 
 ## Data Collection
 
-The **YouTube UI Cleaner** extension does **not** collect, store, or transmit any personal data. It operates entirely locally on your device.
+The **YouTube UI Cleaner** extension does **not** collect, transmit, or share any personal data. All filtering happens on your device, and we have no servers that receive your settings, keywords, or browsing activity.
+
+## Your Settings
+
+Your toggle choices and custom keyword groups are saved with your browser's extension storage. If you use your browser's sync feature, your browser may sync them across your devices through your browser account, under your browser provider's privacy policy. We cannot access this data. Safari keeps these settings on the current Mac.
 
 ## Permissions
 
--   **Storage**: Used to save your preference settings locally (e.g., whether you want to hide Shorts or Paid Promotions).
--   **YouTube host access**: Used to run the extension's cleanup logic on YouTube.com based on your settings.
+-   **Storage**: Used to save your settings and custom keyword groups.
+-   **YouTube host access**: Used to run the extension's cleanup logic on YouTube's main website (www.youtube.com and m.youtube.com).
 
 ## Data Sharing
 
@@ -21,4 +25,4 @@ We may update our Privacy Policy from time to time. We will notify you of any ch
 
 ## Contact Us
 
-If you have any questions about this Privacy Policy, please contact us.
+If you have any questions about this Privacy Policy, please [open an issue on GitHub](https://github.com/Chaseos/YouTube-UI-Cleaner/issues).

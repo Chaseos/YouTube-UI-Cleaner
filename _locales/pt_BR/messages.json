@@ -44,6 +44,7 @@
   "needSpeedControls": { "message": "Precisa controlar a velocidade?" },
   "trySpeedController": { "message": "Experimente o Simple Video Speed Controller." },
   "settingsSaved": { "message": "Configurações salvas com sucesso!" },
+  "saveFailed": { "message": "As alterações não foram salvas. Suas listas de palavras-chave podem estar longas demais." },
   "noKeywordsAdded": { "message": "Nenhuma palavra-chave" },
   "unnamedFilter": { "message": "Filtro sem nome" },
   "enterFilterName": { "message": "Digite o nome do filtro" },

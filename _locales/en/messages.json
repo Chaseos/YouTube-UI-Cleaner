@@ -44,6 +44,7 @@
   "needSpeedControls": { "message": "Need speed controls?" },
   "trySpeedController": { "message": "Try Simple Video Speed Controller." },
   "settingsSaved": { "message": "Settings saved successfully!" },
+  "saveFailed": { "message": "Changes weren't saved. Your keyword lists may be too long." },
   "noKeywordsAdded": { "message": "No keywords added" },
   "unnamedFilter": { "message": "Unnamed Filter" },
   "enterFilterName": { "message": "Enter Filter Name" },

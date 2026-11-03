@@ -30,7 +30,7 @@ test('packages contain only runtime resources and target-specific manifest setti
     assert.deepEqual((await readdir(`dist/${target}`)).sort(), [...expected,'manifest.json','_locales'].sort());
     const manifest = JSON.parse(await read(`dist/${target}/manifest.json`));
     assert.deepEqual(manifest.permissions, ['storage']);
-    assert.deepEqual(manifest.host_permissions, ['*://*.youtube.com/*']);
+    assert.deepEqual(manifest.host_permissions, ['*://www.youtube.com/*', '*://m.youtube.com/*']);
     assert.equal(Boolean(manifest.browser_specific_settings), target === 'firefox');
     assert.equal(manifest.background, undefined);
     const zip = spawnSync('unzip', ['-Z1', `dist/youtube-ui-cleaner-${target}.zip`], {encoding:'utf8'});
@@ -132,30 +132,22 @@ test('Safari keeps the Chaseos Apps link as a third app action without browser s
   assert.match(html, /\.site-wordmark \{[\s\S]*?font-weight: 800;/);
   assert.match(await read('dist/safari/safari.css'), /\.apple-action\.site:hover/);
 });
-test('Safari settings persist only preferences and handle messaging failure', async () => {
+test('Safari settings persist only preferences and report save failures', async () => {
   const script = await read('dist/safari/popup.js');
-  const logic = script.slice(script.indexOf('function saveSettingsAndNotify('), script.indexOf('// Add event listeners'));
-  let saved, notified = 0, completed = 0;
-  const notice = {textContent:''};
-  const chrome = {storage:{sync:{set(data, callback){saved=data;callback();}}},runtime:{lastError:null},tabs:{query(_query, callback){callback([{id:42}]);},sendMessage(_id,_message,callback){notified++;callback();}}};
-  const context = vm.createContext({chrome, document:{getElementById(){return notice;}},getMessage:key=>key});
+  const logic = script.slice(script.indexOf('function saveSettings('), script.indexOf('// Add event listeners'));
+  let saved, completed = 0;
+  const shown = new Set();
+  const status = {textContent:'',classList:{add:name=>shown.add(name),remove:name=>shown.delete(name)}};
+  const chrome = {storage:{sync:{set(data, callback){saved=data;callback();}}},runtime:{lastError:null}};
+  const context = vm.createContext({chrome,getEl:()=>status,getMessage:key=>key});
   vm.runInContext(logic, context);
   context.updates = {shortsHome:false,customFilters:[{id:'1',title:'Topics',keywords:['spoiler'],enabled:true}]};
   context.finished = () => completed++;
-  vm.runInContext('saveSettingsAndNotify(updates, {onComplete: finished})',context);
-  assert.deepEqual(saved,context.updates); assert.equal(notified,1); assert.equal(completed,1);
+  vm.runInContext('saveSettings(updates, {onComplete: finished})',context);
+  assert.deepEqual(saved,context.updates); assert.equal(completed,1); assert.equal(shown.has('show'),false);
   chrome.runtime.lastError={message:'quota'};
-  vm.runInContext('saveSettingsAndNotify(updates)',context);
-  assert.equal(notified,1);assert.equal(notice.textContent,'saveFailed');
-});
-test('Safari propagates settings changes to other open tabs but ignores unrelated storage', async () => {
-  const script = await read('dist/safari/content.js');
-  const added = script.slice(script.indexOf('// Safari preferences are local;'));
-  let listener, loads=0;
-  const context=vm.createContext({chrome:{storage:{onChanged:{addListener(fn){listener=fn;}}}},keys:['shortsHome','customFilters'],loadSettingsAndApply(){loads++;}});
-  vm.runInContext(added,context);
-  listener({unrelated:{}},'sync');listener({shortsHome:{}},'session');assert.equal(loads,0);
-  listener({customFilters:{}},'sync');listener({shortsHome:{}},'local');assert.equal(loads,2);
+  vm.runInContext('saveSettings(updates, {onComplete: finished})',context);
+  assert.equal(completed,1);assert.equal(status.textContent,'saveFailed');assert.ok(shown.has('show'));
 });
 test('Safari build refreshes Xcode version settings and Xcode rejects stale ones', async () => {
   const settings = await read('apple/YouTube UI Cleaner/Configurations/Generated/Apple.xcconfig');

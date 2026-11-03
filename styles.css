@@ -118,16 +118,20 @@ html.yt-hide-live :is(ytd-rich-item-renderer, ytd-video-renderer, ytd-compact-vi
 }
 
 /* --- DISMISSABLE SECTIONS --- */
-html.yt-hide-sections ytd-rich-section-renderer:not(:has(.is-shorts-shelf)):not(:has(ytd-rich-shelf-renderer[is-shorts])):not(.is-downloads-section),
+html.yt-hide-sections ytd-browse[page-subtype="home"] ytd-rich-section-renderer:not(:has(.is-shorts-shelf)):not(:has(ytd-rich-shelf-renderer[is-shorts])):not(.is-downloads-section),
 html.yt-hide-sections ytd-rich-item-renderer:has(ytd-feed-nudge-renderer),
 html.yt-hide-sections ytd-feed-nudge-renderer {
     display: none !important;
 }
 
 /* --- FEED PILLS --- */
-html.yt-hide-feed-pills ytd-feed-filter-chip-bar-renderer {
-    visibility: hidden !important;
-    pointer-events: none !important;
+html.yt-hide-feed-pills ytd-browse[page-subtype="home"] ytd-feed-filter-chip-bar-renderer {
+    display: none !important;
+}
+
+/* YouTube's fixed backdrop stays tall enough for the bar, covering the first row and taking its clicks. */
+html.yt-hide-feed-pills.yt-home-page #frosted-glass:is(.with-chipbar, .loading-with-chipbar) {
+    height: 56px !important;
 }
 
 /* --- CUSTOM FILTERS --- */

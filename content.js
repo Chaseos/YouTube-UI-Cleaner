@@ -6,6 +6,7 @@ let currentCustomFilters = [];
 let currentSettings = {};
 const MEMBERS_ONLY_ICON_PATH_PREFIX = 'M6 .5a5.5 5.5 0 100 11';
 const pageLocales = globalThis.YouTubeUICleanerLocales;
+const recommendationPages = ['/', '/feed/subscriptions', '/results', '/watch'];
 const filterableVideoCardSelector = 'ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, yt-lockup-view-model';
 // A channel avatar shows a LIVE badge on every video while that channel is streaming,
 // so badges inside it describe the channel rather than the video they decorate.
@@ -15,13 +16,16 @@ function getPageTerms() {
     return pageLocales.getTerms(pageLocales.resolvePageLocale());
 }
 
-function isPlaylistsLibraryPage() {
-    return window.location.pathname === '/feed/playlists';
+// Content-type filters clean up what YouTube recommends. Everywhere else, such as a
+// channel's tabs or the Podcasts page, the user went looking for that content.
+function isRecommendationPage() {
+    return recommendationPages.includes(window.location.pathname);
 }
 
 // Function to update classes on the HTML element
 function updateClasses(settings) {
     const html = document.documentElement;
+    const onRecommendationPage = isRecommendationPage();
 
     // Shorts: Home
     if (settings.shortsHome) html.classList.add('yt-hide-shorts-home');
@@ -55,27 +59,25 @@ function updateClasses(settings) {
     else html.classList.remove('yt-hide-featured-services');
 
     // Videos restricted to channel members
-    if (settings.hideMembersOnly) html.classList.add('yt-hide-members-only');
+    if (settings.hideMembersOnly && onRecommendationPage) html.classList.add('yt-hide-members-only');
     else html.classList.remove('yt-hide-members-only');
 
     // Scheduled videos and premieres that are not watchable yet
-    if (settings.hideUpcoming) html.classList.add('yt-hide-upcoming');
+    if (settings.hideUpcoming && onRecommendationPage) html.classList.add('yt-hide-upcoming');
     else html.classList.remove('yt-hide-upcoming');
 
     // Mixes, Podcasts, and Playlists
-    if (settings.groupedMixes) html.classList.add('yt-hide-mixes');
+    if (settings.groupedMixes && onRecommendationPage) html.classList.add('yt-hide-mixes');
     else html.classList.remove('yt-hide-mixes');
 
-    if (settings.groupedPodcasts) html.classList.add('yt-hide-podcasts');
+    if (settings.groupedPodcasts && onRecommendationPage) html.classList.add('yt-hide-podcasts');
     else html.classList.remove('yt-hide-podcasts');
 
-    // The Playlists page is the user's library, so never hide its entries.
-    // Keep the filter active for playlists that appear in feeds and results.
-    if (settings.groupedPlaylists && !isPlaylistsLibraryPage()) html.classList.add('yt-hide-playlists');
+    if (settings.groupedPlaylists && onRecommendationPage) html.classList.add('yt-hide-playlists');
     else html.classList.remove('yt-hide-playlists');
     
     // Live Streams
-    if (settings.hideLive) html.classList.add('yt-hide-live');
+    if (settings.hideLive && onRecommendationPage) html.classList.add('yt-hide-live');
     else html.classList.remove('yt-hide-live');
 
     // Dismissable Sections
@@ -83,6 +85,7 @@ function updateClasses(settings) {
     else html.classList.remove('yt-hide-sections');
 
     // Feed Pills
+    html.classList.toggle('yt-home-page', window.location.pathname === '/');
     if (settings.feedPills) html.classList.add('yt-hide-feed-pills');
     else html.classList.remove('yt-hide-feed-pills');
 }
@@ -161,7 +164,7 @@ function tagElements() {
 
         // 2. Check Badge texts for "Mix" and "Podcast"
         if (!isMix && !isPodcast) {
-            const badges = el.querySelectorAll('.yt-badge-shape__text');
+            const badges = el.querySelectorAll('.yt-badge-shape__text, .ytBadgeShapeText');
             badges.forEach(badge => {
                 const badgeText = badge.textContent.trim();
                 if (pageLocales.matchesAny(badgeText, terms.mix)) isMix = true;
@@ -312,7 +315,7 @@ function tagElements() {
         });
     }
 
-    const potentialSpoilers = document.querySelectorAll('ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-reel-item-renderer');
+    const potentialSpoilers = document.querySelectorAll(`${filterableVideoCardSelector}, ytd-reel-item-renderer`);
     
     potentialSpoilers.forEach(el => {
         let hasMatch = false;
@@ -615,11 +618,9 @@ function loadSettingsAndApply() {
 // Load initial settings from storage
 loadSettingsAndApply();
 
-// Listen for messages from popup
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === 'UPDATE_SETTINGS') {
-        // Tag elements immediately in case the toggle was flipped but elements aren't tagged yet
-        tagElements();
+// Refresh every open YouTube tab when settings change, wherever the popup was opened.
+chrome.storage.onChanged.addListener((changes, area) => {
+    if ((area === 'sync' || area === 'local') && keys.some(key => Object.hasOwn(changes, key))) {
         loadSettingsAndApply();
     }
 });

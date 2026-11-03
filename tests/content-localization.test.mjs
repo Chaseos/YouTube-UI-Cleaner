@@ -40,8 +40,7 @@ function loadPage(lang = 'en') {
         window: { location: { pathname: '/', origin: 'https://www.youtube.com' }, addEventListener() {} },
         console: { log() {} },
         chrome: {
-            storage: { sync: { get(keys, callback) { callback({}); } } },
-            runtime: { onMessage: { addListener() {} } }
+            storage: { sync: { get(keys, callback) { callback({}); } }, onChanged: { addListener() {} } }
         },
         MutationObserver: class {
             constructor(callback) { this.callback = callback; observers.push(this); }
