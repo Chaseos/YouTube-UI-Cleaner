@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "إخفاء Shorts وميكسات YouTube والبودكاست وقوائم التشغيل والبث المباشر والعروض الترويجية والمواضيع غير المرغوب فيها لتجربة YouTube أنظف." },
+  "extensionStoreName": { "message": "YouTube UI Cleaner: تخصيص خلاصتك وفلترة المواضيع" }, "extensionDescription": { "message": "خصّص خلاصة YouTube: أخفِ Shorts والفيديوهات الإعلانية والميكسات والبودكاست والبث المباشر، وأي موضوع بفلاتر الكلمات الرئيسية." },
   "supportWork": { "message": "ادعم عملي" },
   "general": { "message": "عام" },
   "customFilters": { "message": "فلاتر مخصّصة" },

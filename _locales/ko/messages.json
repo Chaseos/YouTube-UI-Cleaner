@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Shorts, YouTube 믹스, 팟캐스트, 재생목록, 실시간 스트림, 프로모션, 원치 않는 주제를 숨겨 YouTube을 깔끔하게 정리합니다."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: 피드 맞춤 설정 및 주제 필터"},"extensionDescription":{"message":"YouTube 피드를 맞춤 설정하세요. Shorts, 스폰서 동영상, 믹스, 팟캐스트, 라이브 스트림을 숨기고 키워드로 원하지 않는 주제를 걸러낼 수 있습니다."},
   "supportWork":{"message":"개발 후원하기"},"general":{"message":"일반"},"customFilters":{"message":"맞춤 필터"},
   "hideShorts":{"message":"Shorts 숨기기"},"showShortsOptions":{"message":"Shorts 옵션 표시"},"hideShortsOptions":{"message":"Shorts 옵션 숨기기"},
   "home":{"message":"홈"},"sidebarButton":{"message":"사이드바 버튼"},"subscriptions":{"message":"구독"},"searchResults":{"message":"검색결과"},

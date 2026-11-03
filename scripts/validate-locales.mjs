@@ -67,10 +67,15 @@ for (const locale of expectedLocales.slice(1)) {
     }
 }
 
-for (const manifestKey of ['extensionName', 'extensionDescription']) {
+for (const manifestKey of ['extensionName', 'extensionStoreName', 'extensionDescription']) {
     for (const locale of expectedLocales) {
         if (!catalogs[locale][manifestKey]) throw new Error(`${locale} is missing manifest message ${manifestKey}.`);
     }
+}
+
+for (const locale of expectedLocales) {
+    if (catalogs[locale].extensionStoreName.message.length > 75) throw new Error(`${locale} store name exceeds 75 characters.`);
+    if (catalogs[locale].extensionDescription.message.length > 132) throw new Error(`${locale} description exceeds 132 characters.`);
 }
 
 const popupHtml = await readFile(path.join(projectRoot, 'popup.html'), 'utf8');

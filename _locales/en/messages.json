@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "Hide Shorts, Mixes, podcasts, playlists, live streams, promotions, and unwanted topics for a cleaner YouTube experience." },
+  "extensionStoreName": { "message": "YouTube UI Cleaner: Customize Your Feed & Filter Topics" }, "extensionDescription": { "message": "Customize your YouTube feed. Remove Shorts, sponsored videos, Mixes, podcasts, and live streams, and filter any topic by keyword." },
   "supportWork": { "message": "Support my work" },
   "general": { "message": "General" },
   "customFilters": { "message": "Custom Filters" },

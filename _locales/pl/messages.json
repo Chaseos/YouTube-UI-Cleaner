@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "Ukrywaj filmy Short, miksy YouTube, podcasty, playlisty, transmisje na żywo, promocje i niechciane tematy, aby wygodniej korzystać z YouTube." },
+  "extensionStoreName": { "message": "YouTube UI Cleaner: dostosuj YouTube i filtruj tematy" }, "extensionDescription": { "message": "Dostosuj YouTube: ukryj filmy Short i sponsorowane, miksy, podcasty i transmisje na żywo oraz filtruj tematy według słów kluczowych." },
   "supportWork": { "message": "Wesprzyj moją pracę" },
   "general": { "message": "Ogólne" },
   "customFilters": { "message": "Własne filtry" },

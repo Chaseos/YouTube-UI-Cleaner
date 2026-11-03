@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "ซ่อน Shorts, YouTube มิกซ์, พอดแคสต์, เพลย์ลิสต์, ไลฟ์สด, โปรโมชัน และหัวข้อที่ไม่ต้องการ เพื่อให้ YouTube ดูเรียบง่ายขึ้น" },
+  "extensionStoreName": { "message": "YouTube UI Cleaner: ปรับแต่งฟีดและกรองหัวข้อ" }, "extensionDescription": { "message": "ปรับแต่งฟีด YouTube ซ่อน Shorts วิดีโอที่ได้รับการสนับสนุน มิกซ์ พอดแคสต์ และสตรีมแบบสด พร้อมกรองหัวข้อด้วยคีย์เวิร์ด" },
   "supportWork": { "message": "สนับสนุนผลงานของฉัน" },
   "general": { "message": "ทั่วไป" },
   "customFilters": { "message": "ตัวกรองกำหนดเอง" },

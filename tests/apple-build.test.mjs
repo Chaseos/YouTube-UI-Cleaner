@@ -75,7 +75,7 @@ test('Apple branding covers every Safari locale without changing cleanup transla
       assert.notEqual(messages.extensionName.message, config.name, `${locale}: translate the product name`);
     }
     for (const [key, entry] of Object.entries(original)) {
-      if (['extensionName', 'extensionDescription', 'supportWork', 'reviewPrompt', 'needSpeedControls', 'trySpeedController'].includes(key)) continue;
+      if (['extensionName', 'extensionStoreName', 'extensionDescription', 'supportWork', 'reviewPrompt', 'needSpeedControls', 'trySpeedController'].includes(key)) continue;
       assert.equal(messages[key].message, entry.message, `${locale}.${key}: preserve controls`);
     }
   }

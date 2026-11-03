@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Daha sade bir YouTube deneyimi için Shorts'u, YouTube Mix'leri, podcast'leri, oynatma listelerini, canlı yayınları, tanıtımları ve istemediğiniz konuları gizleyin."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Akışınızı Özelleştirin ve Konuları Filtreleyin"},"extensionDescription":{"message":"Akışınızı özelleştirin: Shorts, sponsorlu video, Mix, podcast ve canlı yayınları kaldırın, konuları anahtar kelimeyle filtreleyin."},
   "supportWork":{"message":"Çalışmalarıma destek olun"},"general":{"message":"Genel"},"customFilters":{"message":"Özel filtreler"},
   "hideShorts":{"message":"Shorts'u gizle"},"showShortsOptions":{"message":"Shorts seçeneklerini göster"},"hideShortsOptions":{"message":"Shorts seçeneklerini gizle"},
   "home":{"message":"Ana Sayfa"},"sidebarButton":{"message":"Kenar çubuğu düğmesi"},"subscriptions":{"message":"Abonelikler"},"searchResults":{"message":"Arama sonuçları"},

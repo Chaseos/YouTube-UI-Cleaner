@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"隱藏 Shorts、YouTube 合輯、Podcast、播放清單、直播、宣傳內容和不想看到的主題，享受更清爽的 YouTube。"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner：自訂推薦內容並過濾主題"},"extensionDescription":{"message":"自訂 YouTube 首頁、訂閱和推薦內容：隱藏 Shorts、贊助影片、合輯、Podcast 和直播，並依關鍵字過濾任何主題。"},
   "supportWork":{"message":"支持我的工作"},"general":{"message":"一般"},"customFilters":{"message":"自訂篩選器"},
   "hideShorts":{"message":"隱藏 Shorts"},"showShortsOptions":{"message":"顯示 Shorts 選項"},"hideShortsOptions":{"message":"隱藏 Shorts 選項"},
   "home":{"message":"首頁"},"sidebarButton":{"message":"側欄按鈕"},"subscriptions":{"message":"訂閱內容"},"searchResults":{"message":"搜尋結果"},

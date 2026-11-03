@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "Oculte Shorts, mixes, podcasts, listas de reprodução, diretos, promoções e temas indesejados para uma experiência YouTube mais limpa." },
+  "extensionStoreName": { "message": "YouTube UI Cleaner: personalize o seu feed e filtre temas" }, "extensionDescription": { "message": "Personalize o seu feed do YouTube: remova Shorts, vídeos patrocinados, mixes, podcasts e diretos, e filtre temas por palavra-chave." },
   "supportWork": { "message": "Apoie o meu trabalho" },
   "general": { "message": "Geral" },
   "customFilters": { "message": "Filtros personalizados" },

@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Masquez les Shorts, mix YouTube, podcasts, playlists, directs, promotions et sujets indésirables pour une expérience YouTube plus épurée."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner : personnalisez votre flux et filtrez les sujets"},"extensionDescription":{"message":"Personnalisez le flux YouTube : retirez les Shorts, vidéos sponsorisées, mix, podcasts, directs, et filtrez les sujets par mot-clé."},
   "supportWork":{"message":"Soutenir mon travail"},"general":{"message":"Général"},"customFilters":{"message":"Filtres personnalisés"},
   "hideShorts":{"message":"Masquer les Shorts"},"showShortsOptions":{"message":"Afficher les options des Shorts"},"hideShortsOptions":{"message":"Masquer les options des Shorts"},
   "home":{"message":"Accueil"},"sidebarButton":{"message":"Bouton de la barre latérale"},"subscriptions":{"message":"Abonnements"},"searchResults":{"message":"Résultats de recherche"},

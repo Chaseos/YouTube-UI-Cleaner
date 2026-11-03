@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Ẩn Shorts, Tuyển tập YouTube, Podcast, danh sách phát, video phát trực tiếp, nội dung quảng bá và chủ đề không mong muốn để YouTube gọn gàng hơn."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Tùy chỉnh danh sách video và lọc chủ đề"},"extensionDescription":{"message":"Tùy chỉnh danh sách video YouTube: ẩn Shorts, video được tài trợ, Tuyển tập, Podcast, video trực tiếp và lọc chủ đề theo từ khóa."},
   "supportWork":{"message":"Ủng hộ công việc của tôi"},"general":{"message":"Chung"},"customFilters":{"message":"Bộ lọc tùy chỉnh"},
   "hideShorts":{"message":"Ẩn Shorts"},"showShortsOptions":{"message":"Hiện tùy chọn Shorts"},"hideShortsOptions":{"message":"Ẩn tùy chọn Shorts"},
   "home":{"message":"Trang chủ"},"sidebarButton":{"message":"Nút thanh bên"},"subscriptions":{"message":"Kênh đăng ký"},"searchResults":{"message":"Kết quả tìm kiếm"},

@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Blende Shorts, YouTube-Mixe, Podcasts, Playlists, Livestreams, Werbung und unerwünschte Themen für ein aufgeräumtes YouTube aus."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Feed anpassen & Themen filtern"},"extensionDescription":{"message":"Passe deinen YouTube-Feed an: Entferne Shorts, gesponserte Videos, Mixe, Podcasts und Livestreams, filtere Themen per Schlüsselwort."},
   "supportWork":{"message":"Meine Arbeit unterstützen"},"general":{"message":"Allgemein"},"customFilters":{"message":"Eigene Filter"},
   "hideShorts":{"message":"Shorts ausblenden"},"showShortsOptions":{"message":"Shorts-Optionen anzeigen"},"hideShortsOptions":{"message":"Shorts-Optionen ausblenden"},
   "home":{"message":"Startseite"},"sidebarButton":{"message":"Seitenleisten-Schaltfläche"},"subscriptions":{"message":"Abos"},"searchResults":{"message":"Suchergebnisse"},

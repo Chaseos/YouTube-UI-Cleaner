@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionDescription": { "message": "Приховуйте Shorts, мікси YouTube, подкасти, списки відтворення, прямі трансляції, рекламу й небажані теми, щоб зробити YouTube зручнішим." },
+  "extensionStoreName": { "message": "YouTube UI Cleaner: налаштуйте стрічку й фільтруйте теми" }, "extensionDescription": { "message": "Налаштуйте стрічку YouTube: прибирайте Shorts, спонсоровані відео, мікси, подкасти, трансляції; фільтруйте теми за ключовим словом." },
   "supportWork": { "message": "Підтримати мою роботу" },
   "general": { "message": "Загальне" },
   "customFilters": { "message": "Власні фільтри" },

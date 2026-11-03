@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Shorts、YouTube ミックスリスト、ポッドキャスト、再生リスト、ライブ配信、プロモーション、不要なトピックを非表示にして、YouTube をすっきり整理します。"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: フィードをカスタマイズ、トピックを除外"},"extensionDescription":{"message":"YouTube のフィードをカスタマイズ。ショート、スポンサー動画、ミックスリスト、ポッドキャスト、ライブ配信を非表示にし、不要なトピックもキーワードで除外できます。"},
   "supportWork":{"message":"開発を支援"},"general":{"message":"全般"},"customFilters":{"message":"カスタム フィルタ"},
   "hideShorts":{"message":"Shortsを非表示"},"showShortsOptions":{"message":"Shortsのオプションを表示"},"hideShortsOptions":{"message":"Shortsのオプションを閉じる"},
   "home":{"message":"ホーム"},"sidebarButton":{"message":"サイドバー ボタン"},"subscriptions":{"message":"登録チャンネル"},"searchResults":{"message":"検索結果"},

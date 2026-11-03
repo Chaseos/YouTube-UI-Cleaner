@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"隐藏 Shorts、YouTube 合辑、播客、播放列表、直播、推广内容和不想看到的主题，让 YouTube 更简洁。"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner：自定义推荐内容并过滤主题"},"extensionDescription":{"message":"自定义 YouTube 首页、订阅和推荐内容：隐藏 Shorts、赞助视频、合辑、播客和直播，并按关键词过滤任何主题。"},
   "supportWork":{"message":"支持我的工作"},"general":{"message":"常规"},"customFilters":{"message":"自定义过滤器"},
   "hideShorts":{"message":"隐藏 Shorts"},"showShortsOptions":{"message":"显示 Shorts 选项"},"hideShortsOptions":{"message":"隐藏 Shorts 选项"},
   "home":{"message":"首页"},"sidebarButton":{"message":"侧边栏按钮"},"subscriptions":{"message":"订阅内容"},"searchResults":{"message":"搜索结果"},

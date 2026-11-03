@@ -10,8 +10,8 @@ const config = JSON.parse(await readFile(path.join(root, 'apple/configuration.js
 const runtimeFiles = ['_locales', 'content.js', 'youtube-locales.js', 'styles.css', 'popup.html', 'popup.js', 'icon.png', 'chaseos_symbol.png', 'PRIVACYPOLICY.md'];
 const browserAssets = ['kofi_symbol.svg', 'simple-video-speed-controller-icon.png'];
 const selected = process.argv.find(arg => arg.startsWith('--target='))?.split('=')[1];
-if (selected && !['chromium', 'firefox', 'safari'].includes(selected)) throw new Error(`Unknown target: ${selected}`);
-for (const target of selected ? [selected] : ['chromium', 'firefox', 'safari']) {
+if (selected && !['chrome', 'chromium', 'firefox', 'safari'].includes(selected)) throw new Error(`Unknown target: ${selected}`);
+for (const target of selected ? [selected] : ['chrome', 'chromium', 'firefox', 'safari']) {
   const directory = path.join(root, 'dist', target);
   await rm(directory, { recursive: true, force: true });
   await mkdir(directory, { recursive: true });
@@ -21,6 +21,8 @@ for (const target of selected ? [selected] : ['chromium', 'firefox', 'safari']) 
   }
   const outputManifest = structuredClone(manifest);
   if (target !== 'firefox') delete outputManifest.browser_specific_settings;
+  // Edge and Firefox cap names below Chrome's 75 characters, so only the Chrome Web Store package gets the long name.
+  if (target === 'chrome') outputManifest.name = '__MSG_extensionStoreName__';
   await writeFile(path.join(directory, 'manifest.json'), `${JSON.stringify(outputManifest, null, 4)}\n`);
   if (target === 'safari') {
     await prepareSafari(root, directory, config);

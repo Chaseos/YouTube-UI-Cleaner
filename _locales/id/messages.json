@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionDescription":{"message":"Sembunyikan Shorts, YouTube Mix, podcast, playlist, streaming langsung, promosi, dan topik yang tidak diinginkan agar YouTube lebih rapi."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Sesuaikan Feed & Filter Topik"},"extensionDescription":{"message":"Sesuaikan feed YouTube: sembunyikan Shorts, video bersponsor, Mix, podcast, dan live stream, serta filter topik dengan kata kunci."},
   "supportWork":{"message":"Dukung karya saya"},"general":{"message":"Umum"},"customFilters":{"message":"Filter khusus"},
   "hideShorts":{"message":"Sembunyikan Shorts"},"showShortsOptions":{"message":"Tampilkan opsi Shorts"},"hideShortsOptions":{"message":"Sembunyikan opsi Shorts"},
   "home":{"message":"Beranda"},"sidebarButton":{"message":"Tombol panel samping"},"subscriptions":{"message":"Subscription"},"searchResults":{"message":"Hasil penelusuran"},

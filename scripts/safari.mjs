@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 export const safariForbidden = /ko-fi|kofi|chromewebstore|microsoftedge\.microsoft\.com\/addons|addons\.mozilla|addons\.opera|store\.whale|reviewClicked|hasInteractedWithApp|checkReviewPrompt|simpleVideoSpeedController|Simple Video Speed Controller|simple-video-speed-controller/i;
-const removedKeys = ['supportWork', 'reviewPrompt', 'needSpeedControls', 'trySpeedController'];
+const removedKeys = ['extensionStoreName', 'supportWork', 'reviewPrompt', 'needSpeedControls', 'trySpeedController'];
 const actionTitles = {
   en: ['Rate this app', 'Support options'], ar: ['قيّم هذا التطبيق', 'خيارات الدعم'],
   de: ['Diese App bewerten', 'Support-Optionen'], es: ['Valorar esta app', 'Opciones de apoyo'],
