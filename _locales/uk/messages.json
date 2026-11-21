@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionStoreName": { "message": "YouTube UI Cleaner: налаштуйте стрічку й фільтруйте теми" }, "extensionDescription": { "message": "Налаштуйте стрічку YouTube: прибирайте Shorts, спонсоровані відео, мікси, подкасти, трансляції; фільтруйте теми за ключовим словом." },
+  "extensionListingName": { "message": "YouTube UI Cleaner: налаштуйте стрічку" }, "extensionStoreName": { "message": "YouTube UI Cleaner: налаштуйте стрічку й фільтруйте теми" }, "extensionDescription": { "message": "Налаштуйте стрічку YouTube: прибирайте Shorts, спонсоровані відео, мікси, подкасти, трансляції; фільтруйте теми за ключовим словом." },
   "supportWork": { "message": "Підтримати мою роботу" },
   "general": { "message": "Загальне" },
   "customFilters": { "message": "Власні фільтри" },
@@ -54,7 +54,8 @@
   "edit": { "message": "Редагувати" },
   "delete": { "message": "Видалити" },
   "keywordsInGroup": { "message": "Ключові слова в цій групі:" },
-  "addKeywordExample": { "message": "Додайте ключове слово (наприклад, $example$)", "placeholders": { "example": { "content": "$1" } } },
+  "addKeyword": { "message": "Додайте ключове слово" },
+  "keywordExample": { "message": "наприклад, $example$", "placeholders": { "example": { "content": "$1" } } },
   "add": { "message": "Додати" },
   "save": { "message": "Зберегти" },
   "removeKeyword": { "message": "Видалити $keyword$", "placeholders": { "keyword": { "content": "$1" } } },

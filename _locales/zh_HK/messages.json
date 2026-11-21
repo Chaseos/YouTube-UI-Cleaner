@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner：自訂推薦內容及過濾主題"},"extensionDescription":{"message":"自訂 YouTube 首頁、訂閱及推薦內容：隱藏 Shorts、贊助影片、合輯、Podcast 及直播，並按關鍵字過濾任何主題。"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner：自訂推薦內容" }, "extensionStoreName":{"message":"YouTube UI Cleaner：自訂推薦內容及過濾主題"},"extensionDescription":{"message":"自訂 YouTube 首頁、訂閱及推薦內容：隱藏 Shorts、贊助影片、合輯、Podcast 及直播，並按關鍵字過濾任何主題。"},
   "supportWork":{"message":"支持我的工作"},"general":{"message":"一般"},"customFilters":{"message":"自訂篩選器"},
   "hideShorts":{"message":"隱藏 Shorts"},"showShortsOptions":{"message":"顯示 Shorts 選項"},"hideShortsOptions":{"message":"隱藏 Shorts 選項"},
   "home":{"message":"首頁"},"sidebarButton":{"message":"側邊欄按鈕"},"subscriptions":{"message":"訂閱內容"},"searchResults":{"message":"搜尋結果"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"暫停所有篩選器"},
   "resumeAllFilters":{"message":"恢復所有篩選器"},
   "noKeywordsAdded":{"message":"尚未新增關鍵字"},"unnamedFilter":{"message":"未命名的篩選器"},"enterFilterName":{"message":"輸入篩選器名稱"},"edit":{"message":"編輯"},"delete":{"message":"刪除"},"keywordsInGroup":{"message":"這個群組中的關鍵字："},
-  "addKeywordExample":{"message":"新增關鍵字（例如：$example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"新增"},"save":{"message":"儲存"},"removeKeyword":{"message":"移除 $keyword$","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"新增關鍵字"},"keywordExample":{"message":"例如：$example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"新增"},"save":{"message":"儲存"},"removeKeyword":{"message":"移除 $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"劇透"},"keywordHintScore":{"message":"比數"},"keywordHintResult":{"message":"結果"},"keywordHintEnding":{"message":"結局"},"keywordHintWinner":{"message":"勝出者"},"keywordHintHighlights":{"message":"精彩片段"},"keywordHintFinale":{"message":"大結局"},"keywordHintDefeats":{"message":"擊敗"},"keywordHintEliminated":{"message":"淘汰"},"keywordHintDrafted":{"message":"選秀"},"keywordHintReview":{"message":"評論"},"keywordHintReaction":{"message":"反應"}
 }

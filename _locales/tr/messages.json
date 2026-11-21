@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Akışınızı Özelleştirin ve Konuları Filtreleyin"},"extensionDescription":{"message":"Akışınızı özelleştirin: Shorts, sponsorlu video, Mix, podcast ve canlı yayınları kaldırın, konuları anahtar kelimeyle filtreleyin."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: Akışınızı Özelleştirin" }, "extensionStoreName":{"message":"YouTube UI Cleaner: Akışınızı Özelleştirin ve Konuları Filtreleyin"},"extensionDescription":{"message":"Akışınızı özelleştirin: Shorts, sponsorlu video, Mix, podcast ve canlı yayınları kaldırın, konuları anahtar kelimeyle filtreleyin."},
   "supportWork":{"message":"Çalışmalarıma destek olun"},"general":{"message":"Genel"},"customFilters":{"message":"Özel filtreler"},
   "hideShorts":{"message":"Shorts'u gizle"},"showShortsOptions":{"message":"Shorts seçeneklerini göster"},"hideShortsOptions":{"message":"Shorts seçeneklerini gizle"},
   "home":{"message":"Ana Sayfa"},"sidebarButton":{"message":"Kenar çubuğu düğmesi"},"subscriptions":{"message":"Abonelikler"},"searchResults":{"message":"Arama sonuçları"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"Tüm filtreleri duraklat"},
   "resumeAllFilters":{"message":"Tüm filtreleri sürdür"},
   "noKeywordsAdded":{"message":"Anahtar kelime eklenmedi"},"unnamedFilter":{"message":"Adsız filtre"},"enterFilterName":{"message":"Filtre adını girin"},"edit":{"message":"Düzenle"},"delete":{"message":"Sil"},"keywordsInGroup":{"message":"Bu gruptaki anahtar kelimeler:"},
-  "addKeywordExample":{"message":"Anahtar kelime ekle (ör. $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Ekle"},"save":{"message":"Kaydet"},"removeKeyword":{"message":"$keyword$ anahtar kelimesini kaldır","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"Anahtar kelime ekle"},"keywordExample":{"message":"ör. $example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Ekle"},"save":{"message":"Kaydet"},"removeKeyword":{"message":"$keyword$ anahtar kelimesini kaldır","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"Spoiler"},"keywordHintScore":{"message":"Skor"},"keywordHintResult":{"message":"Sonuç"},"keywordHintEnding":{"message":"Son"},"keywordHintWinner":{"message":"Kazanan"},"keywordHintHighlights":{"message":"Öne çıkanlar"},"keywordHintFinale":{"message":"Final"},"keywordHintDefeats":{"message":"Yendi"},"keywordHintEliminated":{"message":"Elendi"},"keywordHintDrafted":{"message":"Draft edildi"},"keywordHintReview":{"message":"İnceleme"},"keywordHintReaction":{"message":"Tepki"}
 }

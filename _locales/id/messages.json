@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Sesuaikan Feed & Filter Topik"},"extensionDescription":{"message":"Sesuaikan feed YouTube: sembunyikan Shorts, video bersponsor, Mix, podcast, dan live stream, serta filter topik dengan kata kunci."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: Sesuaikan Feed" }, "extensionStoreName":{"message":"YouTube UI Cleaner: Sesuaikan Feed & Filter Topik"},"extensionDescription":{"message":"Sesuaikan feed YouTube: sembunyikan Shorts, video bersponsor, Mix, podcast, dan live stream, serta filter topik dengan kata kunci."},
   "supportWork":{"message":"Dukung karya saya"},"general":{"message":"Umum"},"customFilters":{"message":"Filter khusus"},
   "hideShorts":{"message":"Sembunyikan Shorts"},"showShortsOptions":{"message":"Tampilkan opsi Shorts"},"hideShortsOptions":{"message":"Sembunyikan opsi Shorts"},
   "home":{"message":"Beranda"},"sidebarButton":{"message":"Tombol panel samping"},"subscriptions":{"message":"Subscription"},"searchResults":{"message":"Hasil penelusuran"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"Jeda semua filter"},
   "resumeAllFilters":{"message":"Lanjutkan semua filter"},
   "noKeywordsAdded":{"message":"Belum ada kata kunci"},"unnamedFilter":{"message":"Filter tanpa nama"},"enterFilterName":{"message":"Masukkan nama filter"},"edit":{"message":"Edit"},"delete":{"message":"Hapus"},"keywordsInGroup":{"message":"Kata kunci dalam grup ini:"},
-  "addKeywordExample":{"message":"Tambahkan kata kunci (mis., $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Tambahkan"},"save":{"message":"Simpan"},"removeKeyword":{"message":"Hapus $keyword$","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"Tambahkan kata kunci"},"keywordExample":{"message":"mis., $example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Tambahkan"},"save":{"message":"Simpan"},"removeKeyword":{"message":"Hapus $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"Bocoran"},"keywordHintScore":{"message":"Skor"},"keywordHintResult":{"message":"Hasil"},"keywordHintEnding":{"message":"Akhir"},"keywordHintWinner":{"message":"Pemenang"},"keywordHintHighlights":{"message":"Sorotan"},"keywordHintFinale":{"message":"Final"},"keywordHintDefeats":{"message":"Mengalahkan"},"keywordHintEliminated":{"message":"Tersingkir"},"keywordHintDrafted":{"message":"Dipilih dalam draft"},"keywordHintReview":{"message":"Ulasan"},"keywordHintReaction":{"message":"Reaksi"}
 }

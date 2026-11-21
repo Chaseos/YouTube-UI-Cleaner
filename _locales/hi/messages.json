@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: अपना फ़ीड कस्टमाइज़ करें और विषय फ़िल्टर करें"},"extensionDescription":{"message":"अपना YouTube फ़ीड कस्टमाइज़ करें: Shorts, प्रायोजित वीडियो, मिक्स, पॉडकास्ट और लाइव स्ट्रीम छिपाएँ, और कीवर्ड से विषय फ़िल्टर करें।"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: अपना फ़ीड कस्टमाइज़ करें" }, "extensionStoreName":{"message":"YouTube UI Cleaner: अपना फ़ीड कस्टमाइज़ करें और विषय फ़िल्टर करें"},"extensionDescription":{"message":"अपना YouTube फ़ीड कस्टमाइज़ करें: Shorts, प्रायोजित वीडियो, मिक्स, पॉडकास्ट और लाइव स्ट्रीम छिपाएँ, और कीवर्ड से विषय फ़िल्टर करें।"},
   "supportWork":{"message":"मेरे काम में सहयोग करें"},"general":{"message":"सामान्य"},"customFilters":{"message":"कस्टम फ़िल्टर"},
   "hideShorts":{"message":"Shorts छिपाएँ"},"showShortsOptions":{"message":"Shorts के विकल्प दिखाएँ"},"hideShortsOptions":{"message":"Shorts के विकल्प छिपाएँ"},
   "home":{"message":"होम"},"sidebarButton":{"message":"साइडबार बटन"},"subscriptions":{"message":"सदस्यताएँ"},"searchResults":{"message":"खोज के नतीजे"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"सभी फ़िल्टर रोकें"},
   "resumeAllFilters":{"message":"सभी फ़िल्टर फिर से चालू करें"},
   "noKeywordsAdded":{"message":"कोई कीवर्ड नहीं जोड़ा गया"},"unnamedFilter":{"message":"बिना नाम का फ़िल्टर"},"enterFilterName":{"message":"फ़िल्टर का नाम डालें"},"edit":{"message":"संपादित करें"},"delete":{"message":"मिटाएँ"},"keywordsInGroup":{"message":"इस समूह के कीवर्ड:"},
-  "addKeywordExample":{"message":"कीवर्ड जोड़ें (जैसे, $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"जोड़ें"},"save":{"message":"सेव करें"},"removeKeyword":{"message":"$keyword$ हटाएँ","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"कीवर्ड जोड़ें"},"keywordExample":{"message":"जैसे, $example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"जोड़ें"},"save":{"message":"सेव करें"},"removeKeyword":{"message":"$keyword$ हटाएँ","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"स्पॉइलर"},"keywordHintScore":{"message":"स्कोर"},"keywordHintResult":{"message":"नतीजा"},"keywordHintEnding":{"message":"अंत"},"keywordHintWinner":{"message":"विजेता"},"keywordHintHighlights":{"message":"हाइलाइट"},"keywordHintFinale":{"message":"फ़िनाले"},"keywordHintDefeats":{"message":"हराया"},"keywordHintEliminated":{"message":"बाहर"},"keywordHintDrafted":{"message":"ड्राफ़्ट में चुना गया"},"keywordHintReview":{"message":"समीक्षा"},"keywordHintReaction":{"message":"प्रतिक्रिया"}
 }

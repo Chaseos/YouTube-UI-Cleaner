@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Feed anpassen & Themen filtern"},"extensionDescription":{"message":"Passe deinen YouTube-Feed an: Entferne Shorts, gesponserte Videos, Mixe, Podcasts und Livestreams, filtere Themen per Schlüsselwort."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: Feed anpassen" }, "extensionStoreName":{"message":"YouTube UI Cleaner: Feed anpassen & Themen filtern"},"extensionDescription":{"message":"Passe deinen YouTube-Feed an: Entferne Shorts, gesponserte Videos, Mixe, Podcasts und Livestreams, filtere Themen per Schlüsselwort."},
   "supportWork":{"message":"Meine Arbeit unterstützen"},"general":{"message":"Allgemein"},"customFilters":{"message":"Eigene Filter"},
   "hideShorts":{"message":"Shorts ausblenden"},"showShortsOptions":{"message":"Shorts-Optionen anzeigen"},"hideShortsOptions":{"message":"Shorts-Optionen ausblenden"},
   "home":{"message":"Startseite"},"sidebarButton":{"message":"Seitenleisten-Schaltfläche"},"subscriptions":{"message":"Abos"},"searchResults":{"message":"Suchergebnisse"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"Alle Filter pausieren"},
   "resumeAllFilters":{"message":"Alle Filter fortsetzen"},
   "noKeywordsAdded":{"message":"Keine Schlüsselwörter hinzugefügt"},"unnamedFilter":{"message":"Unbenannter Filter"},"enterFilterName":{"message":"Filternamen eingeben"},"edit":{"message":"Bearbeiten"},"delete":{"message":"Löschen"},"keywordsInGroup":{"message":"Schlüsselwörter in dieser Gruppe:"},
-  "addKeywordExample":{"message":"Schlüsselwort hinzufügen (z. B. $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Hinzufügen"},"save":{"message":"Speichern"},"removeKeyword":{"message":"$keyword$ entfernen","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"Schlüsselwort hinzufügen"},"keywordExample":{"message":"z. B. $example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Hinzufügen"},"save":{"message":"Speichern"},"removeKeyword":{"message":"$keyword$ entfernen","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"Spoiler"},"keywordHintScore":{"message":"Spielstand"},"keywordHintResult":{"message":"Ergebnis"},"keywordHintEnding":{"message":"Ende"},"keywordHintWinner":{"message":"Gewinner"},"keywordHintHighlights":{"message":"Highlights"},"keywordHintFinale":{"message":"Finale"},"keywordHintDefeats":{"message":"Besiegt"},"keywordHintEliminated":{"message":"Ausgeschieden"},"keywordHintDrafted":{"message":"Gedraftet"},"keywordHintReview":{"message":"Rezension"},"keywordHintReaction":{"message":"Reaktion"}
 }

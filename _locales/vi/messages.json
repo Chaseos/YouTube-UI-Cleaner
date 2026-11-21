@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: Tùy chỉnh danh sách video và lọc chủ đề"},"extensionDescription":{"message":"Tùy chỉnh danh sách video YouTube: ẩn Shorts, video được tài trợ, Tuyển tập, Podcast, video trực tiếp và lọc chủ đề theo từ khóa."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: Tùy chỉnh danh sách video" }, "extensionStoreName":{"message":"YouTube UI Cleaner: Tùy chỉnh danh sách video và lọc chủ đề"},"extensionDescription":{"message":"Tùy chỉnh danh sách video YouTube: ẩn Shorts, video được tài trợ, Tuyển tập, Podcast, video trực tiếp và lọc chủ đề theo từ khóa."},
   "supportWork":{"message":"Ủng hộ công việc của tôi"},"general":{"message":"Chung"},"customFilters":{"message":"Bộ lọc tùy chỉnh"},
   "hideShorts":{"message":"Ẩn Shorts"},"showShortsOptions":{"message":"Hiện tùy chọn Shorts"},"hideShortsOptions":{"message":"Ẩn tùy chọn Shorts"},
   "home":{"message":"Trang chủ"},"sidebarButton":{"message":"Nút thanh bên"},"subscriptions":{"message":"Kênh đăng ký"},"searchResults":{"message":"Kết quả tìm kiếm"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"Tạm dừng tất cả bộ lọc"},
   "resumeAllFilters":{"message":"Tiếp tục tất cả bộ lọc"},
   "noKeywordsAdded":{"message":"Chưa thêm từ khóa"},"unnamedFilter":{"message":"Bộ lọc chưa đặt tên"},"enterFilterName":{"message":"Nhập tên bộ lọc"},"edit":{"message":"Chỉnh sửa"},"delete":{"message":"Xóa"},"keywordsInGroup":{"message":"Từ khóa trong nhóm này:"},
-  "addKeywordExample":{"message":"Thêm từ khóa (ví dụ: $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Thêm"},"save":{"message":"Lưu"},"removeKeyword":{"message":"Xóa $keyword$","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"Thêm từ khóa"},"keywordExample":{"message":"ví dụ: $example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"Thêm"},"save":{"message":"Lưu"},"removeKeyword":{"message":"Xóa $keyword$","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"Tiết lộ nội dung"},"keywordHintScore":{"message":"Tỷ số"},"keywordHintResult":{"message":"Kết quả"},"keywordHintEnding":{"message":"Cái kết"},"keywordHintWinner":{"message":"Người thắng"},"keywordHintHighlights":{"message":"Điểm nổi bật"},"keywordHintFinale":{"message":"Tập cuối"},"keywordHintDefeats":{"message":"Đánh bại"},"keywordHintEliminated":{"message":"Bị loại"},"keywordHintDrafted":{"message":"Được chọn ở kỳ tuyển chọn"},"keywordHintReview":{"message":"Đánh giá"},"keywordHintReaction":{"message":"Phản ứng"}
 }

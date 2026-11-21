@@ -67,13 +67,14 @@ for (const locale of expectedLocales.slice(1)) {
     }
 }
 
-for (const manifestKey of ['extensionName', 'extensionStoreName', 'extensionDescription']) {
+for (const manifestKey of ['extensionName', 'extensionListingName', 'extensionStoreName', 'extensionDescription']) {
     for (const locale of expectedLocales) {
         if (!catalogs[locale][manifestKey]) throw new Error(`${locale} is missing manifest message ${manifestKey}.`);
     }
 }
 
 for (const locale of expectedLocales) {
+    if (catalogs[locale].extensionListingName.message.length > 45) throw new Error(`${locale} listing name exceeds 45 characters.`);
     if (catalogs[locale].extensionStoreName.message.length > 75) throw new Error(`${locale} store name exceeds 75 characters.`);
     if (catalogs[locale].extensionDescription.message.length > 132) throw new Error(`${locale} description exceeds 132 characters.`);
 }

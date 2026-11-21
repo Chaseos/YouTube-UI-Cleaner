@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionStoreName": { "message": "YouTube UI Cleaner: ปรับแต่งฟีดและกรองหัวข้อ" }, "extensionDescription": { "message": "ปรับแต่งฟีด YouTube ซ่อน Shorts วิดีโอที่ได้รับการสนับสนุน มิกซ์ พอดแคสต์ และสตรีมแบบสด พร้อมกรองหัวข้อด้วยคีย์เวิร์ด" },
+  "extensionListingName": { "message": "YouTube UI Cleaner: ปรับแต่งฟีด" }, "extensionStoreName": { "message": "YouTube UI Cleaner: ปรับแต่งฟีดและกรองหัวข้อ" }, "extensionDescription": { "message": "ปรับแต่งฟีด YouTube ซ่อน Shorts วิดีโอที่ได้รับการสนับสนุน มิกซ์ พอดแคสต์ และสตรีมแบบสด พร้อมกรองหัวข้อด้วยคีย์เวิร์ด" },
   "supportWork": { "message": "สนับสนุนผลงานของฉัน" },
   "general": { "message": "ทั่วไป" },
   "customFilters": { "message": "ตัวกรองกำหนดเอง" },
@@ -54,7 +54,8 @@
   "edit": { "message": "แก้ไข" },
   "delete": { "message": "ลบ" },
   "keywordsInGroup": { "message": "คีย์เวิร์ดในกลุ่มนี้:" },
-  "addKeywordExample": { "message": "เพิ่มคีย์เวิร์ด (เช่น $example$)", "placeholders": { "example": { "content": "$1" } } },
+  "addKeyword": { "message": "เพิ่มคีย์เวิร์ด" },
+  "keywordExample": { "message": "เช่น $example$", "placeholders": { "example": { "content": "$1" } } },
   "add": { "message": "เพิ่ม" },
   "save": { "message": "บันทึก" },
   "removeKeyword": { "message": "นำ $keyword$ ออก", "placeholders": { "keyword": { "content": "$1" } } },

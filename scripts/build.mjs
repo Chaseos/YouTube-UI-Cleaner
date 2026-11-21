@@ -23,6 +23,7 @@ for (const target of selected ? [selected] : ['chrome', 'chromium', 'firefox', '
   if (target !== 'firefox') delete outputManifest.browser_specific_settings;
   // Edge and Firefox cap names below Chrome's 75 characters, so only the Chrome Web Store package gets the long name.
   if (target === 'chrome') outputManifest.name = '__MSG_extensionStoreName__';
+  if (target === 'chromium' || target === 'firefox') outputManifest.name = '__MSG_extensionListingName__';
   await writeFile(path.join(directory, 'manifest.json'), `${JSON.stringify(outputManifest, null, 4)}\n`);
   if (target === 'safari') {
     await prepareSafari(root, directory, config);

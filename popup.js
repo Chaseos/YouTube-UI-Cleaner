@@ -105,7 +105,21 @@ const EDIT_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="current
 const DELETE_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>`;
 const SAVE_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>`;
 
-let customFilters = []; // Array of { id, keyword, enabled }
+let customFilters = []; // Array of { id, title, keywords, enabled }
+
+// A filter with no name and no keywords does nothing, so it is never stored.
+// This keeps a mis-click on "Create New Filter" from leaving an empty filter behind.
+const isEmptyFilter = filter => !filter.title?.trim() && !filter.keywords?.length;
+
+function saveFilters() {
+    saveSetting('customFilters', customFilters.filter(filter => !isEmptyFilter(filter)));
+}
+
+function deleteFilter(id) {
+    customFilters = customFilters.filter(filter => filter.id !== id);
+    saveFilters();
+    renderFilters();
+}
 
 // Settings added after release follow Shorts on Home until the user changes them.
 const SHORTS_HOME_FOLLOWERS = ['shortsSidebar', 'shortsWatch'];
@@ -146,7 +160,12 @@ chrome.storage.sync.get([...keys, 'customFilters', 'paused'], (result) => {
     setPausedAppearance(result.paused === true);
 
     // Handle custom filters list
-    customFilters = result['customFilters'] || [];
+    const storedFilters = result['customFilters'] || [];
+    customFilters = storedFilters.filter(filter => !isEmptyFilter(filter));
+    // Clean up empty filters saved by earlier versions.
+    if (customFilters.length !== storedFilters.length) {
+        chrome.storage.sync.set({ customFilters });
+    }
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', renderFilters);
     } else {
@@ -208,9 +227,10 @@ function renderFilters(focusId = null) {
             <div class="filter-body">
               <div class="filter-keywords-label">${getMessage('keywordsInGroup', undefined, 'Keywords in this group:')}</div>
               <div class="keyword-input-group">
-                <input type="text" class="group-keyword-input" placeholder="${escapeHtml(getMessage('addKeywordExample', randomHint, `Add keyword (e.g., ${randomHint})`))}" />
+                <input type="text" class="group-keyword-input" placeholder="${escapeHtml(getMessage('addKeyword', undefined, 'Add keyword'))}" aria-describedby="keyword-example-${filter.id}" />
                 <button class="add-group-keyword-btn">${getMessage('add', undefined, 'Add')}</button>
               </div>
+              <div class="keyword-example" id="keyword-example-${filter.id}">${escapeHtml(getMessage('keywordExample', randomHint, `e.g., ${randomHint}`))}</div>
               <div class="keyword-list">
                 ${filter.keywords.map(kw => `
                   <div class="keyword-chip">
@@ -219,14 +239,17 @@ function renderFilters(focusId = null) {
                   </div>
                 `).join('')}
               </div>
-              <button class="done-btn">${SAVE_ICON} ${getMessage('save', undefined, 'Save').toLocaleUpperCase()}</button>
+              <div class="filter-body-actions">
+                <button class="body-delete-btn">${DELETE_ICON} ${getMessage('delete', undefined, 'Delete')}</button>
+                <button class="done-btn">${SAVE_ICON} ${getMessage('save', undefined, 'Save').toLocaleUpperCase()}</button>
+              </div>
             </div>
         `;
         
         // Toggle Listener
         item.querySelector('.filter-toggle').addEventListener('change', (e) => {
             filter.enabled = e.target.checked;
-            saveSetting('customFilters', customFilters);
+            saveFilters();
         });
 
         // Edit/Expand Listener
@@ -242,8 +265,11 @@ function renderFilters(focusId = null) {
             const val = titleInput.value.trim();
             if (val) filter.title = val;
             addPendingKeywords();
-            saveSetting('customFilters', customFilters);
-            item.classList.remove('editing');
+            if (isEmptyFilter(filter)) {
+                deleteFilter(filter.id);
+                return;
+            }
+            saveFilters();
             renderFilters();
         });
 
@@ -260,7 +286,7 @@ function renderFilters(focusId = null) {
         // Save title to storage if user clicks away or closes popup while editing
         titleInput.addEventListener('change', () => {
             filter.title = titleInput.value.trim();
-            saveSetting('customFilters', customFilters);
+            saveFilters();
         });
 
         // Add Group Keyword Listener
@@ -289,7 +315,7 @@ function renderFilters(focusId = null) {
             const { entered, addedAny } = addPendingKeywords();
             
             if (addedAny || currentTitle !== filter.title) {
-                saveSetting('customFilters', customFilters);
+                saveFilters();
             }
             
             if (entered || currentTitle !== filter.title) {
@@ -312,16 +338,14 @@ function renderFilters(focusId = null) {
                 }
                 const kwToRemove = btn.dataset.kw;
                 filter.keywords = filter.keywords.filter(k => k !== kwToRemove);
-                saveSetting('customFilters', customFilters);
+                saveFilters();
                 renderFilters(filter.id + '_kw');
             });
         });
 
-        // Delete Group Listener
-        item.querySelector('.delete-btn').addEventListener('click', () => {
-            customFilters = customFilters.filter(f => f.id !== filter.id);
-            saveSetting('customFilters', customFilters);
-            renderFilters();
+        // Delete Group Listeners
+        item.querySelectorAll('.delete-btn, .body-delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteFilter(filter.id));
         });
 
         list.appendChild(item);
@@ -537,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 keywords: [],
                 enabled: true
             });
-            saveSetting('customFilters', customFilters);
+            // Not saved until it has a name or keyword; see isEmptyFilter.
             renderFilters(newId);
         });
     }

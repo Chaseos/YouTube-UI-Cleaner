@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionStoreName": { "message": "YouTube UI Cleaner: تخصيص خلاصتك وفلترة المواضيع" }, "extensionDescription": { "message": "خصّص خلاصة YouTube: أخفِ Shorts والفيديوهات الإعلانية والميكسات والبودكاست والبث المباشر، وأي موضوع بفلاتر الكلمات الرئيسية." },
+  "extensionListingName": { "message": "YouTube UI Cleaner: تخصيص خلاصتك" }, "extensionStoreName": { "message": "YouTube UI Cleaner: تخصيص خلاصتك وفلترة المواضيع" }, "extensionDescription": { "message": "خصّص خلاصة YouTube: أخفِ Shorts والفيديوهات الإعلانية والميكسات والبودكاست والبث المباشر، وأي موضوع بفلاتر الكلمات الرئيسية." },
   "supportWork": { "message": "ادعم عملي" },
   "general": { "message": "عام" },
   "customFilters": { "message": "فلاتر مخصّصة" },
@@ -54,7 +54,8 @@
   "edit": { "message": "تعديل" },
   "delete": { "message": "حذف" },
   "keywordsInGroup": { "message": "الكلمات الرئيسية في هذه المجموعة:" },
-  "addKeywordExample": { "message": "أضف كلمة رئيسية (مثال: $example$)", "placeholders": { "example": { "content": "$1" } } },
+  "addKeyword": { "message": "أضف كلمة رئيسية" },
+  "keywordExample": { "message": "مثال: $example$", "placeholders": { "example": { "content": "$1" } } },
   "add": { "message": "إضافة" },
   "save": { "message": "حفظ" },
   "removeKeyword": { "message": "إزالة $keyword$", "placeholders": { "keyword": { "content": "$1" } } },

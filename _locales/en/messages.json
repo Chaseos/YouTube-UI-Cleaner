@@ -1,6 +1,6 @@
 {
   "extensionName": { "message": "YouTube UI Cleaner" },
-  "extensionStoreName": { "message": "YouTube UI Cleaner: Customize Your Feed & Filter Topics" }, "extensionDescription": { "message": "Customize your YouTube feed. Remove Shorts, sponsored videos, Mixes, podcasts, and live streams, and filter any topic by keyword." },
+  "extensionListingName": { "message": "YouTube UI Cleaner: Customize Your Feed" }, "extensionStoreName": { "message": "YouTube UI Cleaner: Customize Your Feed & Filter Topics" }, "extensionDescription": { "message": "Customize your YouTube feed. Remove Shorts, sponsored videos, Mixes, podcasts, and live streams, and filter any topic by keyword." },
   "supportWork": { "message": "Support my work" },
   "general": { "message": "General" },
   "customFilters": { "message": "Custom Filters" },
@@ -54,7 +54,8 @@
   "edit": { "message": "Edit" },
   "delete": { "message": "Delete" },
   "keywordsInGroup": { "message": "Keywords in this group:" },
-  "addKeywordExample": { "message": "Add keyword (e.g., $example$)", "placeholders": { "example": { "content": "$1" } } },
+  "addKeyword": { "message": "Add keyword" },
+  "keywordExample": { "message": "e.g., $example$", "placeholders": { "example": { "content": "$1" } } },
   "add": { "message": "Add" },
   "save": { "message": "Save" },
   "removeKeyword": { "message": "Remove $keyword$", "placeholders": { "keyword": { "content": "$1" } } },

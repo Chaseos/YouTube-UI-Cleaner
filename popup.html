@@ -748,9 +748,46 @@
       color: var(--primary-color);
     }
 
-    .done-btn {
+    .keyword-example {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .filter-body-actions {
+      display: flex;
+      gap: 8px;
       margin-top: 12px;
-      width: 100%;
+    }
+
+    .body-delete-btn {
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .body-delete-btn:hover {
+      color: var(--primary-hover);
+      border-color: var(--primary-color);
+    }
+
+    .body-delete-btn svg {
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .done-btn {
+      flex: 1;
       background-color: var(--primary-color);
       color: var(--white);
       border: none;

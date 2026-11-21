@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: フィードをカスタマイズ、トピックを除外"},"extensionDescription":{"message":"YouTube のフィードをカスタマイズ。ショート、スポンサー動画、ミックスリスト、ポッドキャスト、ライブ配信を非表示にし、不要なトピックもキーワードで除外できます。"},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: フィードをカスタマイズ" }, "extensionStoreName":{"message":"YouTube UI Cleaner: フィードをカスタマイズ、トピックを除外"},"extensionDescription":{"message":"YouTube のフィードをカスタマイズ。ショート、スポンサー動画、ミックスリスト、ポッドキャスト、ライブ配信を非表示にし、不要なトピックもキーワードで除外できます。"},
   "supportWork":{"message":"開発を支援"},"general":{"message":"全般"},"customFilters":{"message":"カスタム フィルタ"},
   "hideShorts":{"message":"Shortsを非表示"},"showShortsOptions":{"message":"Shortsのオプションを表示"},"hideShortsOptions":{"message":"Shortsのオプションを閉じる"},
   "home":{"message":"ホーム"},"sidebarButton":{"message":"サイドバー ボタン"},"subscriptions":{"message":"登録チャンネル"},"searchResults":{"message":"検索結果"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"すべてのフィルタを一時停止"},
   "resumeAllFilters":{"message":"すべてのフィルタを再開"},
   "noKeywordsAdded":{"message":"キーワードはありません"},"unnamedFilter":{"message":"名前のないフィルタ"},"enterFilterName":{"message":"フィルタ名を入力"},"edit":{"message":"編集"},"delete":{"message":"削除"},"keywordsInGroup":{"message":"このグループのキーワード："},
-  "addKeywordExample":{"message":"キーワードを追加（例：$example$）","placeholders":{"example":{"content":"$1"}}},"add":{"message":"追加"},"save":{"message":"保存"},"removeKeyword":{"message":"$keyword$を削除","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"キーワードを追加"},"keywordExample":{"message":"例：$example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"追加"},"save":{"message":"保存"},"removeKeyword":{"message":"$keyword$を削除","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"ネタバレ"},"keywordHintScore":{"message":"スコア"},"keywordHintResult":{"message":"結果"},"keywordHintEnding":{"message":"結末"},"keywordHintWinner":{"message":"優勝者"},"keywordHintHighlights":{"message":"ハイライト"},"keywordHintFinale":{"message":"最終回"},"keywordHintDefeats":{"message":"破る"},"keywordHintEliminated":{"message":"脱落"},"keywordHintDrafted":{"message":"ドラフト指名"},"keywordHintReview":{"message":"レビュー"},"keywordHintReaction":{"message":"リアクション"}
 }

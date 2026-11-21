@@ -111,7 +111,7 @@ npm run build
 The build validates every locale, runs the JavaScript and localization tests, and creates these packages in `dist/`:
 
 - `dist/chrome/` and `dist/youtube-ui-cleaner-chrome.zip` for the Chrome Web Store, with the longer store name
-- `dist/chromium/` and `dist/youtube-ui-cleaner-chromium.zip` for Edge, Opera, Whale, and other Chromium-based browsers
+- `dist/chromium/` and `dist/youtube-ui-cleaner-chromium.zip` for Edge, Opera, Whale, and other Chromium-based browsers, with a shorter store name
 - `dist/firefox/` and `dist/youtube-ui-cleaner-firefox.zip` for Firefox, including its Gecko-specific manifest settings
 - `dist/safari/` and `dist/youtube-ui-cleaner-safari.zip` for the macOS Safari extension resources (installation requires the containing Mac app)
 

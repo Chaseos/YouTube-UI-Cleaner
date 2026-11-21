@@ -1,5 +1,5 @@
 {
-  "extensionName":{"message":"YouTube UI Cleaner"},"extensionStoreName":{"message":"YouTube UI Cleaner: 피드 맞춤 설정 및 주제 필터"},"extensionDescription":{"message":"YouTube 피드를 맞춤 설정하세요. Shorts, 스폰서 동영상, 믹스, 팟캐스트, 라이브 스트림을 숨기고 키워드로 원하지 않는 주제를 걸러낼 수 있습니다."},
+  "extensionName":{"message":"YouTube UI Cleaner"},"extensionListingName": { "message": "YouTube UI Cleaner: 피드 맞춤 설정" }, "extensionStoreName":{"message":"YouTube UI Cleaner: 피드 맞춤 설정 및 주제 필터"},"extensionDescription":{"message":"YouTube 피드를 맞춤 설정하세요. Shorts, 스폰서 동영상, 믹스, 팟캐스트, 라이브 스트림을 숨기고 키워드로 원하지 않는 주제를 걸러낼 수 있습니다."},
   "supportWork":{"message":"개발 후원하기"},"general":{"message":"일반"},"customFilters":{"message":"맞춤 필터"},
   "hideShorts":{"message":"Shorts 숨기기"},"showShortsOptions":{"message":"Shorts 옵션 표시"},"hideShortsOptions":{"message":"Shorts 옵션 숨기기"},
   "home":{"message":"홈"},"sidebarButton":{"message":"사이드바 버튼"},"subscriptions":{"message":"구독"},"searchResults":{"message":"검색결과"},
@@ -18,6 +18,6 @@
   "pauseAllFilters":{"message":"모든 필터 일시중지"},
   "resumeAllFilters":{"message":"모든 필터 다시 시작"},
   "noKeywordsAdded":{"message":"추가된 키워드 없음"},"unnamedFilter":{"message":"이름 없는 필터"},"enterFilterName":{"message":"필터 이름 입력"},"edit":{"message":"수정"},"delete":{"message":"삭제"},"keywordsInGroup":{"message":"이 그룹의 키워드:"},
-  "addKeywordExample":{"message":"키워드 추가(예: $example$)","placeholders":{"example":{"content":"$1"}}},"add":{"message":"추가"},"save":{"message":"저장"},"removeKeyword":{"message":"$keyword$ 삭제","placeholders":{"keyword":{"content":"$1"}}},
+  "addKeyword":{"message":"키워드 추가"},"keywordExample":{"message":"예: $example$","placeholders":{"example":{"content":"$1"}}},"add":{"message":"추가"},"save":{"message":"저장"},"removeKeyword":{"message":"$keyword$ 삭제","placeholders":{"keyword":{"content":"$1"}}},
   "keywordHintSpoiler":{"message":"스포일러"},"keywordHintScore":{"message":"점수"},"keywordHintResult":{"message":"결과"},"keywordHintEnding":{"message":"결말"},"keywordHintWinner":{"message":"우승자"},"keywordHintHighlights":{"message":"하이라이트"},"keywordHintFinale":{"message":"최종회"},"keywordHintDefeats":{"message":"격파"},"keywordHintEliminated":{"message":"탈락"},"keywordHintDrafted":{"message":"드래프트 지명"},"keywordHintReview":{"message":"리뷰"},"keywordHintReaction":{"message":"반응"}
 }
