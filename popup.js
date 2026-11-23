@@ -70,7 +70,7 @@ const KOFI_URL = 'https://ko-fi.com/chaseos';
 const REVIEW_STORE_URLS = Object.freeze({
     chrome: 'https://chromewebstore.google.com/detail/youtube-ui-cleaner/blnbifjnjgpgfigcpkhcfkiiepokhkdf/reviews',
     edge: 'https://microsoftedge.microsoft.com/addons/detail/youtube-ui-cleaner/dmfgeiiikimggajkkdefmngleooclhci',
-    firefox: 'https://addons.mozilla.org/en-US/firefox/addon/youtube-ui-cleaner/reviews/',
+    firefox: 'https://addons.mozilla.org/en-US/firefox/addon/youtube-ui-cleaner/',
     opera: 'https://addons.opera.com/en/extensions/details/youtube-ui-cleaner/#feedback-container',
     whale: 'https://store.whale.naver.com/detail/nkiaddacajkdagoaajbjdlfglidkedlk'
 });
